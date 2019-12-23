@@ -130,63 +130,58 @@
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
           <div class="masonry-sizer col-md-6"></div>
-          <div class="masonry-item col-12">
+          <div class="masonry-item col-md-8">
             <div class="bgc-white bd bdrs-3 p-20">
-              <div class="mb-5">
-                <a href="/input-data-unit" class="btn btn-primary btn-lg float-sm-right">Input Data Unit</a>
-                <h4 class="c-grey-900 mB-20">Data Pembangkit</h4>
-              </div>
-              
-              <table id="table-data-unit" class="table table-bordered mt-5" cellspacing="0" width="100%">
-                  <thead>
-                    <tr>
-                      <th>Unit</th>
-                      <th>Tahun Pembuatan</th>
-                      <th>Status Unit</th>
-                      <th>Daya Mampu Pasok</th>
-                      <th>Daya Terpasang</th>
-                      <th>Kesepakatan DMN</th>
-                      <th>EOH Sejak Operasi</th>
-                      <th>EOH Setelah Overhaul Terakhir</th>
-                      <th>Histori Gangguan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-                    <tr>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <h4 class="c-grey-900 mB-30">Input Data Pembangkit</h4>
+
+              <form>
+                <div class="form-group row">
+                  <label for="tahunPembuatan" class="col-sm-4 col-form-label">Tahun pembuatan</label>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" id="tahunPembuatan" placeholder="e.g., 2000">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="statusUnit" class="col-sm-4 col-form-label">Status Unit</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="statusUnit" placeholder="e.g., Operasi">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="dayaPasok" class="col-sm-4 col-form-label">Daya Mampu Pasok (MW)</label>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" id="dayaPasok" placeholder="e.g., 200">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="dayaPasok" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" id="dayaNetto" placeholder="e.g., 200">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="manufaktur" class="col-sm-4 col-form-label">Manufaktur</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="manufaktur" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="tipeMesin" class="col-sm-4 col-form-label">Tipe Mesin</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="tipeMesin" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group row mT-30 text-right">
+                  <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          
         </div>
       </div>
     </main>
 
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('#table-data-unit').DataTable();
-  } );
-</script>

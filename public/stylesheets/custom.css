@@ -33,3 +33,8 @@ div.dataTables_wrapper div.dataTables_length select {
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   padding: 0px !important;
 }
+
+/* Themes */
+.sidebar-logo {
+  height: 66px;
+}
