@@ -1,7 +1,7 @@
 {
   "author": "rafika",
-  "name": "affective-music-player",
-  "description": "Get a mood-based spotify song recommendation, tailored to your musical preference.",
+  "name": "simanis",
+  "description": "Sistem Manajemen Efisiensi",
   "version": "0.0.2",
   "private": true,
   "scripts": {
