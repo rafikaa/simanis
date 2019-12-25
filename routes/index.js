@@ -17,4 +17,12 @@ router.get('/input-data-unit', function(req, res, next) {
   res.render('input-data-unit', { title: 'Data Unit' });
 });
 
+router.get('/data-nphr', function(req, res, next) {
+  res.render('data-nphr', { title: 'Data NPHR' });
+});
+
+router.get('/input-data-nphr', function(req, res, next) {
+  res.render('input-data-nphr', { title: 'Data NPHR' });
+});
+
 module.exports = router;
