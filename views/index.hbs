@@ -252,7 +252,9 @@
 </div>
 <script>
   $(document).ready(function() {
-    $('#table-pembangkit-home').DataTable();
+    $('#table-pembangkit-home').DataTable({
+      searching: false
+    });
   } );
   var nphrChartBox = document.getElementById('nphr-chart-home');
   var nphrChart = new Chart(nphrChartBox, {
