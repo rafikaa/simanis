@@ -1,0 +1,297 @@
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener('load', function load() {
+    const loader = document.getElementById('loader');
+    setTimeout(function() {
+      loader.classList.add('fadeOut');
+    }, 300);
+  });
+</script>
+<div>
+  <!-- #Left Sidebar ==================== -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <!-- ### $Sidebar Header ### -->
+      <div class="sidebar-logo">
+        <div class="peers ai-c fxw-nw">
+          <div class="peer peer-greed">
+            <a class="sidebar-link td-n" href="/">
+              <div class="peers ai-c fxw-nw">
+                <div class="peer">
+                  <div class="logo">
+                    <img src="images/logo.png" alt="" style="height: 60px;">
+                  </div>
+                </div>
+                <div class="peer peer-greed">
+                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="peer">
+            <div class="mobile-toggle sidebar-toggle">
+              <a href="" class="td-n">
+                <i class="ti-arrow-circle-left"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ### $Sidebar Menu ### -->
+      <ul class="sidebar-menu scrollable pos-r">
+        <li class="nav-item mT-20 actived">
+          <a class="sidebar-link" href="/">
+            <span class="icon-holder">
+              <i class="fas fa-home text-primary-faded"></i>
+            </span>
+            <span class="title">Beranda</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/data-unit">
+            <span class="icon-holder">
+              <i class="fas fa-database text-primary-faded"></i> 
+            </span>
+            <span class="title">Data Unit</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/data-nphr">
+            <span class="icon-holder">
+              <i class="fas fa-chart-bar text-primary-faded"></i> 
+            </span>
+            <span class="title">Data NPHR</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/analisa-nphr">
+            <span class="icon-holder">
+              <i class="fas fa-chart-area text-primary-faded"></i> 
+            </span>
+            <span class="title">Analisis NPHR</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/pemakaian-sendiri">
+            <span class="icon-holder">
+              <i class="fas fa-bolt text-primary-faded"></i> 
+            </span>
+            <span class="title">Pemakaian Sendiri</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/maturity-level">
+            <span class="icon-holder">
+              <i class="fas fa-chart-line text-primary-faded"></i> 
+            </span>
+            <span class="title">Maturity Level</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/laporan">
+            <span class="icon-holder">
+              <i class="fas fa-file text-primary-faded"></i> 
+            </span>
+            <span class="title">Laporan</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="sidebar-link" href="/download">
+            <span class="icon-holder">
+              <i class="fas fa-download text-primary-faded"></i> 
+            </span>
+            <span class="title">Download</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- #Main ============================ -->
+  <div class="page-container">
+    <!-- ### Topbar ### -->
+    <div class="header navbar">
+      <div class="header-container">
+        <ul class="nav-right">
+          <li class="notifications mr-3">
+            <a href="/signin">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ### Screen Content ### -->
+    <main class='main-content bgc-grey-100'>
+      <div id='mainContent'>
+        <div class="row gap-20">
+          <div class="col-md-8">
+            <div class="bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-30">Input Data NPHR</h4>
+              <form>
+                <div class="form-group row">
+                  <label for="bulanTahunNPHR" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="mm-yyyy">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="namaPembangkit" class="col-sm-4 col-form-label">Nama Pembangkit</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="namaPembangkit" placeholder="e.g., Nagan Raya">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="jenisPembangkit" class="col-sm-4 col-form-label">Jenis Pembangkit</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" id="jenisPembangkitSelector">
+                      <option selected="selected">Pilih jenis pembangkit...</option>
+                      <option value="pltu">Pembangkit Listrik Tenaga Uap (PLTU)</option>
+                      <option value="pltg">Pembangkit Listrik Tenaga Gas (PLTG)</option>
+                      <option value="pltmg">Pembangkit Listrik Tenaga Mesin Gas (PLTMG)</option>
+                      <option value="pltd">Pembangkit Listrik Tenaga Diesel (PLTD)</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="pltu" class="pembangkit-form" style="display:none">
+                  <div class="form-group row">
+                    <label for="volumeBatubara" class="col-sm-4 col-form-label">Volume Batubara (ton)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeBatubara" placeholder="ton">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorBatubara" class="col-sm-4 col-form-label">Nilai Kalor Batubara (kcal/kg)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorBatubara" placeholder="kcal/kg">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="volumeHSD" class="col-sm-4 col-form-label">Volume HSD (liter)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeHSD" placeholder="liter">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorHSD" class="col-sm-4 col-form-label">Nilai kalor HSD (kcal/L)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorHSD" placeholder="kcal/L">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="produksiListrikNetto" class="col-sm-4 col-form-label">Produksi Listrik Netto (kWh)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="produksiListrikNetto" placeholder="kWh">
+                    </div>
+                  </div>
+                </div>
+                <div id="pltg" class="pembangkit-form" style="display:none">
+                  <div class="form-group row">
+                    <label for="volumeGas" class="col-sm-4 col-form-label">Volume Gas (MMBTU)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeGas" placeholder="MMBTU">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorGas" class="col-sm-4 col-form-label">Nilai Kalor Gas (kcal/MMBTU)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorGas" placeholder="kcal/MMBTU">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="volumeHSD" class="col-sm-4 col-form-label">Volume HSD (liter)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeHSD" placeholder="liter">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorHSD" class="col-sm-4 col-form-label">Nilai kalor HSD (kcal/L)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorHSD" placeholder="kcal/L">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="produksiListrikNetto" class="col-sm-4 col-form-label">Produksi Listrik Netto (kWh)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="produksiListrikNetto" placeholder="kWh">
+                    </div>
+                  </div>
+                </div>
+                <div id="pltmg" class="pembangkit-form" style="display:none">
+                  <div class="form-group row">
+                    <label for="volumeGas" class="col-sm-4 col-form-label">Volume Gas (MMBTU)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeGas" placeholder="MMBTU">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorGas" class="col-sm-4 col-form-label">Nilai Kalor Gas (kcal/MMBTU)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorGas" placeholder="kcal/MMBTU">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="volumeHSD" class="col-sm-4 col-form-label">Volume HSD (liter)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeHSD" placeholder="liter">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorHSD" class="col-sm-4 col-form-label">Nilai kalor HSD (kcal/L)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorHSD" placeholder="kcal/L">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="produksiListrikNetto" class="col-sm-4 col-form-label">Produksi Listrik Netto (kWh)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="produksiListrikNetto" placeholder="kWh">
+                    </div>
+                  </div>
+                </div>
+                <div id="pltd" class="pembangkit-form" style="display:none">
+                  <div class="form-group row">
+                    <label for="volumeHSD" class="col-sm-4 col-form-label">Volume HSD (liter)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="volumeHSD" placeholder="liter">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="kalorHSD" class="col-sm-4 col-form-label">Nilai kalor HSD (kcal/L)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="kalorHSD" placeholder="kcal/L">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="produksiListrikNetto" class="col-sm-4 col-form-label">Produksi Listrik Netto (MWh)</label>
+                    <div class="col-sm-8">
+                      <input type="number" class="form-control" id="produksiListrikNetto" placeholder="MWh">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row mT-30 text-right">
+                  <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  $(function() {
+      $('#jenisPembangkitSelector').change(function(){
+          $('.pembangkit-form').hide();
+          $('#' + $(this).val()).show();
+      });
+  });
+</script>
