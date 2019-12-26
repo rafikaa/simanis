@@ -25,4 +25,8 @@ router.get('/input-data-nphr', function(req, res, next) {
   res.render('input-data-nphr', { title: 'Data NPHR' });
 });
 
+router.get('/laporan', function(req, res, next) {
+  res.render('laporan', { title: 'Laporan' });
+});
+
 module.exports = router;
