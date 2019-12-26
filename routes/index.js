@@ -41,6 +41,14 @@ router.get('/input-pemakaian-sendiri', function(req, res, next) {
   res.render('input-pemakaian-sendiri', { title: 'Pemakaian Sendiri' });
 });
 
+router.get('/maturity-level', function(req, res, next) {
+  res.render('maturity-level', { title: 'Maturity Level' });
+});
+
+router.get('/input-maturity-level', function(req, res, next) {
+  res.render('input-maturity-level', { title: 'Maturity Level' });
+});
+
 router.get('/laporan', function(req, res, next) {
   res.render('laporan', { title: 'Laporan' });
 });
