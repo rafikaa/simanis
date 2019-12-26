@@ -33,6 +33,14 @@ router.get('/input-data-analisa-nphr', function(req, res, next) {
   res.render('input-data-analisa-nphr', { title: 'Data Analisa NPHR' });
 });
 
+router.get('/pemakaian-sendiri', function(req, res, next) {
+  res.render('pemakaian-sendiri', { title: 'Pemakaian Sendiri' });
+});
+
+router.get('/input-pemakaian-sendiri', function(req, res, next) {
+  res.render('input-pemakaian-sendiri', { title: 'Pemakaian Sendiri' });
+});
+
 router.get('/laporan', function(req, res, next) {
   res.render('laporan', { title: 'Laporan' });
 });
