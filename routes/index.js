@@ -25,6 +25,14 @@ router.get('/input-data-nphr', function(req, res, next) {
   res.render('input-data-nphr', { title: 'Data NPHR' });
 });
 
+router.get('/analisa-nphr', function(req, res, next) {
+  res.render('analisa-nphr', { title: 'Analisa NPHR' });
+});
+
+router.get('/input-data-analisa-nphr', function(req, res, next) {
+  res.render('input-data-analisa-nphr', { title: 'Data Analisa NPHR' });
+});
+
 router.get('/laporan', function(req, res, next) {
   res.render('laporan', { title: 'Laporan' });
 });
