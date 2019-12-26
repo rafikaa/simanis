@@ -29,4 +29,8 @@ router.get('/laporan', function(req, res, next) {
   res.render('laporan', { title: 'Laporan' });
 });
 
+router.get('/download', function(req, res, next) {
+  res.render('download', { title: 'Download' });
+});
+
 module.exports = router;
