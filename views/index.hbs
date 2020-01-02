@@ -1,0 +1,316 @@
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener('load', function load() {
+    const loader = document.getElementById('loader');
+    setTimeout(function() {
+      loader.classList.add('fadeOut');
+    }, 300);
+  });
+</script>
+<div>
+  <!-- #Left Sidebar ==================== -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <!-- ### $Sidebar Header ### -->
+      <div class="sidebar-logo">
+        <div class="peers ai-c fxw-nw">
+          <div class="peer peer-greed">
+            <a class="sidebar-link td-n" href="/">
+              <div class="peers ai-c fxw-nw">
+                <div class="peer">
+                  <div class="logo">
+                    <img src="images/logo.png" alt="" style="height: 60px;">
+                  </div>
+                </div>
+                <div class="peer peer-greed">
+                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="peer">
+            <div class="mobile-toggle sidebar-toggle">
+              <a href="" class="td-n">
+                <i class="ti-arrow-circle-left"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ### $Sidebar Menu ### -->
+      <ul class="sidebar-menu scrollable pos-r">
+        <li class="nav-item mT-20 actived">
+          <a class="sidebar-link" href="/">
+            <span class="icon-holder">
+              <i class="fas fa-home text-primary-faded"></i>
+            </span>
+            <span class="title">Beranda</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/data-unit">
+            <span class="icon-holder">
+              <i class="fas fa-database text-primary-faded"></i> 
+            </span>
+            <span class="title">Data Unit</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/data-nphr">
+            <span class="icon-holder">
+              <i class="fas fa-chart-bar text-primary-faded"></i> 
+            </span>
+            <span class="title">Data NPHR</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/analisa-nphr">
+            <span class="icon-holder">
+              <i class="fas fa-chart-area text-primary-faded"></i> 
+            </span>
+            <span class="title">Analisis NPHR</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/pemakaian-sendiri">
+            <span class="icon-holder">
+              <i class="fas fa-bolt text-primary-faded"></i> 
+            </span>
+            <span class="title">Pemakaian Sendiri</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/maturity-level">
+            <span class="icon-holder">
+              <i class="fas fa-chart-line text-primary-faded"></i> 
+            </span>
+            <span class="title">Maturity Level</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class='sidebar-link' href="/laporan">
+            <span class="icon-holder">
+              <i class="fas fa-file text-primary-faded"></i> 
+            </span>
+            <span class="title">Laporan</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="sidebar-link" href="/download">
+            <span class="icon-holder">
+              <i class="fas fa-download text-primary-faded"></i> 
+            </span>
+            <span class="title">Download</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- #Main ============================ -->
+  <div class="page-container">
+    <!-- ### Topbar ### -->
+    <div class="header navbar">
+      <div class="header-container">
+        <ul class="nav-right">
+          <li class="notifications mr-3">
+            <a href="/signin">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ### Screen Content ### -->
+    <main class='main-content bgc-grey-100'>
+      <div id='mainContent'>
+        <div class="row gap-20 masonry pos-r">
+          <div class="masonry-sizer col-md-6"></div>
+          <div class="masonry-item col-12">
+            <div class="bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-20">Data Pembangkit</h4>
+              <table id="table-pembangkit-home" class="table table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Unit</th>
+                      <th>Tahun Pembuatan</th>
+                      <th>Status Unit</th>
+                      <th>Daya Mampu Pasok</th>
+                      <th>Daya Terpasang</th>
+                      <th>Kesepakatan DMN</th>
+                      <th>EOH Sejak Operasi</th>
+                      <th>EOH Setelah Overhaul Terakhir</th>
+                      <th>Histori Gangguan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+          <div class="masonry-item col-12">
+            <div class="bd bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-20">NPHR Thermal Power Plant</h4>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-7">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Unit Pembangkit</th>
+                          <th scope="col">2015</th>
+                          <th scope="col">2016</th>
+                          <th scope="col">2017</th>
+                          <th scope="col">2018</th>
+                          <th scope="col">2019</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-5">
+                    <div class="layer">
+                      <canvas id="nphr-chart-home" min-height="220"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="masonry-item col-md-6">
+            <div class="bd bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-20">Pemakaian Sendiri</h4>
+              <div class="layer">
+                <canvas id="pemakaian-chart-home" width="800" height="450"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="masonry-item col-md-6">
+            <div class="bd bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-20">Realisasi Maturity Level</h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Sub Area</th>
+                    <th scope="col">ML Benchmark</th>
+                    <th scope="col">ML Target SM1 2019</th>
+                    <th scope="col">ML Realisasi SM1 2019</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('#table-pembangkit-home').DataTable({
+      searching: false
+    });
+  } );
+  var nphrChartBox = document.getElementById('nphr-chart-home');
+  var nphrChart = new Chart(nphrChartBox, {
+    type: 'line',
+    data: {
+      labels: ['2015', '2016', '2017', '2018', '2019'],
+      datasets: [{
+        label                : 'Target',
+        backgroundColor      : 'rgba(0, 0, 0, 0)',
+        borderColor          : '#673ab7',
+        pointBackgroundColor : '#512da8',
+        borderWidth          : 2,
+        data                 : [60, 50, 70, 60, 50],
+      }, {
+        label                : 'Realisasi',
+        backgroundColor      : 'rgba(0, 0, 0, 0)',
+        borderColor          : '#2196f3',
+        pointBackgroundColor : '#1976d2',
+        borderWidth          : 2,
+        data                 : [70, 75, 85, 70, 75],
+      }],
+    },
+
+    options: {
+      legend: {
+        display: true,
+      },
+    },
+
+  });
+
+  new Chart(document.getElementById("pemakaian-chart-home"), {
+      type: 'pie',
+      data: {
+        labels: ["PLTU Batubara", "PLTG Gas", "PLTU Gas", "PLTD Gas", "PLTD Minyak"],
+        datasets: [{
+          label: "Percentage",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [81,2,4,4,1]
+        }]
+      },
+      options: {
+        title: {
+          display: false
+        },
+        tooltips: {
+            mode: 'label',
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    return data['datasets'][0]['data'][tooltipItem['index']] + '%';
+                }
+            }
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+  });
+</script>
