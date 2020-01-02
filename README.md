@@ -14,7 +14,7 @@ In order to run **SIMANIS** on your local machine all what you need to do is to 
 Start by typing the following commands in your terminal in order to get **SIMANIS** full package on your machine and starting a local development server with live reload feature.
 
 ```bash
-git clone git@github.com:rafikaa/simanis.git simanis
+git clone https://github.com/rafikaa/simanis.git
 cd simanis
 npm install # or yarn
 npm run dev # or yarn dev
