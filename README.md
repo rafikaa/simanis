@@ -34,16 +34,27 @@ First, you need to get access to SIMANIS heroku app, then run these commands.
 docker run <image_name>:latest
 ```
 
-#### Build Image Locally
+#### Run Docker Image Locally
 
-Run these commands.
+**Build Docker Image**
+
+Run this command to build the app. Do this every time you make changes.
 
 ```bash
-docker build . -t simanis # build the docker image
-docker run -d -p 8888:8888 --name simanis simanis # run the docker image that has been built
+docker build . -t simanis
 ```
 
-Stop running docker container
+**Run Docker Container**
+
+Run this command when you want to start the app that has been built.
+
+```bash
+docker run -d -p 8888:8888 --name simanis simanis
+```
+
+**Stop Docker Container**
+
+Run these commands to stop and clean the app.
 
 ```bash
 docker stop simanis
