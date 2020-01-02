@@ -5,9 +5,9 @@
 In order to run **SIMANIS** on your local machine all what you need to do is to have the prerequisites stated below installed on your machine and follow the installation steps down below.
 
 ### Prerequisites
-  - Git
-  - Node.js
-  - Yarn or NPM
+  - Git: https://git-scm.com/download/win
+  - Node.js: https://nodejs.org/en/download/
+  - Yarn or NPM: https://yarnpkg.com/lang/en/docs/install/#windows-stable
 
 ### Installing & Local Development
 
