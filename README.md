@@ -27,16 +27,7 @@ First thing first: install Docker!
 - For Windows: https://docs.docker.com/docker-for-windows/install/
 - For Mac: https://docs.docker.com/docker-for-mac/install/
 
-#### Run Using Existing Image
-
-First, you need to get access to SIMANIS heroku app, then run these commands.
-```bash
-docker run <image_name>:latest
-```
-
-#### Run Docker Image Locally
-
-**Build Docker Image**
+#### Build Docker Image
 
 Run this command to build the app. Do this every time you make changes.
 
@@ -44,7 +35,7 @@ Run this command to build the app. Do this every time you make changes.
 docker build . -t simanis
 ```
 
-**Run Docker Container**
+#### Run Docker Container
 
 Run this command when you want to start the app that has been built.
 
@@ -52,7 +43,7 @@ Run this command when you want to start the app that has been built.
 docker run -d -p 8888:8888 --name simanis simanis
 ```
 
-**Stop Docker Container**
+#### Stop Docker Container
 
 Run these commands to stop and clean the app.
 
