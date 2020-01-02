@@ -7,7 +7,7 @@ In order to run **SIMANIS** on your local machine all what you need to do is to 
 ### Prerequisites
   - Git: https://git-scm.com/download/win
   - Node.js: https://nodejs.org/en/download/
-  - Yarn or NPM: https://yarnpkg.com/lang/en/docs/install/#windows-stable
+  - Yarn: https://yarnpkg.com/lang/en/docs/install/#windows-stable
 
 ### Installing & Local Development
 
@@ -16,8 +16,8 @@ Start by typing the following commands in your terminal in order to get **SIMANI
 ```bash
 git clone https://github.com/rafikaa/simanis.git
 cd simanis
-npm install # or yarn
-npm run dev # or yarn dev
+yarn install
+yarn dev
 ```
 
 ### Run Using Docker
