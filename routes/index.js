@@ -13,6 +13,10 @@ router.get('/data-unit', function(req, res, next) {
   res.render('data-unit', { title: 'Data Unit' });
 });
 
+router.get('/data-unit-belawan', function(req, res, next) {
+  res.render('data-unit-belawan', { title: 'Data Unit' });
+});
+
 router.get('/input-data-unit', function(req, res, next) {
   res.render('input-data-unit', { title: 'Data Unit' });
 });

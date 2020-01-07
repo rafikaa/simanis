@@ -25,7 +25,8 @@
                   </div>
                 </div>
                 <div class="peer peer-greed">
-                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
+                  <h5 class="mB-0 logo-text">SIMANIS</h5>
+                  <h6 class="small mB-0 logo-text">Sistem Managemen Efisiensi</h6>
                 </div>
               </div>
             </a>
@@ -42,7 +43,7 @@
 
       <!-- ### $Sidebar Menu ### -->
       <ul class="sidebar-menu scrollable pos-r">
-        <li class="nav-item mT-20 actived">
+        <li class="nav-item mT-20">
           <a class="sidebar-link" href="/">
             <span class="icon-holder">
               <i class="fas fa-home text-primary-faded"></i>
@@ -74,7 +75,7 @@
             <span class="title">Analisis NPHR</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item actived">
           <a class='sidebar-link' href="/pemakaian-sendiri">
             <span class="icon-holder">
               <i class="fas fa-bolt text-primary-faded"></i> 
@@ -131,7 +132,7 @@
         <div class="row gap-20 masonry pos-r">
           <div class="masonry-sizer col-md-6"></div>
           <div class="masonry-item col-12">
-            <div class="mb-2">
+            <div class="mb-3">
               <a href="/input-pemakaian-sendiri" class="btn btn-primary btn-lg float-sm-right">Input Data Pemakaian Sendiri</a>
               <h3 class="c-grey-900 mL-10 mB-20">Pemakaian Sendiri</h3>
             </div>
@@ -323,7 +324,11 @@
   </div>
 </div>
 <script>
-
+  $(document).ready(function() {
+    $('#table-persentase-pemakaian-sendiri').DataTable({
+      searching: false
+    });
+  } );
   new Chart(document.getElementById("pemakaian-chart-per-upk"), {
       type: 'pie',
       data: {
@@ -347,7 +352,7 @@
             }
         },
         legend: {
-          position: 'bottom'
+          position: 'right'
         }
       }
   });
@@ -375,7 +380,7 @@
             }
         },
         legend: {
-          position: 'bottom'
+          position: 'right'
         }
       }
   });
