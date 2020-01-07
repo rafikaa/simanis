@@ -38,3 +38,6 @@ div.dataTables_wrapper div.dataTables_length select {
 .sidebar-logo {
   height: 66px;
 }
+.actived .sidebar-link .title {
+  color: #313435;
+}

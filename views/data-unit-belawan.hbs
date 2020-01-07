@@ -25,7 +25,7 @@
                   </div>
                 </div>
                 <div class="peer peer-greed">
-                  <h5 class="mB-0 logo-text">SIMANIS</h5>
+                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
                   <h6 class="small mB-0 logo-text">Sistem Managemen Efisiensi</h6>
                 </div>
               </div>
@@ -51,7 +51,7 @@
             <span class="title">Beranda</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item actived">
           <a class='sidebar-link' href="/data-unit">
             <span class="icon-holder">
               <i class="fas fa-database text-primary-faded"></i> 
@@ -83,7 +83,7 @@
             <span class="title">Pemakaian Sendiri</span>
           </a>
         </li>
-        <li class="nav-item actived">
+        <li class="nav-item">
           <a class='sidebar-link' href="/maturity-level">
             <span class="icon-holder">
               <i class="fas fa-chart-line text-primary-faded"></i> 
@@ -133,54 +133,36 @@
           <div class="masonry-sizer col-md-6"></div>
           <div class="masonry-item col-12">
             <div class="mb-2">
-              <a href="/input-maturity-level" class="btn btn-primary btn-lg float-sm-right">Input Data Maturity Level</a>
-              <h3 class="c-grey-900 mL-10 mB-20">Maturity Level</h3>
+              <a href="/input-data-unit" class="btn btn-primary btn-lg float-sm-right">Input Data Unit</a>
+              <h3 class="c-grey-900 mL-10 mB-20">Data <span>UPK Belawan</span></h3>
             </div>
             <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="mB-20">Rekapitulasi</h4>
-              <form action="">
-                <div class="form-group row">
-                  <label for="semester" class="col-sm-1 col-form-label">Semester</label>
-                  <div class="col-sm-2">
-                    <select class="form-control" id="semester">
-                      <option selected="selected">Pilih semester...</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                    </select>
-                  </div>
-                  <label for="tahunPembuatan" class="col-sm-1 col-form-label">Tahun</label>
-                  <div class="col-sm-2">
-                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="yyyy">
-                  </div>
-                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
-                  <div class="col-sm-2">
-                    <select id="inputState" class="form-control">
-                      <option selected="selected">Pilih UPK...</option>
-                      <option>...</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-sm-2">
-                    <button class="btn btn-primary">Tampilkan data</button>
-                  </div>
-                </div>
-              </form>
-              <table id="table-rekap-maturity" class="table table-bordered mt-5" cellspacing="0" width="100%">
+              <table id="table-data-unit" class="table table-bordered mt-5" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>Sub Area</th>
-                      <th>ML Benchmark</th>
-                      <th>ML Target</th>
-                      <th>ML Realisasi</th>
+                      <th>Unit</th>
+                      <th>Tahun Pembuatan</th>
+                      <th>Status Unit</th>
+                      <th>Daya Mampu Pasok</th>
+                      <th>Daya Mampu Netto</th>
+                      <th>Manufaktur</th>
+                      <th>Tipe Mesin</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
+                      <td>PLTD Gunung Sitoli Unit 1</td>
+                      <td>-</td>
+                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
                     </tr>
                     <tr>
+                      <td>PLTD Gunung Sitoli Unit 2</td>
+                      <td>-</td>
+                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -190,6 +172,7 @@
                 </table>
             </div>
           </div>
+          
         </div>
       </div>
     </main>
@@ -198,7 +181,7 @@
 </div>
 <script>
   $(document).ready(function() {
-    $('#table-rekap-maturity').DataTable({
+    $('#table-data-unit').DataTable({
       searching: false
     });
   } );

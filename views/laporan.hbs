@@ -25,7 +25,8 @@
                   </div>
                 </div>
                 <div class="peer peer-greed">
-                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
+                  <h5 class="mB-0 logo-text">SIMANIS</h5>
+                  <h6 class="small mB-0 logo-text">Sistem Managemen Efisiensi</h6>
                 </div>
               </div>
             </a>
@@ -42,7 +43,7 @@
 
       <!-- ### $Sidebar Menu ### -->
       <ul class="sidebar-menu scrollable pos-r">
-        <li class="nav-item mT-20 actived">
+        <li class="nav-item mT-20">
           <a class="sidebar-link" href="/">
             <span class="icon-holder">
               <i class="fas fa-home text-primary-faded"></i>
@@ -90,7 +91,7 @@
             <span class="title">Maturity Level</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item actived">
           <a class='sidebar-link' href="/laporan">
             <span class="icon-holder">
               <i class="fas fa-file text-primary-faded"></i> 
@@ -130,10 +131,9 @@
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
           <div class="masonry-sizer col-md-6"></div>
-          <div class="masonry-item col-md-8">
+          <div class="masonry-item col-md-6">
             <div class="bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
-
               <form>
                 <div class="form-group row">
                   <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
@@ -153,6 +153,31 @@
                   </div>
                 </div>
               </form>
+            </div>
+            <div class="bgc-white bd bdrs-3 p-20 mT-20">
+              <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
+              <table id="table-pembangkit-home" class="table table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Periode Submit</th>
+                    <th>Berkas Laporan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>mm-yyyy</td>
+                    <td>
+                      <a href="files/sample.pdf">Download</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>mm-yyyy</td>
+                    <td>
+                      <a href="files/sample.pdf">Download</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

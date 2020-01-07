@@ -25,7 +25,8 @@
                   </div>
                 </div>
                 <div class="peer peer-greed">
-                  <h5 class="lh-1 mB-0 logo-text">SIMANIS</h5>
+                  <h5 class="mB-0 logo-text">SIMANIS</h5>
+                <h6 class="small mB-0 logo-text">Sistem Managemen Efisiensi</h6>
                 </div>
               </div>
             </a>
@@ -136,15 +137,9 @@
               <table id="table-pembangkit-home" class="table table-bordered" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>Unit</th>
-                      <th>Tahun Pembuatan</th>
-                      <th>Status Unit</th>
+                      <th>Unit Pelaksana Pembangkit (UPK)</th>
                       <th>Daya Mampu Pasok</th>
-                      <th>Daya Terpasang</th>
-                      <th>Kesepakatan DMN</th>
-                      <th>EOH Sejak Operasi</th>
-                      <th>EOH Setelah Overhaul Terakhir</th>
-                      <th>Histori Gangguan</th>
+                      <th>Daya Mampu Netto</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -152,20 +147,8 @@
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
                     </tr>
                     <tr>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
@@ -281,6 +264,7 @@
     options: {
       legend: {
         display: true,
+        position: 'bottom'
       },
     },
 
@@ -309,7 +293,7 @@
             }
         },
         legend: {
-          position: 'bottom'
+          position: 'right'
         }
       }
   });
