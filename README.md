@@ -1,4 +1,4 @@
-# Sistem Managemen Efisiensi (SIMANIS)
+# Sistem Manajemen Efisiensi (SIMANIS)
 
 ## Getting Started
 
