@@ -61,4 +61,12 @@ router.get('/download', function(req, res, next) {
   res.render('download', { title: 'Download' });
 });
 
+router.get('/404', function(req, res, next) {
+  res.render('404', { title: 'Error' });
+});
+
+router.get('/500', function(req, res, next) {
+  res.render('500', { title: 'Error' });
+});
+
 module.exports = router;
