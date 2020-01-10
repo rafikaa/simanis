@@ -138,6 +138,18 @@
 
               <form>
                 <div class="form-group row">
+                  <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="unit" class="col-sm-4 col-form-label">Unit</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="unit" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label for="tahunPembuatan" class="col-sm-4 col-form-label">Tahun pembuatan</label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" id="tahunPembuatan" placeholder="">
@@ -146,7 +158,12 @@
                 <div class="form-group row">
                   <label for="statusUnit" class="col-sm-4 col-form-label">Status Unit</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="statusUnit" placeholder="">
+                    <select id="statusUnit" class="form-control">
+                      <option selected="selected">Pilih status unit ...</option>
+                      <option value="normal">Normal Operation</option>
+                      <option value="mothballed">Mothballed</option>
+                      <option value="retired">Retired</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group row">
