@@ -139,15 +139,39 @@
             </div>
             <div class="bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-20">Data Analisa NPHR</h4>
+              <form action="">
+                <div class="form-group row">
+                  <label for="tahunPembuatan" class="col-sm-2 col-form-label">Bulan dan tahun</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="mm-yyyy">
+                  </div>
+                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
+                  <div class="col-sm-2">
+                    <select id="inputState" class="form-control">
+                      <option selected="selected">Pilih UPK...</option>
+                      <option value="upkBelawan">Upk Belawan</option>
+                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
+                      <option value="upkNaganRaya">UPK Nagan Raya</option>
+                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
+                      <option value="updkPekanbaru">UPK Pekan Baru</option>
+                      <option value="updkPandan">UPK Pandan</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button class="btn btn-primary">Tampilkan data</button>
+                  </div>
+                </div>
+              </form>
               <table id="table-data-analisa-nphr" class="table table-bordered mt-5" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>Parameter</th>
                       <th>Baseline</th>
                       <th>Actual</th>
+                      <th>Heat Rate Factor</th>
                       <th>Deviasi</th>
+                      <th>Deviasi Heat Rate</th>
                       <th>Losses (%HR)</th>
-                      <th>Cost Benefit (Rp juta/hari)</th>
                     </tr>
                   </thead>
                   <tbody>
