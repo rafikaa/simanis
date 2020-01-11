@@ -132,9 +132,9 @@
       <div id='mainContent'>
         <div class="row gap-20">
           <div class="col-md-8">
-            <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-30">Input Data Maturity Level</h4>
-              <form>
+            <h3 class="c-grey-900 mB-15">Input Data Maturity Level</h3>
+            <form action="">
+              <div class="bgc-white bd bdrs-3 p-20">
                 <div class="form-group row">
                   <label for="semester" class="col-sm-4 col-form-label">Semester</label>
                   <div class="col-sm-8">
@@ -146,11 +146,25 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="bulanTahunNPHR" class="col-sm-4 col-form-label">Tahun</label>
+                  <label for="tahunMaturity" class="col-sm-4 col-form-label">Tahun</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="yyyy">
+                    <input type="text" class="form-control" id="tahunMaturity" placeholder="yyyy">
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="ulpl" placeholder="">
+                  </div>
+                </div>
+              </div>
+              <div class="bgc-white bd bdrs-3 p-20 mT-20">
                 <div class="form-group row">
                   <label for="pertanyaan" class="col-sm-4 col-form-label">Terdapat PIC yang bertanggungjawab melakukan data collection</label>
                   <div class="col-sm-8">
@@ -174,13 +188,14 @@
                     <input type="file" class="form-control-file" id="evidence" placeholder="">
                   </div>
                 </div>
-                <div class="form-group row mT-30 text-right">
+
+              </div>
+              <div class="form-group row mT-30 text-right">
                   <div class="col-sm-12">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                   </div>
                 </div>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </div>
