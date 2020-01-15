@@ -602,7 +602,7 @@
                     </div>
                   </div>
                   <div class="col-sm-12 mB-15">
-                    <span class="d-block">Tindak lanjut analisa heat loss (idea generation) yang sudah diimplementasikan berhasil menaikan Plan Heat Rate minimal 75% dari target </span>
+                    <span class="d-block">Tindak lanjut analisa heat loss (idea generation) yang sudah diimplementasikan berhasil menaikan Plan Heat rate minimal 95% dari target </span>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="maturity-c52" id="maturity-c52-ya" value="ya">
                       <label class="form-check-label" for="maturity-c52-ya">Ya</label>
@@ -610,6 +610,631 @@
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="maturity-c52" id="maturity-c52-tidak" value="tidak">
                       <label class="form-check-label" for="maturity-c52-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="evidence">Upload Evidence</label>
+                      <input type="file" class="form-control-file" id="evidence" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{!-- Auxilary Power Analysis --}}
+              <div class="bgc-white bd bdrs-3 p-20 mT-20">
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <h4>Auxilary Power Analysis</h4>
+                    <h5>Level 1 (Fire Fighting)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bidang yang berfungsi untuk melaksanakan Auxilliary Power Analysis</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c211" id="maturity-c211-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c211-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c211" id="maturity-c211-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c211-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat Laporan hasil Auxilliary Power Analysis</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c212" id="maturity-c212-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c212-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c212" id="maturity-c212-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c212-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 2 (Stabilizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat laporan Auxilliary Power Analysis untuk semua entitas pembangkit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c221" id="maturity-c221-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c221-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c221" id="maturity-c221-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c221-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat jadwal dan realisasi pelaksanaan Auxilliary Power Analysis lebih dari 80% dari rencana</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c222" id="maturity-c222-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c222-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c222" id="maturity-c222-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c222-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 3 (Preventing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliary power untuk transformer utama di unit pembangkit (misal: Main transformer, Unit Auxlliary Transformer dan Service Station Transformer)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c231" id="maturity-c231-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c231-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c231" id="maturity-c231-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c231-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliray power untuk seluruh motor dengan daya besar (6 kV)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c232" id="maturity-c232-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c232-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c232" id="maturity-c232-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c232-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 4 (Optimizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliary power untuk 50% motor 380 volt</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c241" id="maturity-c241-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c241-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c241" id="maturity-c241-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c241-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliary power untuk 70% motor 380 volt</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c242" id="maturity-c242-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c242-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c242" id="maturity-c242-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c242-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 5 (Excellence)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliary power untuk 90% motor 380 volt</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c251" id="maturity-c251-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c251-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c251" id="maturity-c251-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c251-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat pareto auxilliary power untuk pemakaian listrik di admin building</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c252" id="maturity-c252-ya" value="ya">
+                      <label class="form-check-label" for="maturity-c252-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-c252" id="maturity-c252-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-c252-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="evidence">Upload Evidence</label>
+                      <input type="file" class="form-control-file" id="evidence" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{!-- Pelaporan dan Program Peningkatan Efisiensi: Rekomendasi --}}
+              <div class="bgc-white bd bdrs-3 p-20 mT-20">
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <h4>Pelaporan dan Program Peningkatan Efisiensi: Rekomendasi</h4>
+                    <h5>Level 1 (Fire Fighting)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bidang yang bertugas untuk membuat rencana kerja efisiensi</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d111" id="maturity-d111-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d111-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d111" id="maturity-d111-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d111-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat rencana kerja (rekomendasi) efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d112" id="maturity-d112-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d112-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d112" id="maturity-d112-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d112-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 2 (Stabilizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat rencana kerja (rekomendasi) efisiensi unit dengan menggunakan prinsip SMART</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d121" id="maturity-d121-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d121-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d121" id="maturity-d121-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d121-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Jumlah rekomendasi efisiensi unit minimal 2 rekomendasi untuk tiap entitas tiap semester</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d122" id="maturity-d122-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d122-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d122" id="maturity-d122-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d122-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat form untuk monitoring rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d123" id="maturity-d123-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d123-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d123" id="maturity-d123-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d123-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 3 (Preventing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat perhitungan Cost & Benefit Analysis terhadap rekomendasi efisiensi yang sudah dibuat</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d131" id="maturity-d131-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d131-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d131" id="maturity-d131-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d131-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Jumlah rekomendasi efisiensi unit minimal 3 rekomendasi untuk tiap entitas tiap semester</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d132" id="maturity-d132-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d132-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d132" id="maturity-d132-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d132-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Rasio jumlah rekomendasi yang sudah terselesaikan > 50% dari total seluruh rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d133" id="maturity-d133-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d133-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d133" id="maturity-d133-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d133-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 4 (Optimizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Melakukan prioritisasi terhadap rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d141" id="maturity-d141-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d141-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d141" id="maturity-d141-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d141-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Rekomendasi efisiensi unit dari permasalahan utama yang menyebabkan kenaikan Plan Heat Rate sudah masuk dalam program RKAU dan RJPU</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d142" id="maturity-d142-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d142-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d142" id="maturity-d142-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d142-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Jumlah rekomendasi efisiensi unit minimal 4 rekomendasi untuk tiap entitas tiap semester</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d143" id="maturity-d143-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d143-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d143" id="maturity-d143-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d143-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Rasio jumlah rekomendasi yang sudah terselesaikan > 60% dari total seluruh rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d144" id="maturity-d144-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d144-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d144" id="maturity-d144-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d144-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 5 (Excellence)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Jumlah rekomendasi efisiensi unit > 6 rekomendasi untuk tiap entitas tiap semester</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d151" id="maturity-d151-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d151-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d151" id="maturity-d151-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d151-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Rasio jumlah rekomendasi yang sudah terselesaikan > 80% dari total seluruh rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d152" id="maturity-d152-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d152-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d152" id="maturity-d152-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d152-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Seluruh program di RKAU dan RJPU dari rekoemdasi efisiensi unit sudah terimplementasi</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d153" id="maturity-d153-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d153-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d153" id="maturity-d153-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d153-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Pencapaian efisiensi thermal unit masuk top 10 dunia</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d154" id="maturity-d154-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d154-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d154" id="maturity-d154-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d154-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="evidence">Upload Evidence</label>
+                      <input type="file" class="form-control-file" id="evidence" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{!-- Pelaporan dan Program Peningkatan Efisiensi: Rekomendasi --}}
+              <div class="bgc-white bd bdrs-3 p-20 mT-20">
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <h4>Pelaporan dan Program Peningkatan Efisiensi: Pelaporan Efisiensi</h4>
+                    <h5>Level 1 (Fire Fighting)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bidang yang bertugas untuk membuat Laporan Efisiensi</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d211" id="maturity-d211-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d211-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d211" id="maturity-d211-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d211-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat Laporan efisiensi unit rutin setiap bulan, kecuali terjadi outage</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d212" id="maturity-d212-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d212-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d212" id="maturity-d212-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d212-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 2 (Stabilizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Sudah terdapat Laporan Efisiensi unit rutin tiap bulan yang mengacu pada standar PLN</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d221" id="maturity-d221-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d221-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d221" id="maturity-d221-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d221-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti Laporan Efisiensi unit rutin disampaikan ke bidang lain di unit pembangkit (Melalui Nota Dinas atau Email)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d222" id="maturity-d222-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d222-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d222" id="maturity-d222-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d222-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 3 (Preventing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti Laporan Efisiensi unit rutin > 90% disampaikan ke bidang lain di Unit maksimal tanggal 10 tiap bulannya</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d231" id="maturity-d231-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d231-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d231" id="maturity-d231-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d231-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat folder atau outner khusus untuk mendokumentasikan Laporan Efisiensi bulanan yang sudah dibuat</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d232" id="maturity-d232-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d232-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d232" id="maturity-d232-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d232-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 4 (Optimizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti laporan Efisiensi unit disampaikan ke bidang terkait di kantor Induk (melalui Surat)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d241" id="maturity-d241-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d241-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d241" id="maturity-d241-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d241-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Lebih dari 90% Laporan efisiensi unit disampaikan ke bidang terkait di kantor Induk maksimal tanggal 10 tiap bulannya</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d242" id="maturity-d242-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d242-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d242" id="maturity-d242-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d242-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 5 (Excellence)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti feedback dari bidang terkait di PLN terhadap Laporan Efisiensi unit bulanan (berupa input program kerja, dasar perencanaan strategi korporat, atau koreksi dan apresiasi terhadap laporan yang dibuat)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d251" id="maturity-d251-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d251-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d251" id="maturity-d251-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d251-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Seluruh program di RKAU dan RJPU dari rekomendasi efisiensi unit sudah terimplementasi</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d252" id="maturity-d252-ya" value="ya">
+                      <label class="form-check-label" for="maturity-d252-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-d252" id="maturity-d252-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-d252-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label for="evidence">Upload Evidence</label>
+                      <input type="file" class="form-control-file" id="evidence" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{!-- Kontrol Efisiensi: Monitoring Post Program --}}
+              <div class="bgc-white bd bdrs-3 p-20 mT-20">
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <h4>Kontrol Efisiensi: Monitoring Post Program</h4>
+                    <h5>Level 1 (Fire Fighting)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bidang yang bertugas untuk melakukan monitoring implementasi program rekomendasi efisiensi unit</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e111" id="maturity-e111-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e111-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e111" id="maturity-e111-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e111-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti monitoring implementasi program rekomendasi efisiensi</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e112" id="maturity-e112-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e112-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e112" id="maturity-e112-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e112-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 2 (Stabilizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">STerdapat bukti monitoring implementasi program rekomendasi efisiensi dengan menggunakan form monitoring sesuai dengan standar PLN</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e121" id="maturity-e121-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e121-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e121" id="maturity-e121-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e121-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti pelaksanaan pengukuran hasil implementasi program rekomendasi dibandingkan dengan target</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e122" id="maturity-e122-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e122-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e122" id="maturity-e122-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e122-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Pengukuran hasil implementasi program rekomendasi dilakukan pada > 50% program yang sudah diimplementasikan</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e123" id="maturity-e123-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e123-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e123" id="maturity-e123-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e123-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 3 (Preventing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Pengukuran hasil implementasi program rekomendasi dilakukan pada > 60% program yang sudah diimplementasikan</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e131" id="maturity-e131-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e131-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e131" id="maturity-e131-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e131-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti analisis root cause terhadap realisasi gap terhadap target (jika realisasi hasil tidak sesuai target)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e132" id="maturity-e132-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e132-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e132" id="maturity-e132-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e132-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 4 (Optimizing)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Pengukuran hasil implementasi program rekomendasi dilakukan pada > 80% program yang sudah diimplementasikan</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e141" id="maturity-e141-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e141-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e141" id="maturity-e141-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e141-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti rekomendasi post program (terhadap program yang tidak memenuhi target)</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e142" id="maturity-e142-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e142-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e142" id="maturity-e142-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e142-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h5>Level 5 (Excellence)</h5>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Pengukuran hasil implementasi program rekomendasi sudah dilaksanakan pada seluruh rekomendasi program yang sudah diimplementasikan</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e151" id="maturity-e151-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e151-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e151" id="maturity-e151-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e151-tidak">Tidak</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 mB-15">
+                    <span class="d-block">Terdapat bukti rekomendasi post program pada seluruh rekomendasi program yang tidak memenuhi target</span>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e152" id="maturity-e152-ya" value="ya">
+                      <label class="form-check-label" for="maturity-e152-ya">Ya</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="maturity-e152" id="maturity-e152-tidak" value="tidak">
+                      <label class="form-check-label" for="maturity-e152-tidak">Tidak</label>
                     </div>
                   </div>
                   <div class="col-sm-12">
