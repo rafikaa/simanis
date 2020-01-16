@@ -131,50 +131,51 @@
     <main class='main-content bgc-grey-100'>
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
-          <div class="masonry-sizer col-md-12"></div>
-          <div class="masonry-item col-md-12">
-            <div class="mT-10">
-              <a href="/input-download" class="btn btn-primary btn-lg float-sm-right" >Edit Berkas</a>
-              <h3 class="c-grey-900 mL-10">Downloads</h3>
+          <div class="masonry-sizer col-md-8"></div>
+          <div class="masonry-item col-md-8">
+            <div class="bgc-white bd bdrs-3 p-20">
+              <h4 class="c-grey-900 mB-30">Tambah Berkas Baru</h4>
+              <form>
+                <div class="form-group row">
+                  <label for="judul" class="col-sm-4 col-form-label">Judul Berkas</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="judul" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="berkasDownload" class="col-sm-4 col-form-label">Berkas</label>
+                  <div class="col-sm-8">
+                    <input type="file" class="form-control-file" id="berkasDownload" name="berkasLaporan">
+                  </div>
+                </div>
+                <div class="form-group row mT-30 text-right">
+                  <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Tambahkan Berkas</button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </div>
-        </div>
-        <div class="row gap-20 masonry pos-r">
-          <div class="masonry-item col-md-2">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <span style="font-size: 32px;">
-                <i class="ti-file c-blue-500"></i>
-              </span>
-              <h6>Analisis variability</h6>
-              <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-2">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <span style="font-size: 32px;">
-                <i class="ti-file c-blue-500"></i>
-              </span>
-              <h6 class="mB-15">Template Laporan</h6>
-              <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-2">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <span style="font-size: 32px;">
-                <i class="ti-file c-blue-500"></i>
-              </span>
-              <h6>Panduan Efisiensi</h6>
-              <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-2">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <span style="font-size: 32px;">
-                <i class="ti-file c-blue-500"></i>
-              </span>
-              <h6>Panduan Efisiensi</h6>
-              <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-            </div>   
+            <div class="bgc-white bd bdrs-3 p-20 mT-20">
+              <h4 class="c-grey-900 mB-30">Berkas Download</h4>
+              <table id="table-laporan" class="table" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Judul Berkas</th>
+                    <th>Action</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Analisis variability</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-primary btn-sm">Download</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
