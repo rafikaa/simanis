@@ -132,10 +132,11 @@
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
           <div class="masonry-sizer col-md-6"></div>
+          {{!-- Data Pembangkit --}}
           <div class="masonry-item col-12">
             <div class="bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-20">Data Pembangkit</h4>
-              <table id="table-pembangkit-home" class="table table-bordered" cellspacing="0" width="100%">
+              <table id="table-pembangkit-home" class="table" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>Unit Pelaksana Pembangkit (UPK)</th>
@@ -158,16 +159,18 @@
                 </table>
             </div>
           </div>
+          {{!-- Top 10 NPHR Thermal Power Plant --}}
           <div class="masonry-item col-12">
             <div class="bd bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-20">NPHR Thermal Power Plant</h4>
+              <h4 class="c-grey-900 mB-10">NPHR Thermal Power Plant</h4>
+              <h5 class="c-grey-900 mB-20">Top 10 Kontributor NPHR</h5>
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-7">
-                    <table class="table">
+                    <table class="table table-sm">
                       <thead>
                         <tr>
-                          <th scope="col">Unit Pembangkit</th>
+                          <th scope="col">ULPL</th>
                           <th scope="col">2015</th>
                           <th scope="col">2016</th>
                           <th scope="col">2017</th>
@@ -178,6 +181,30 @@
                       <tbody>
                         <tr>
                           <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                        <tr class="table-light">
+                          <th scope="col">TOTAL</th>
                           <td>-</td>
                           <td>-</td>
                           <td>-</td>
@@ -196,6 +223,7 @@
               </div>
             </div>
           </div>
+          {{!-- Pemakaian Sendiri --}}
           <div class="masonry-item col-md-6">
             <div class="bd bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-20">Pemakaian Sendiri</h4>
@@ -204,22 +232,46 @@
               </div>
             </div>
           </div>
+          {{!-- Maturity Level --}}
           <div class="masonry-item col-md-6">
             <div class="bd bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-20">Realisasi Maturity Level</h4>
-              <table class="table">
+              <table class="table table-sm">
                 <thead>
                   <tr>
-                    <th scope="col">Sub Area</th>
-                    <th scope="col">ML Benchmark</th>
-                    <th scope="col">ML Target SM1 2019</th>
-                    <th scope="col">ML Realisasi SM1 2019</th>
+                    <th>UPK</th>
+                    <th>ML Target</th>
+                    <th>ML Realisasi</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <th scope="row">UPK Belawan</th>
                     <td>-</td>
                     <td>-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">UPK Pangkalan Susu</th>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">UPK Nagan Raya</th>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">UPK Labuhan Angin</th>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">UPDK Pekanbaru</th>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">UPDK Pandan</th>
                     <td>-</td>
                     <td>-</td>
                   </tr>
@@ -227,7 +279,6 @@
               </table>
             </div>
           </div>
-          
         </div>
       </div>
     </main>
