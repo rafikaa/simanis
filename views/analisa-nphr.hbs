@@ -141,12 +141,12 @@
               <h4 class="c-grey-900 mB-20">Data Analisa NPHR</h4>
               <form action="">
                 <div class="form-group row">
-                  <label for="tahunPembuatan" class="col-sm-2 col-form-label">Bulan dan tahun</label>
+                  <label for="tahunPembuatan" class="col-sm-1 col-form-label">Periode</label>
                   <div class="col-sm-2">
                     <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="mm-yyyy">
                   </div>
-                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
-                  <div class="col-sm-2">
+                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
+                  <div class="col-sm-2" id="upk">
                     <select id="inputState" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
@@ -155,6 +155,12 @@
                       <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
                       <option value="updkPekanbaru">UPK Pekan Baru</option>
                       <option value="updkPandan">UPK Pandan</option>
+                    </select>
+                  </div>
+                  <label for="ulpl" class="col-sm-1 col-form-label">ULPL</label>
+                  <div class="col-sm-2" id="ulpl">
+                    <select id="inputState" class="form-control">
+                      <option selected="selected">Pilih ULPL...</option>
                     </select>
                   </div>
                   <div class="form-group col-sm-2">
@@ -195,16 +201,22 @@
                 </table>
             </div>
           </div>
-
           <div class="masonry-item col-md-8">
-                <div class="bgc-white p-20 bd">
-                  <h4 class="c-grey-900">Pareto Heat Rate</h4>
-                  <div class="mT-30">
-                    <canvas id="bar-chart" height="160"></canvas>
-                  </div>
-                </div>
+            <div class="bgc-white p-20 bd">
+              <h4 class="c-grey-900">Heat Loss Waterfall</h4>
+              <div class="mT-30">
+                <canvas id="waterfall-chart" height="160"></canvas>
               </div>
-          
+            </div>
+          </div>
+          <div class="masonry-item col-md-8">
+            <div class="bgc-white p-20 bd">
+              <h4 class="c-grey-900">Pareto Heat Rate</h4>
+              <div class="mT-30">
+                <canvas id="pareto-chart" height="160"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -218,26 +230,50 @@
     });
   } );
 
-  const barChartBox = document.getElementById('bar-chart');
-  if (barChartBox) {
-    const barCtx = barChartBox.getContext('2d');
-
-    new Chart(barCtx, {
+  const waterfallChartBox = document.getElementById('waterfall-chart');
+  if (waterfallChartBox) {
+    const waterfallCtx = waterfallChartBox.getContext('2d');
+    new Chart(waterfallCtx, {
       type: 'bar',
       data: {
-        labels: ['Param 1', '2', '3', '4', '5', '6', '7'],
+        labels: ['Actual', 'Param 1', 'Param 2', 'Param 3', 'Param 4', 'Param 5', 'Reference'],
         datasets: [{
-          label           : 'HR Loss',
-          backgroundColor : '#673ab7',
-          borderColor     : '#512da8',
-          borderWidth     : 1,
-          data            : [10, 50, 20, 40, 60, 30, 70],
-        }, {
-          label           : 'Komulatif',
+          label           : 'Deviasi Heat Rate (kCal/kWh)',
           backgroundColor : '#2196f3',
           borderColor     : '#1976d2',
           borderWidth     : 1,
-          data            : [10, 50, 20, 40, 60, 30, 70],
+          data            : [3200, 24, 30, 40, 50, 100, 3002],
+        }],
+      },
+
+      options: {
+        responsive: true,
+        legend: {
+          position: 'bottom',
+        },
+      },
+    });
+  }
+
+  const paretoChartBox = document.getElementById('pareto-chart');
+  if (paretoChartBox) {
+    const paretoCtx = paretoChartBox.getContext('2d');
+    new Chart(paretoCtx, {
+      type: 'bar',
+      data: {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+          label           : 'HR Losses',
+          backgroundColor : '#673ab7',
+          borderColor     : '#512da8',
+          borderWidth     : 1,
+          data            : [10, 20, 30, 40, 50],
+        }, {
+          label           : 'HR Cummulative',
+          backgroundColor : '#2196f3',
+          borderColor     : '#1976d2',
+          borderWidth     : 1,
+          data            : [10, 20, 30, 40, 50],
         }],
       },
 

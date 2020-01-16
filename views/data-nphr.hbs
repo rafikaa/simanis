@@ -170,8 +170,8 @@
                       <th>Volume</th>
                       <th>Nilai Kalor</th>
                       <th>Total Kalori</th>
-                      <th>MWH Netto</th>
-                      <th>Tara Kalor</th>
+                      <th>kWH Netto</th>
+                      <th>Tara Kalor (NPHR)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -197,12 +197,24 @@
                 </table>
             </div>
             <div class="bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="mB-20">Data Tahunan</h4>
+              <h4 class="mB-20">Data NPHR Tahunan</h4>
               <form action="">
                 <div class="form-group row">
                   <label for="tahunPembuatan" class="col-sm-1 col-form-label">Tahun</label>
                   <div class="col-sm-2">
                     <input type="text" class="form-control" id="tahunNPHR" placeholder="yyyy">
+                  </div>
+                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
+                  <div class="col-sm-2">
+                    <select id="inputState" class="form-control">
+                      <option selected="selected">Pilih UPK...</option>
+                      <option value="upkBelawan">Upk Belawan</option>
+                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
+                      <option value="upkNaganRaya">UPK Nagan Raya</option>
+                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
+                      <option value="updkPekanbaru">UPK Pekan Baru</option>
+                      <option value="updkPandan">UPK Pandan</option>
+                    </select>
                   </div>
                   <div class="form-group col-sm-2">
                     <button class="btn btn-primary">Tampilkan data</button>
@@ -262,7 +274,26 @@
                 </table>
             </div>
             <div class="bd bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="mB-20">Tren</h4>
+              <h4 class="mB-20">Tren NPHR</h4>
+              <form action="">
+                <div class="form-group row">
+                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
+                  <div class="col-sm-2">
+                    <select id="inputState" class="form-control">
+                      <option selected="selected">Pilih UPK...</option>
+                      <option value="upkBelawan">Upk Belawan</option>
+                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
+                      <option value="upkNaganRaya">UPK Nagan Raya</option>
+                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
+                      <option value="updkPekanbaru">UPK Pekan Baru</option>
+                      <option value="updkPandan">UPK Pandan</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button class="btn btn-primary">Tampilkan data</button>
+                  </div>
+                </div>
+              </form>
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-7">
