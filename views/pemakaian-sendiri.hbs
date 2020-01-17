@@ -137,65 +137,22 @@
               <a href="/input-pemakaian-sendiri" class="btn btn-primary btn-lg float-sm-right">Input Data Pemakaian Sendiri</a>
               <h3 class="c-grey-900 mL-10 mB-20">Pemakaian Sendiri</h3>
             </div>
-            <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="mB-20">Persentase Pemakaian Sendiri</h4>
-              <table id="table-persentase-pemakaian-sendiri" class="table table-bordered mt-5" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>UPK</th>
-                    <th>Jan</th>
-                    <th>Feb</th>
-                    <th>Mar</th>
-                    <th>April</th>
-                    <th>Mei</th>
-                    <th>Juni</th>
-                    <th>Juli</th>
-                    <th>Agt</th>
-                    <th>Sep</th>
-                    <th>Okt</th>
-                    <th>Nov</th>
-                    <th>Des</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             <div class="bgc-white bd bdrs-3 mT-20 p-20">
               <h4 class="mB-20">Pemakaian Sendiri Per UPK</h4>
+              <form action="">
+                <div class="form-group row">
+                  <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tahun" placeholder="yyyy">
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button class="btn btn-primary">Tampilkan data</button>
+                  </div>
+                </div>
+              </form>
               <div class="row">
                 <div class="col-md-8">
-                  <table id="table-persentase-pemakaian-sendiri" class="table table-bordered" cellspacing="0" width="100%">
+                  <table id="table-persentase-pemakaian-sendiri" class="table table-sm" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         <th>UPK</th>
@@ -256,9 +213,20 @@
             </div>
             <div class="bgc-white bd bdrs-3 mT-20 p-20">
               <h4 class="mB-20">Pemakaian Sendiri Per Jenis Pembangkit</h4>
+              <form action="">
+                <div class="form-group row">
+                  <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tahun" placeholder="yyyy">
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button class="btn btn-primary">Tampilkan data</button>
+                  </div>
+                </div>
+              </form>
               <div class="row">
                 <div class="col-md-8">
-                   <table id="table-persentase-pemakaian-sendiri" class="table table-bordered" cellspacing="0" width="100%">
+                   <table id="table-persentase-pemakaian-sendiri" class="table table-sm" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         <th>Jenis Pembangkit</th>
@@ -325,11 +293,6 @@
   </div>
 </div>
 <script>
-  $(document).ready(function() {
-    $('#table-persentase-pemakaian-sendiri').DataTable({
-      searching: false
-    });
-  } );
   new Chart(document.getElementById("pemakaian-chart-per-upk"), {
       type: 'pie',
       data: {
