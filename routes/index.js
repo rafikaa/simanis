@@ -49,8 +49,16 @@ router.get('/maturity-level', function(req, res, next) {
   res.render('maturity-level', { title: 'Maturity Level' });
 });
 
+router.get('/maturity-level-x', function(req, res, next) {
+  res.render('maturity-level-x', { title: 'Maturity Level' });
+});
+
 router.get('/input-maturity-level', function(req, res, next) {
   res.render('input-maturity-level', { title: 'Maturity Level' });
+});
+
+router.get('/input-maturity-level-target', function(req, res, next) {
+  res.render('input-maturity-level-target', { title: 'Maturity Level' });
 });
 
 router.get('/laporan', function(req, res, next) {
@@ -59,6 +67,10 @@ router.get('/laporan', function(req, res, next) {
 
 router.get('/download', function(req, res, next) {
   res.render('download', { title: 'Download' });
+});
+
+router.get('/input-download', function(req, res, next) {
+  res.render('input-download', { title: 'Download' });
 });
 
 router.get('/404', function(req, res, next) {

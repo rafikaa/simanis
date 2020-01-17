@@ -131,92 +131,66 @@
     <main class='main-content bgc-grey-100'>
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
-          <div class="masonry-sizer col-md-8"></div>
-          <div class="masonry-item col-md-8">
-            <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
-              <form>
-                <div class="form-group row">
-                  <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="bulanTahunLaporan" placeholder="mm-yyyy">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="upk" class="col-sm-4 col-form-label">UPK</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="ulpl" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="berkasLaporan" class="col-sm-4 col-form-label">Berkas Laporan</label>
-                  <div class="col-sm-8">
-                    <input type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan">
-                  </div>
-                </div>
-                <div class="form-group row mT-30 text-right">
-                  <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
-              <form action="">
-                <div class="form-group row">
-                  <label for="" class="col-sm-1 col-form-label">UPK</label>
-                  <div class="col-sm-3">
-                    <select id="inputState" class="form-control">
-                      <option selected="selected">Pilih UPK...</option>
-                      <option value="upkBelawan">Upk Belawan</option>
-                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
-                      <option value="upkNaganRaya">UPK Nagan Raya</option>
-                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
-                      <option value="updkPekanbaru">UPK Pekan Baru</option>
-                      <option value="updkPandan">UPK Pandan</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <button class="btn btn-primary">Tampilkan</button>
-                  </div>
-                </div>
-              </form>
-              <table id="table-laporan" class="table table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Unit Pelaksana Pembangkit (UPK)</th>
-                    <th>Unit Layanan Pusat Listrik (ULPL)</th>
-                    <th>Periode Submit</th>
-                    <th>Berkas Laporan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 1</td>
-                    <td>mm-yyyy</td>
-                    <td>
-                      <a href="files/sample.pdf">Download</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 2</td>
-                    <td>mm-yyyy</td>
-                    <td>
-                      <a href="files/sample.pdf">Download</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="masonry-sizer col-md-6"></div>
+          <div class="masonry-item col-12">
+            <form action="">
+              <div class="mb-2">
+                <button type="submit" class="btn btn-primary btn-lg float-sm-right mL-10">Simpan</button>
+                <h3 class="c-grey-900 mL-10 mB-20">Maturity Level [INSERT ULPL X]</h3>
+              </div>
+              <div class="bgc-white bd bdrs-3 p-20">
+                <table id="table-rekap-maturity" class="table mt-5" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Sub Area</th>
+                      <th>ML Target</th>
+                      <th>ML Realisasi</th>
+                      <th>Evidence</th>
+                      <th>Status</th>
+                      <th>Catatan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Pengumpulan Data Efisiensi</td>
+                      <td>1.6</td>
+                      <td>1.3</td>
+                      <td>
+                        <a class="" href="files/sample.pdf">sample.pdf</a>
+                        </td>
+                      <td>
+                        <select class="custom-select custom-select-sm" id="maturityApprovalStatus">
+                          <option>Waiting for approval</option>
+                          <option>Approved</option>
+                          <option>Rejected</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input class="form-control form-control-sm" type="text" placeholder="beri catatan...">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Perhitungan Performance Test</td>
+                      <td>1.4</td>
+                      <td>1.4</td>
+                      <td>
+                        <a class="" href="files/sample.pdf">sample.pdf</a>
+                        </td>
+                      <td>
+                        <select class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" disabled>
+                          <option>Waiting for approval</option>
+                          <option>Approved</option>
+                          <option>Rejected</option>
+                        </select>
+                      </td>
+                      <td>
+                        Ini contoh catatan
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -226,8 +200,8 @@
 </div>
 <script>
   $(document).ready(function() {
-    $('#table-laporan').DataTable({
+    $('#table-rekap-maturity').DataTable({
       searching: false
     });
-  });
+  } );
 </script>

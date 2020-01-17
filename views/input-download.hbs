@@ -134,84 +134,43 @@
           <div class="masonry-sizer col-md-8"></div>
           <div class="masonry-item col-md-8">
             <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
+              <h4 class="c-grey-900 mB-30">Tambah Berkas Baru</h4>
               <form>
                 <div class="form-group row">
-                  <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+                  <label for="judul" class="col-sm-4 col-form-label">Judul Berkas</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="bulanTahunLaporan" placeholder="mm-yyyy">
+                    <input type="text" class="form-control" id="judul" placeholder="">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="upk" class="col-sm-4 col-form-label">UPK</label>
+                  <label for="berkasDownload" class="col-sm-4 col-form-label">Berkas</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="ulpl" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="berkasLaporan" class="col-sm-4 col-form-label">Berkas Laporan</label>
-                  <div class="col-sm-8">
-                    <input type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan">
+                    <input type="file" class="form-control-file" id="berkasDownload" name="berkasLaporan">
                   </div>
                 </div>
                 <div class="form-group row mT-30 text-right">
                   <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Tambahkan Berkas</button>
                   </div>
                 </div>
               </form>
             </div>
             <div class="bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
-              <form action="">
-                <div class="form-group row">
-                  <label for="" class="col-sm-1 col-form-label">UPK</label>
-                  <div class="col-sm-3">
-                    <select id="inputState" class="form-control">
-                      <option selected="selected">Pilih UPK...</option>
-                      <option value="upkBelawan">Upk Belawan</option>
-                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
-                      <option value="upkNaganRaya">UPK Nagan Raya</option>
-                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
-                      <option value="updkPekanbaru">UPK Pekan Baru</option>
-                      <option value="updkPandan">UPK Pandan</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <button class="btn btn-primary">Tampilkan</button>
-                  </div>
-                </div>
-              </form>
-              <table id="table-laporan" class="table table-bordered" cellspacing="0" width="100%">
+              <h4 class="c-grey-900 mB-30">Berkas</h4>
+              <table id="table-laporan" class="table" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                    <th>Unit Pelaksana Pembangkit (UPK)</th>
-                    <th>Unit Layanan Pusat Listrik (ULPL)</th>
-                    <th>Periode Submit</th>
-                    <th>Berkas Laporan</th>
+                    <th>Judul Berkas</th>
+                    <th>Action</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 1</td>
-                    <td>mm-yyyy</td>
+                    <td>Analisis variability</td>
                     <td>
-                      <a href="files/sample.pdf">Download</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 2</td>
-                    <td>mm-yyyy</td>
-                    <td>
-                      <a href="files/sample.pdf">Download</a>
+                      <button type="button" class="btn btn-outline-primary btn-sm">Download</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
                     </td>
                   </tr>
                 </tbody>
@@ -224,10 +183,3 @@
 
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('#table-laporan').DataTable({
-      searching: false
-    });
-  });
-</script>
