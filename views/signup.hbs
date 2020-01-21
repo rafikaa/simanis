@@ -20,13 +20,18 @@
     <h3 class="fw-300 c-grey-900 mB-10">Sistem Manajemen Efisiensi</h3>
     <h4 class="fw-300 c-grey-900 mB-10">SIMANIS</h4>
     <div class="dropdown-divider mB-30"></div>
-    {{#if error}}
-    <div class="alert alert-danger" role="alert">{{error}}</div>
-    {{/if}}
-    <form action="/auth/signin" method="POST">
+    <form action="/auth/signup" method="POST">
       <div class="form-group">
         <label class="text-normal text-dark">Username</label> 
         <input name="username" type="text" class="form-control" placeholder="">
+      </div>
+      <div class="form-group">
+        <label class="text-normal text-dark">Account Type</label>
+        <select name="accountType" class="form-control">
+          <option value="GUEST">Guest</option>
+          <option value="UNIT">Unit</option>
+          <option value="ADMIN">Admin</option>
+        </select>
       </div>
       <div class="form-group">
         <label class="text-normal text-dark">Password</label>
@@ -34,17 +39,7 @@
       </div>
       <div class="form-group">
         <div class="peers ai-c jc-sb fxw-nw">
-          {{!-- <div class="peer">
-            <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-              <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer">
-              <label for="inputCall1" class="peers peer-greed js-sb ai-c">
-                <span class="peer peer-greed">Remember Me</span>
-              </label>
-            </div>
-          </div>
-          <div class="peer"> --}}
-            <button class="btn btn-primary">Sign In</button>
-          {{!-- </div> --}}
+          <button class="btn btn-primary">Add Account</button>
         </div>
       </div>
     </form>
