@@ -148,13 +148,18 @@
                 <div class="form-group row">
                   <label for="tahunMaturity" class="col-sm-5 col-form-label">Tahun</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" id="tahunMaturity" placeholder="yyyy">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahunMaturity" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="upk" class="col-sm-5 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
                   <div class="col-sm-7">
-                    <select id="" class="form-control">
+                    <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
@@ -236,9 +241,16 @@
 </div>
 <script>
   $(function() {
-      $('#jenisPembangkitSelector').change(function(){
-          $('.pembangkit-form').hide();
-          $('#' + $(this).val()).show();
-      });
+    $('#jenisPembangkitSelector').change(function(){
+      $('.pembangkit-form').hide();
+      $('#' + $(this).val()).show();
+    });
+    $("#datepickerTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "yyyy",
+      startView: "years", 
+      minViewMode: "years"
+    }).datepicker('update', new Date());
   });
 </script>

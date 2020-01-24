@@ -150,13 +150,18 @@
                       <option value="2">2</option>
                     </select>
                   </div>
-                  <label for="tahunPembuatan" class="col-sm-1 col-form-label">Tahun</label>
+                  <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="yyyy">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
-                  <label for="" class="col-sm-1 col-form-label">UPK</label>
+                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
                   <div class="col-sm-2">
-                    <select id="" class="form-control">
+                    <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
@@ -204,5 +209,12 @@
     $('#table-rekap-maturity').DataTable({
       searching: false
     });
+    $("#datepickerTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "yyyy",
+      startView: "years", 
+      minViewMode: "years"
+    }).datepicker('update', new Date());
   } );
 </script>
