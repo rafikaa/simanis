@@ -136,9 +136,14 @@
               <h4 class="c-grey-900 mB-30">Input Data Pemakaian Sendiri</h4>
               <form>
                 <div class="form-group row">
-                  <label for="bulanTahunNPHR" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+                  <label for="bulanTahun" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="mm-yyyy">
+                    <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                      <input id="bulanTahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -156,7 +161,7 @@
                 <div class="form-group row">
                   <label for="jenisPembangkit" class="col-sm-4 col-form-label">Jenis Pembangkit</label>
                   <div class="col-sm-8">
-                    <select class="form-control" id="jenisPembangkitSelector">
+                    <select class="form-control" id="jenisPembangkit">
                       <option selected="selected">Pilih jenis pembangkit...</option>
                       <option value="pltu">Pembangkit Listrik Tenaga Uap (PLTU)</option>
                       <option value="pltg">Pembangkit Listrik Tenaga Gas (PLTG)</option>
@@ -192,9 +197,12 @@
 </div>
 <script>
   $(function() {
-      $('#jenisPembangkitSelector').change(function(){
-          $('.pembangkit-form').hide();
-          $('#' + $(this).val()).show();
-      });
+    $("#datepickerBulanTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "mm-yyyy",
+      startView: "months", 
+      minViewMode: "months"
+    }).datepicker('update', new Date());
   });
 </script>

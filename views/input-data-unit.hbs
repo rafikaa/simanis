@@ -135,7 +135,6 @@
           <div class="masonry-item col-md-8">
             <div class="bgc-white bd bdrs-3 p-20">
               <h4 class="c-grey-900 mB-30">Input Data Pembangkit</h4>
-
               <form>
                 <div class="form-group row">
                   <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
@@ -144,15 +143,20 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="unit" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
+                  <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="unit" placeholder="">
+                    <input type="text" class="form-control" id="ulpl" placeholder="">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="tahunPembuatan" class="col-sm-4 col-form-label">Tahun pembuatan</label>
+                  <label for="tahunPembuatanUnit" class="col-sm-4 col-form-label">Tahun pembuatan</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="tahunPembuatan" placeholder="">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahunPembuatanUnit" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -173,9 +177,9 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="dayaPasok" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
+                  <label for="dayaMampu" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
                   <div class="col-sm-8">
-                    <input type="number" class="form-control" id="dayaNetto" placeholder="">
+                    <input type="number" class="form-control" id="dayaMampu" placeholder="">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -201,6 +205,16 @@
         </div>
       </div>
     </main>
-
   </div>
 </div>
+<script>
+  $(function () {
+    $("#datepickerTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "yyyy",
+      startView: "years", 
+      minViewMode: "years"
+    }).datepicker('update', new Date());
+  });
+</script>

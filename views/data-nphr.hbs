@@ -141,13 +141,18 @@
               <h4 class="mB-20">Data Per UPK</h4>
               <form action="">
                 <div class="form-group row">
-                  <label for="tahunPembuatan" class="col-sm-2 col-form-label">Bulan dan tahun</label>
+                  <label for="bulanTahun" class="col-sm-2 col-form-label">Bulan dan tahun</label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" id="bulanTahunNPHR" placeholder="mm-yyyy">
+                    <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                      <input id="bulanTahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
-                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
+                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
                   <div class="col-sm-2">
-                    <select id="inputState" class="form-control">
+                    <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
@@ -200,13 +205,18 @@
               <h4 class="mB-20">Data NPHR Tahunan</h4>
               <form action="">
                 <div class="form-group row">
-                  <label for="tahunPembuatan" class="col-sm-1 col-form-label">Tahun</label>
+                  <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" id="tahunNPHR" placeholder="yyyy">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
-                  <label for="bulanTahunNPHR" class="col-sm-1 col-form-label">UPK</label>
+                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
                   <div class="col-sm-2">
-                    <select id="inputState" class="form-control">
+                    <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
@@ -342,6 +352,22 @@
     $('#table-data-nphr-tahunan').DataTable({
       searching: false
     });
+    $(function () {
+      $("#datepickerBulanTahun").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true,
+        format: "mm-yyyy",
+        startView: "months", 
+        minViewMode: "months"
+      }).datepicker('update', new Date());
+      $("#datepickerTahun").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true,
+        format: "yyyy",
+        startView: "years", 
+        minViewMode: "years"
+      }).datepicker('update', new Date());
+    });
     var nphrChartBox = document.getElementById('nphr-chart-home');
     var nphrChart = new Chart(nphrChartBox, {
       type: 'line',
@@ -371,4 +397,5 @@
       },
     });
   } );
+  
 </script>

@@ -143,7 +143,12 @@
                 <div class="form-group row">
                   <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" id="tahun" placeholder="yyyy">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                   <div class="form-group col-sm-2">
                     <button class="btn btn-primary">Tampilkan data</button>
@@ -217,7 +222,12 @@
                 <div class="form-group row">
                   <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" id="tahun" placeholder="yyyy">
+                    <div id="datepickerTahun2" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                   <div class="form-group col-sm-2">
                     <button class="btn btn-primary">Tampilkan data</button>
@@ -293,59 +303,75 @@
   </div>
 </div>
 <script>
+  $(function () {
+    $("#datepickerTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "yyyy",
+      startView: "years", 
+      minViewMode: "years"
+    }).datepicker('update', new Date());
+    $("#datepickerTahun2").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "yyyy",
+      startView: "years", 
+      minViewMode: "years"
+    }).datepicker('update', new Date());
+  });
   new Chart(document.getElementById("pemakaian-chart-per-upk"), {
-      type: 'pie',
-      data: {
-        labels: ["UPK 1", "UPK 2", "UPK 3"],
-        datasets: [{
-          label: "Percentage",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [81,4,1]
-        }]
+    type: 'pie',
+    data: {
+      labels: ["UPK 1", "UPK 2", "UPK 3"],
+      datasets: [{
+        label: "Percentage",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [81,4,1]
+      }]
+    },
+    options: {
+      title: {
+        display: false
       },
-      options: {
-        title: {
-          display: false
-        },
-        tooltips: {
-            mode: 'label',
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    return data['datasets'][0]['data'][tooltipItem['index']] + '%';
-                }
-            }
-        },
-        legend: {
-          position: 'right'
-        }
+      tooltips: {
+          mode: 'label',
+          callbacks: {
+              label: function(tooltipItem, data) {
+                  return data['datasets'][0]['data'][tooltipItem['index']] + '%';
+              }
+          }
+      },
+      legend: {
+        position: 'right'
       }
+    }
   });
 
   new Chart(document.getElementById("pemakaian-chart-home"), {
-      type: 'pie',
-      data: {
-        labels: ["PLTU Batubara", "PLTG Gas", "PLTU Gas", "PLTD Gas", "PLTD Minyak"],
-        datasets: [{
-          label: "Percentage",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [81,2,4,4,1]
-        }]
+    type: 'pie',
+    data: {
+      labels: ["PLTU Batubara", "PLTG Gas", "PLTU Gas", "PLTD Gas", "PLTD Minyak"],
+      datasets: [{
+        label: "Percentage",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [81,2,4,4,1]
+      }]
+    },
+    options: {
+      title: {
+        display: false
       },
-      options: {
-        title: {
-          display: false
-        },
-        tooltips: {
-            mode: 'label',
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    return data['datasets'][0]['data'][tooltipItem['index']] + '%';
-                }
-            }
-        },
-        legend: {
-          position: 'right'
-        }
+      tooltips: {
+          mode: 'label',
+          callbacks: {
+              label: function(tooltipItem, data) {
+                  return data['datasets'][0]['data'][tooltipItem['index']] + '%';
+              }
+          }
+      },
+      legend: {
+        position: 'right'
       }
+    }
   });
 </script>

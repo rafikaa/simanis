@@ -139,7 +139,12 @@
                 <div class="form-group row">
                   <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="bulanTahunLaporan" placeholder="mm-yyyy">
+                    <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                      <input id="bulanTahunLaporan" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -171,9 +176,9 @@
               <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
               <form action="">
                 <div class="form-group row">
-                  <label for="" class="col-sm-1 col-form-label">UPK</label>
+                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
                   <div class="col-sm-3">
-                    <select id="inputState" class="form-control">
+                    <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
                       <option value="upkBelawan">Upk Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
@@ -229,5 +234,12 @@
     $('#table-laporan').DataTable({
       searching: false
     });
+    $("#datepickerBulanTahun").datepicker({ 
+      autoclose: true, 
+      todayHighlight: true,
+      format: "mm-yyyy",
+      startView: "months", 
+      minViewMode: "months"
+    }).datepicker('update', new Date());
   });
 </script>

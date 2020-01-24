@@ -34,6 +34,11 @@ div.dataTables_wrapper div.dataTables_length select {
   padding: 0px !important;
 }
 
+/* Date Picker */
+#datepickerTahun input, #datepickerTahun2 input, #datepickerBulanTahun input {
+  background-color: #fff;
+}
+
 /* Themes */
 .sidebar-logo {
   height: 66px;
