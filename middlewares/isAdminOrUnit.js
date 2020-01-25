@@ -1,4 +1,4 @@
-const isAdminOrUnit = async (req, res, next) => {
+const isAdminOrUnit = (redirectUrl) => async (req, res, next) => {
   const {
     username,
     accountType,
@@ -7,7 +7,7 @@ const isAdminOrUnit = async (req, res, next) => {
   if (accountType === 'ADMIN' || (accountType === 'UNIT' && username === req.params.unit)) {
     return next();
   } else {
-    return res.redirect(req.session.backURL || '/');
+    return res.redirect(redirectUrl || '/');
   }
 };
 

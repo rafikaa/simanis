@@ -47,4 +47,9 @@ router.post('/signin', async (req, res) => {
   return res.redirect('/');
 });
 
+router.get('/signout', async (req, res) => {
+  res.cookie('jwt', '');
+  return res.redirect('/');
+});
+
 module.exports = router;

@@ -4,6 +4,13 @@ const isAuthenticated = require('../middlewares/isAuthenticated');
 
 const router = express.Router();
 
+router.get(/.*e23a7dcaefbde4e74e263247aa42ecd7.ttf$/, (req, res, next) => {
+  return res.send('');
+});
+router.get(/.*a1ecc3b826d01251edddf29c3e4e1e97.woff$/, (req, res, next) => {
+  return res.send('');
+});
+
 router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { title: 'SIMANIS' });
 });

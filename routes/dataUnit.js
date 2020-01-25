@@ -11,7 +11,7 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('data-unit/home', { title: 'Data Unit' });
 });
 
-router.get('/:unit([a-zA-Z0-9\-]+)', isAuthenticated, async (req, res, next) => {
+router.get('/:unit', isAuthenticated, async (req, res, next) => {
   const {
     username,
     accountType,
@@ -38,7 +38,7 @@ router.get('/:unit([a-zA-Z0-9\-]+)', isAuthenticated, async (req, res, next) => 
   });
 });
 
-router.get('/:username/create', isAuthenticated, isAdminOrUnit, function(req, res, next) {
+router.get('/:username/create', isAuthenticated, isAdminOrUnit('/data-unit'), function(req, res, next) {
   res.render('data-unit/input', { title: 'Data Unit' });
 });
 
