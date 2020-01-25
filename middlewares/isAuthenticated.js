@@ -4,7 +4,12 @@ const isAuthenticated = async (req, res, next) => {
   const token = req.cookies.jwt;
 
   try {
-    jwt.verify(token, 'secret');
+    const { name, username, accountType } = jwt.verify(token, 'secret');
+    req.user = {
+      name,
+      username,
+      accountType,
+    };
     return next();
   } catch {
     return res.redirect('/auth/signin');

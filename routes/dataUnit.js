@@ -1,23 +1,45 @@
 const express = require('express');
 
+const User = require('../db/User');
+
 const isAuthenticated = require('../middlewares/isAuthenticated');
+const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
 const router = express.Router();
 
 router.get('/', isAuthenticated, (req, res, next) => {
-  res.render('index', { title: 'SIMANIS' });
+  res.render('data-unit/home', { title: 'Data Unit' });
 });
 
-// router.get('/data-unit', isAuthenticated, function(req, res, next) {
-//   res.render('data-unit', { title: 'Data Unit' });
-// });
+router.get('/:unit([a-zA-Z0-9\-]+)', isAuthenticated, async (req, res, next) => {
+  const {
+    username,
+    accountType,
+  } = req.user;
+  
+  const unit = await User.findOne({ username: req.params.unit });
 
-// router.get('/data-unit-belawan', function(req, res, next) {
-//   res.render('data-unit-belawan', { title: 'Data Unit' });
-// });
+  if (!unit) {
+    return res.redirect('/data-unit');
+  }
 
-router.get('/input-data-unit', function(req, res, next) {
-  res.render('input-data-unit', { title: 'Data Unit' });
+  let hasUpdatePermission = false;
+  if (unit && (accountType === 'ADMIN' || (accountType === 'UNIT' && username === req.params.unit))) {
+    hasUpdatePermission = true;
+  }
+
+  res.render('data-unit/detail', {
+    title: `Data Unit ${unit.name}`, 
+    unit: {
+      name: unit.name,
+      username: unit.username,
+    },
+    hasUpdatePermission,
+  });
+});
+
+router.get('/:username/create', isAuthenticated, isAdminOrUnit, function(req, res, next) {
+  res.render('data-unit/input', { title: 'Data Unit' });
 });
 
 router.get('/data-nphr', function(req, res, next) {

@@ -132,89 +132,60 @@
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
           <div class="masonry-sizer col-md-6"></div>
-          <div class="masonry-item col-md-8">
+          <div class="masonry-item col-12">
+            <div class="mb-2">
+              {{#if hasUpdatePermission}}
+              <a href="{{unit.username}}/create" class="btn btn-primary btn-lg float-sm-right">Input Data Unit</a>
+              {{/if}}
+              <h3 class="c-grey-900 mL-10 mB-20">Data <span>{{unit.name}}</span></h3>
+            </div>
             <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-30">Input Data Pembangkit</h4>
-              <form>
-                <div class="form-group row">
-                  <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="ulpl" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="tahunPembuatanUnit" class="col-sm-4 col-form-label">Tahun pembuatan</label>
-                  <div class="col-sm-8">
-                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                      <input id="tahunPembuatanUnit" class="form-control" type="text" readonly />
-                      <div class="input-group-append">
-                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="statusUnit" class="col-sm-4 col-form-label">Status Unit</label>
-                  <div class="col-sm-8">
-                    <select id="statusUnit" class="form-control">
-                      <option selected="selected">Pilih status unit ...</option>
-                      <option value="normal">Normal Operation</option>
-                      <option value="mothballed">Mothballed</option>
-                      <option value="retired">Retired</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="dayaPasok" class="col-sm-4 col-form-label">Daya Mampu Pasok (MW)</label>
-                  <div class="col-sm-8">
-                    <input type="number" class="form-control" id="dayaPasok" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="dayaMampu" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
-                  <div class="col-sm-8">
-                    <input type="number" class="form-control" id="dayaMampu" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="manufaktur" class="col-sm-4 col-form-label">Manufaktur</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="manufaktur" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="tipeMesin" class="col-sm-4 col-form-label">Tipe Mesin</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="tipeMesin" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row mT-30 text-right">
-                  <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </div>
-              </form>
+              <table id="table-data-unit" class="table table-bordered mt-5" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Unit Layanan Pusat Listrik (ULPL)</th>
+                      <th>Tahun Pembuatan</th>
+                      <th>Status Unit</th>
+                      <th>Daya Mampu Pasok</th>
+                      <th>Daya Mampu Netto</th>
+                      <th>Manufaktur</th>
+                      <th>Tipe Mesin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>PLTD Gunung Sitoli Unit 1</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                    <tr>
+                      <td>PLTD Gunung Sitoli Unit 2</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
           </div>
+          
         </div>
       </div>
     </main>
+
   </div>
 </div>
 <script>
-  $(function () {
-    $("#datepickerTahun").datepicker({ 
-      autoclose: true, 
-      todayHighlight: true,
-      format: "yyyy",
-      startView: "years", 
-      minViewMode: "years"
-    }).datepicker('update', new Date());
-  });
+  $(document).ready(function() {
+    $('#table-data-unit').DataTable({
+      searching: false
+    });
+  } );
 </script>
