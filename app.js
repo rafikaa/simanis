@@ -10,6 +10,7 @@ const session = require('express-session');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const unitRouter = require('./routes/unit');
+const nphrRouter = require('./routes/nphr');
 
 const dbConnection = require('./db/connection');
 dbConnection.connect();
@@ -42,6 +43,7 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/unit', unitRouter);
+app.use('/nphr', nphrRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

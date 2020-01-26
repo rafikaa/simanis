@@ -12,15 +12,7 @@ router.get(/.*a1ecc3b826d01251edddf29c3e4e1e97.woff$/, (req, res, next) => {
 });
 
 router.get('/', isAuthenticated, (req, res, next) => {
-  res.render('index', { title: 'SIMANIS' });
-});
-
-router.get('/data-nphr', function(req, res, next) {
-  res.render('data-nphr', { title: 'Data NPHR' });
-});
-
-router.get('/input-data-nphr', function(req, res, next) {
-  res.render('input-data-nphr', { title: 'Data NPHR' });
+  res.render('index', { layout: 'dashboard', title: 'SIMANIS' });
 });
 
 router.get('/analisa-nphr', function(req, res, next) {

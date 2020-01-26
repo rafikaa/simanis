@@ -16,22 +16,14 @@ router.get('/', isAuthenticated, (req, res, next) => {
 });
 
 router.get('/:unit', isAuthenticated, async (req, res, next) => {
-  const { username, accountType } = req.user;
-
   const unit = await User.findOne({ username: req.params.unit }).lean();
 
   if (!unit) {
     return res.redirect('/unit');
   }
 
-  let hasUpdatePermission = false;
-  if (
-    unit &&
-    (accountType === 'ADMIN' ||
-      (accountType === 'UNIT' && username === req.params.unit))
-  ) {
-    hasUpdatePermission = true;
-  }
+  const hasUpdatePermission =
+    unit && isAdminOrRelatedUnit(req.user, req.params.unit);
 
   const unitData = await UnitData.find({ upk: req.params.unit })
     .sort({ createdAt: -1 })
@@ -52,14 +44,17 @@ router.get(
   isAuthenticated,
   isAdminOrUnit('/unit'),
   async (req, res, next) => {
+    if (!isAdminOrRelatedUnit(req.user, req.params.unit)) {
+      return res.redirect('/unit');
+    }
     const unit = await User.findOne({
       username: req.params.unit,
       accountType: 'UNIT',
     }).lean();
     if (!unit) {
-      res.redirect('/unit');
+      return res.redirect('/unit');
     }
-    res.render('unit/input', {
+    return res.render('unit/input', {
       layout: 'dashboard',
       title: `Data Unit ${unit.name}`,
       error: req.flash('error'),
@@ -68,12 +63,30 @@ router.get(
   }
 );
 
-router.post(
-  '/:unit/create',
-  isAuthenticated,
-  isAdminOrUnit('/unit'),
-  async (req, res, next) => {
-    const {
+router.post('/:unit/create', isAuthenticated, async (req, res, next) => {
+  const {
+    ulpl,
+    tahunPembuatan,
+    statusUnit,
+    dayaPasok,
+    dayaNetto,
+    manufaktur,
+    tipeMesin,
+  } = req.body;
+  // TODO: request validation
+  if (!isAdminOrRelatedUnit(req.user, req.params.unit)) {
+    return res.redirect('/unit');
+  }
+  const unit = await User.findOne({
+    username: req.params.unit,
+    accountType: 'UNIT',
+  });
+  if (!unit) {
+    return res.redirect('/unit');
+  }
+  try {
+    const unitData = new UnitData({
+      upk: req.params.unit,
       ulpl,
       tahunPembuatan,
       statusUnit,
@@ -81,34 +94,24 @@ router.post(
       dayaNetto,
       manufaktur,
       tipeMesin,
-    } = req.body;
-    // TODO: request validation
-    const unit = await User.findOne({
-      username: req.params.unit,
-      accountType: 'UNIT',
     });
-    if (!unit) {
-      res.redirect('/unit');
-    }
-    try {
-      const unitData = new UnitData({
-        upk: req.params.unit,
-        ulpl,
-        tahunPembuatan,
-        statusUnit,
-        dayaPasok,
-        dayaNetto,
-        manufaktur,
-        tipeMesin,
-      });
-      await unitData.save();
-      req.flash('success', 'Data Unit berhasil ditambahkan');
-      return res.redirect(`/unit/${req.params.unit}`);
-    } catch (e) {
-      req.flash('error', e.message);
-      return res.redirect(`/unit/${req.params.unit}/create`);
-    }
+    await unitData.save();
+    req.flash('success', 'Data Unit berhasil ditambahkan');
+    return res.redirect(`/unit/${req.params.unit}`);
+  } catch (e) {
+    req.flash('error', e.message);
+    return res.redirect(`/unit/${req.params.unit}/create`);
   }
-);
+});
+
+const isAdminOrRelatedUnit = (user, unit) => {
+  if (
+    user.accountType === 'ADMIN' ||
+    (user.accountType === 'UNIT' && user.username === unit)
+  ) {
+    return true;
+  }
+  return false;
+};
 
 module.exports = router;
