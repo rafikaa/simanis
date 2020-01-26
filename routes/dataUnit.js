@@ -9,7 +9,7 @@ const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 const router = express.Router();
 
 router.get('/', isAuthenticated, (req, res, next) => {
-  res.render('data-unit/home', {
+  res.render('unit/home', {
     layout: 'dashboard',
     title: 'Data Unit',
   });
@@ -21,7 +21,7 @@ router.get('/:unit', isAuthenticated, async (req, res, next) => {
   const unit = await User.findOne({ username: req.params.unit }).lean();
 
   if (!unit) {
-    return res.redirect('/data-unit');
+    return res.redirect('/unit');
   }
 
   let hasUpdatePermission = false;
@@ -37,7 +37,7 @@ router.get('/:unit', isAuthenticated, async (req, res, next) => {
     .sort({ createdAt: -1 })
     .lean();
   unitData,
-    res.render('data-unit/detail', {
+    res.render('unit/detail', {
       layout: 'dashboard',
       title: `Data Unit ${unit.name}`,
       success: req.flash('success'),
@@ -50,16 +50,16 @@ router.get('/:unit', isAuthenticated, async (req, res, next) => {
 router.get(
   '/:unit/create',
   isAuthenticated,
-  isAdminOrUnit('/data-unit'),
+  isAdminOrUnit('/unit'),
   async (req, res, next) => {
     const unit = await User.findOne({
       username: req.params.unit,
       accountType: 'UNIT',
     }).lean();
     if (!unit) {
-      res.redirect('/data-unit');
+      res.redirect('/unit');
     }
-    res.render('data-unit/input', {
+    res.render('unit/input', {
       layout: 'dashboard',
       title: `Data Unit ${unit.name}`,
       error: req.flash('error'),
@@ -71,7 +71,7 @@ router.get(
 router.post(
   '/:unit/create',
   isAuthenticated,
-  isAdminOrUnit('/data-unit'),
+  isAdminOrUnit('/unit'),
   async (req, res, next) => {
     const {
       ulpl,
@@ -88,7 +88,7 @@ router.post(
       accountType: 'UNIT',
     });
     if (!unit) {
-      res.redirect('/data-unit');
+      res.redirect('/unit');
     }
     try {
       const unitData = new UnitData({
@@ -103,10 +103,10 @@ router.post(
       });
       await unitData.save();
       req.flash('success', 'Data Unit berhasil ditambahkan');
-      return res.redirect(`/data-unit/${req.params.unit}`);
+      return res.redirect(`/unit/${req.params.unit}`);
     } catch (e) {
       req.flash('error', e.message);
-      return res.redirect(`/data-unit/${req.params.unit}/create`);
+      return res.redirect(`/unit/${req.params.unit}/create`);
     }
   }
 );

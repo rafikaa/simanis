@@ -15,10 +15,6 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { title: 'SIMANIS' });
 });
 
-router.get('/input-data-unit', function(req, res, next) {
-  res.render('input-data-unit', { title: 'Data Unit' });
-});
-
 router.get('/data-nphr', function(req, res, next) {
   res.render('data-nphr', { title: 'Data NPHR' });
 });

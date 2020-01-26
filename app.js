@@ -41,7 +41,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/data-unit', dataUnitRouter);
+app.use('/unit', dataUnitRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

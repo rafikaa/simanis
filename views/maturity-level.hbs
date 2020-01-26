@@ -4,7 +4,7 @@
 <script>
   window.addEventListener('load', function load() {
     const loader = document.getElementById('loader');
-    setTimeout(function() {
+    setTimeout(function () {
       loader.classList.add('fadeOut');
     }, 300);
   });
@@ -26,7 +26,7 @@
                 </div>
                 <div class="peer peer-greed">
                   <h5 class="mB-0 logo-text">SIMANIS</h5>
-                <h6 class="small mB-0 logo-text">Sistem Manajemen Efisiensi</h6>
+                  <h6 class="small mB-0 logo-text">Sistem Manajemen Efisiensi</h6>
                 </div>
               </div>
             </a>
@@ -52,7 +52,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class='sidebar-link' href="/data-unit">
+          <a class='sidebar-link' href="/unit">
             <span class="icon-holder">
               <i class="c-teal-500 ti-view-list-alt"></i>
             </span>
@@ -62,7 +62,7 @@
         <li class="nav-item">
           <a class='sidebar-link' href="/data-nphr">
             <span class="icon-holder">
-              <i class="c-orange-500 ti-layout-list-thumb"></i> 
+              <i class="c-orange-500 ti-layout-list-thumb"></i>
             </span>
             <span class="title">Data NPHR</span>
           </a>
@@ -94,7 +94,7 @@
         <li class="nav-item">
           <a class='sidebar-link' href="/laporan">
             <span class="icon-holder">
-              <i class="c-red-500 ti-files"></i> 
+              <i class="c-red-500 ti-files"></i>
             </span>
             <span class="title">Laporan</span>
           </a>
@@ -134,8 +134,10 @@
           <div class="masonry-sizer col-md-6"></div>
           <div class="masonry-item col-12">
             <div class="mb-2">
-              <a href="/input-maturity-level" class="btn btn-primary btn-lg float-sm-right mL-10">Input Data Realisasi ML</a>
-              <a href="/input-maturity-level-target" class="btn btn-primary btn-lg float-sm-right">Input Data Target ML</a>
+              <a href="/input-maturity-level" class="btn btn-primary btn-lg float-sm-right mL-10">Input Data Realisasi
+                ML</a>
+              <a href="/input-maturity-level-target" class="btn btn-primary btn-lg float-sm-right">Input Data Target
+                ML</a>
               <h3 class="c-grey-900 mL-10 mB-20">Maturity Level</h3>
             </div>
             <div class="bgc-white bd bdrs-3 p-20">
@@ -163,7 +165,7 @@
                   <div class="col-sm-2">
                     <select id="upk" class="form-control">
                       <option selected="selected">Pilih UPK...</option>
-                      <option value="upkBelawan">Upk Belawan</option>
+                      <option value="upkBelawan">UPK Belawan</option>
                       <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
                       <option value="upkNaganRaya">UPK Nagan Raya</option>
                       <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
@@ -177,25 +179,25 @@
                 </div>
               </form>
               <table id="table-rekap-maturity" class="table mt-5" cellspacing="0" width="100%">
-                  <thead>
-                    <tr>
-                      <th>Unit Layanan Pusat Listrik (ULPL)</th>
-                      <th>ML Target</th>
-                      <th>ML Realisasi</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>
-                        <a href="/maturity-level-x" class="btn btn-outline-primary btn-sm">Lihat detail</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <thead>
+                  <tr>
+                    <th>Unit Layanan Pusat Listrik (ULPL)</th>
+                    <th>ML Target</th>
+                    <th>ML Realisasi</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>
+                      <a href="/maturity-level-x" class="btn btn-outline-primary btn-sm">Lihat detail</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -205,16 +207,16 @@
   </div>
 </div>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('#table-rekap-maturity').DataTable({
       searching: false
     });
-    $("#datepickerTahun").datepicker({ 
-      autoclose: true, 
+    $("#datepickerTahun").datepicker({
+      autoclose: true,
       todayHighlight: true,
       format: "yyyy",
-      startView: "years", 
+      startView: "years",
       minViewMode: "years"
     }).datepicker('update', new Date());
-  } );
+  });
 </script>
