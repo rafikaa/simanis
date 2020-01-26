@@ -4,27 +4,31 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-md-8">
         <div class="bgc-white bd bdrs-3 p-20">
-          <h4 class="c-grey-900 mB-30">Input Data Pembangkit</h4>
-          <form>
+          <h4 class="c-grey-900 mB-30">Input Data Pembangkit {{unit.name}}</h4>
+          {{#if error}}
+          <div class="alert alert-danger" role="alert">{{error}}</div>
+          {{/if}}
+          <form method="POST">
             <div class="form-group row">
               <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
               <div class="col-sm-8">
-                <select id="upk" class="form-control" disabled>
+                <input name="upk" type="text" class="form-control" id="upk" placeholder="" value="{{unit.name}}" disabled>
+                {{!-- <select name="upk" id="upk" class="form-control" disabled>
                   <option value="{{unit.username}}" >{{unit.name}}</option>
-                </select>
+                </select> --}}
               </div>
             </div>
             <div class="form-group row">
               <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="ulpl" placeholder="">
+                <input name="ulpl" type="text" class="form-control" id="ulpl" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
-              <label for="tahunPembuatanUnit" class="col-sm-4 col-form-label">Tahun pembuatan</label>
+              <label for="tahunPembuatan" class="col-sm-4 col-form-label">Tahun pembuatan</label>
               <div class="col-sm-8">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahunPembuatanUnit" class="form-control" type="text" readonly />
+                  <input name="tahunPembuatan" id="tahunPembuatan" class="form-control" type="text" readonly required/>
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -34,7 +38,7 @@
             <div class="form-group row">
               <label for="statusUnit" class="col-sm-4 col-form-label">Status Unit</label>
               <div class="col-sm-8">
-                <select id="statusUnit" class="form-control">
+                <select name="statusUnit" id="statusUnit" class="form-control" required>
                   <option disabled selected hidden>Pilih status unit ...</option>
                   <option value="normal">Normal Operation</option>
                   <option value="mothballed">Mothballed</option>
@@ -45,25 +49,25 @@
             <div class="form-group row">
               <label for="dayaPasok" class="col-sm-4 col-form-label">Daya Mampu Pasok (MW)</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="dayaPasok" placeholder="">
+                <input name="dayaPasok" type="number" class="form-control" id="dayaPasok" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
-              <label for="dayaMampu" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
+              <label for="dayaNetto" class="col-sm-4 col-form-label">Daya Mampu Netto (MW)</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="dayaMampu" placeholder="">
+                <input name="dayaNetto" type="number" class="form-control" id="dayaNetto" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="manufaktur" class="col-sm-4 col-form-label">Manufaktur</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="manufaktur" placeholder="">
+                <input name="manufaktur" type="text" class="form-control" id="manufaktur" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="tipeMesin" class="col-sm-4 col-form-label">Tipe Mesin</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="tipeMesin" placeholder="">
+                <input name="tipeMesin" type="text" class="form-control" id="tipeMesin" placeholder="" required>
               </div>
             </div>
             <div class="form-group row mT-30 text-right">

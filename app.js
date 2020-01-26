@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -29,6 +31,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET || 'secret',
+    cookie: { maxAge: 60000 },
+  })
+);
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

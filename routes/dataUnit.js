@@ -1,6 +1,7 @@
 const express = require('express');
 
 const User = require('../db/User');
+const UnitData = require('../db/UnitData');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
@@ -32,12 +33,18 @@ router.get('/:unit', isAuthenticated, async (req, res, next) => {
     hasUpdatePermission = true;
   }
 
-  res.render('data-unit/detail', {
-    layout: 'dashboard',
-    title: `Data Unit ${unit.name}`,
-    unit,
-    hasUpdatePermission,
-  });
+  const unitData = await UnitData.find({ upk: req.params.unit })
+    .sort({ createdAt: -1 })
+    .lean();
+  unitData,
+    res.render('data-unit/detail', {
+      layout: 'dashboard',
+      title: `Data Unit ${unit.name}`,
+      success: req.flash('success'),
+      unit,
+      unitData,
+      hasUpdatePermission,
+    });
 });
 
 router.get(
@@ -45,73 +52,63 @@ router.get(
   isAuthenticated,
   isAdminOrUnit('/data-unit'),
   async (req, res, next) => {
-    const unit = await User.findOne({ username: req.params.unit }).lean();
+    const unit = await User.findOne({
+      username: req.params.unit,
+      accountType: 'UNIT',
+    }).lean();
+    if (!unit) {
+      res.redirect('/data-unit');
+    }
     res.render('data-unit/input', {
       layout: 'dashboard',
       title: `Data Unit ${unit.name}`,
+      error: req.flash('error'),
       unit,
     });
   }
 );
 
-router.get('/data-nphr', function(req, res, next) {
-  res.render('data-nphr', { title: 'Data NPHR' });
-});
-
-router.get('/input-data-nphr', function(req, res, next) {
-  res.render('input-data-nphr', { title: 'Data NPHR' });
-});
-
-router.get('/analisa-nphr', function(req, res, next) {
-  res.render('analisa-nphr', { title: 'Analisa NPHR' });
-});
-
-router.get('/input-data-analisa-nphr', function(req, res, next) {
-  res.render('input-data-analisa-nphr', { title: 'Data Analisa NPHR' });
-});
-
-router.get('/pemakaian-sendiri', function(req, res, next) {
-  res.render('pemakaian-sendiri', { title: 'Pemakaian Sendiri' });
-});
-
-router.get('/input-pemakaian-sendiri', function(req, res, next) {
-  res.render('input-pemakaian-sendiri', { title: 'Pemakaian Sendiri' });
-});
-
-router.get('/maturity-level', function(req, res, next) {
-  res.render('maturity-level', { title: 'Maturity Level' });
-});
-
-router.get('/maturity-level-x', function(req, res, next) {
-  res.render('maturity-level-x', { title: 'Maturity Level' });
-});
-
-router.get('/input-maturity-level', function(req, res, next) {
-  res.render('input-maturity-level', { title: 'Maturity Level' });
-});
-
-router.get('/input-maturity-level-target', function(req, res, next) {
-  res.render('input-maturity-level-target', { title: 'Maturity Level' });
-});
-
-router.get('/laporan', function(req, res, next) {
-  res.render('laporan', { title: 'Laporan' });
-});
-
-router.get('/download', function(req, res, next) {
-  res.render('download', { title: 'Download' });
-});
-
-router.get('/input-download', function(req, res, next) {
-  res.render('input-download', { title: 'Download' });
-});
-
-router.get('/404', function(req, res, next) {
-  res.render('404', { title: 'Error' });
-});
-
-router.get('/500', function(req, res, next) {
-  res.render('500', { title: 'Error' });
-});
+router.post(
+  '/:unit/create',
+  isAuthenticated,
+  isAdminOrUnit('/data-unit'),
+  async (req, res, next) => {
+    const {
+      ulpl,
+      tahunPembuatan,
+      statusUnit,
+      dayaPasok,
+      dayaNetto,
+      manufaktur,
+      tipeMesin,
+    } = req.body;
+    // TODO: request validation
+    const unit = await User.findOne({
+      username: req.params.unit,
+      accountType: 'UNIT',
+    });
+    if (!unit) {
+      res.redirect('/data-unit');
+    }
+    try {
+      const unitData = new UnitData({
+        upk: req.params.unit,
+        ulpl,
+        tahunPembuatan,
+        statusUnit,
+        dayaPasok,
+        dayaNetto,
+        manufaktur,
+        tipeMesin,
+      });
+      await unitData.save();
+      req.flash('success', 'Data Unit berhasil ditambahkan');
+      return res.redirect(`/data-unit/${req.params.unit}`);
+    } catch (e) {
+      req.flash('error', e.message);
+      return res.redirect(`/data-unit/${req.params.unit}/create`);
+    }
+  }
+);
 
 module.exports = router;

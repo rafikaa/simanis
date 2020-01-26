@@ -9,6 +9,9 @@
           {{/if}}
           <h3 class="c-grey-900 mL-10 mB-20">Data <span>{{unit.name}}</span></h3>
         </div>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">{{success}}</div>
+        {{/if}}
         <div class="bgc-white bd bdrs-3 p-20">
           <table id="table-data-unit" class="table table-bordered mt-5" cellspacing="0" width="100%">
               <thead>
@@ -23,24 +26,17 @@
                 </tr>
               </thead>
               <tbody>
+                {{#each unitData}}
                 <tr>
-                  <td>PLTD Gunung Sitoli Unit 1</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
+                  <td>{{this.ulpl}}</td>
+                  <td>{{this.tahunPembuatan}}</td>
+                  <td>{{this.statusUnit}}</td>
+                  <td>{{this.dayaPasok}}</td>
+                  <td>{{this.dayaNetto}}</td>
+                  <td>{{this.manufaktur}}</td>
+                  <td>{{this.tipeMesin}}</td>
                 </tr>
-                <tr>
-                  <td>PLTD Gunung Sitoli Unit 2</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
+                {{/each}}
               </tbody>
             </table>
         </div>

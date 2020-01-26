@@ -43,7 +43,7 @@ userSchema.methods.generateJWT = function() {
       username: this.username,
       accountType: this.accountType,
     },
-    'secret'
+    process.env.AUTH_SECRET || 'secret'
   );
 };
 
