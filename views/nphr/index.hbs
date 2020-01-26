@@ -18,7 +18,7 @@
               <label for="bulanTahun" class="col-sm-2 col-form-label">Bulan dan tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                  <input name="dataPerUpk.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly />
+                  <input name="dataPerUpk.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly value="{{query.dataPerUpk.bulanTahun}}"/>
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -73,7 +73,7 @@
               <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly />
+                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly  value="{{query.dataTahunan.tahun}}"/>
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -203,20 +203,22 @@
       searching: false
     });
     $(function () {
+      const bulan = '{{query.dataPerUpk.bulanTahun}}'.split('-')[0];
+      const tahun = '{{query.dataPerUpk.bulanTahun}}'.split('-')[1];
       $("#datepickerBulanTahun").datepicker({
         autoclose: true,
         todayHighlight: true,
         format: "mm-yyyy",
         startView: "months",
         minViewMode: "months"
-      }).datepicker('update', new Date());
+      }).datepicker('update', new Date(`${tahun}-${bulan}`));
       $("#datepickerTahun").datepicker({
         autoclose: true,
         todayHighlight: true,
         format: "yyyy",
         startView: "years",
         minViewMode: "years"
-      }).datepicker('update', new Date());
+      }).datepicker('update', new Date('{{query.dataTahunan.tahun}}'));
     });
     var nphrChartBox = document.getElementById('nphr-chart-home');
     var nphrChart = new Chart(nphrChartBox, {
