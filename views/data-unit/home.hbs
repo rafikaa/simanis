@@ -1,183 +1,50 @@
-<div id="loader">
-  <div class="spinner"></div>
-</div>
-<script>
-  window.addEventListener('load', function load() {
-    const loader = document.getElementById('loader');
-    setTimeout(function() {
-      loader.classList.add('fadeOut');
-    }, 300);
-  });
-</script>
-<div>
-  <!-- #Left Sidebar ==================== -->
-  <div class="sidebar">
-    <div class="sidebar-inner">
-      <!-- ### $Sidebar Header ### -->
-      <div class="sidebar-logo">
-        <div class="peers ai-c fxw-nw">
-          <div class="peer peer-greed">
-            <a class="sidebar-link td-n" href="/">
-              <div class="peers ai-c fxw-nw">
-                <div class="peer">
-                  <div class="logo">
-                    <img src="/images/logo.png" alt="" style="height: 60px;">
-                  </div>
-                </div>
-                <div class="peer peer-greed">
-                  <h5 class="mB-0 logo-text">SIMANIS</h5>
-                <h6 class="small mB-0 logo-text">Sistem Manajemen Efisiensi</h6>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="peer">
-            <div class="mobile-toggle sidebar-toggle">
-              <a href="" class="td-n">
-                <i class="ti-arrow-circle-left"></i>
-              </a>
-            </div>
-          </div>
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <h3 class="c-grey-900 mL-10 mB-20">Data Unit Pelaksana Pembangkit</h3>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-4"></div>
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/belawan.png" alt="" style="height: 90px;">
+          <h4>UPK Belawan</h4>
+          <a class="btn btn-primary" href="/data-unit/belawan">Lihat</a>
         </div>
       </div>
-
-      <!-- ### $Sidebar Menu ### -->
-      <ul class="sidebar-menu scrollable pos-r">
-        <li class="nav-item mT-20">
-          <a class="sidebar-link" href="/">
-            <span class="icon-holder">
-              <i class="ti-home c-blue-500"></i>
-            </span>
-            <span class="title">Beranda</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/data-unit">
-            <span class="icon-holder">
-              <i class="c-teal-500 ti-view-list-alt"></i>
-            </span>
-            <span class="title">Data Unit</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/data-nphr">
-            <span class="icon-holder">
-              <i class="c-orange-500 ti-layout-list-thumb"></i> 
-            </span>
-            <span class="title">Data NPHR</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/analisa-nphr">
-            <span class="icon-holder">
-              <i class="c-indigo-500 ti-bar-chart"></i>
-            </span>
-            <span class="title">Analisis NPHR</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/pemakaian-sendiri">
-            <span class="icon-holder">
-              <i class="c-light-blue-500 ti-pulse"></i>
-            </span>
-            <span class="title">Pemakaian Sendiri</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/maturity-level">
-            <span class="icon-holder">
-              <i class="c-purple-500 ti-stats-up"></i>
-            </span>
-            <span class="title">Maturity Level</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/laporan">
-            <span class="icon-holder">
-              <i class="c-red-500 ti-files"></i> 
-            </span>
-            <span class="title">Laporan</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="sidebar-link" href="/download">
-            <span class="icon-holder">
-              {{!-- <i class="fas fa-download text-primary-faded"></i>  --}}
-              <span class="ti-download"></span>
-            </span>
-            <span class="title">Download</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- #Main ============================ -->
-  <div class="page-container">
-    <!-- ### Topbar ### -->
-    <div class="header navbar">
-      <div class="header-container">
-        <ul class="nav-right">
-          <li class="notifications mr-3">
-            <a href="/auth/signout">
-              Logout
-            </a>
-          </li>
-        </ul>
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/pangkalan-susu.png" alt="" style="height: 90px;">
+          <h4>UPK Pangkalan Susu</h4>
+          <a class="btn btn-primary" href="/data-unit/pangkalan_susu">Lihat</a>
+        </div>   
       </div>
-    </div>
-
-    <!-- ### Screen Content ### -->
-    <main class='main-content bgc-grey-100'>
-      <div id='mainContent'>
-        <h3 class="c-grey-900 mL-10 mB-20">Data Unit Pelaksana Pembangkit</h3>
-        <div class="row gap-20 masonry pos-r">
-          <div class="masonry-sizer col-md-4"></div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/belawan.png" alt="" style="height: 90px;">
-              <h4>UPK Belawan</h4>
-              <a class="btn btn-primary" href="/data-unit/belawan">Lihat</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/pangkalan-susu.png" alt="" style="height: 90px;">
-              <h4>UPK Pangkalan Susu</h4>
-              <a class="btn btn-primary" href="/data-unit/pangkalan_susu">Lihat</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/nagan-raya.png" alt="" style="height: 90px;">
-              <h4>UPK Nagan Raya</h4>
-              <a class="btn btn-primary" href="/data-unit/nagan_raya">Lihat</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/labuhan-angin.png" alt="" style="height: 90px;">
-              <h4>UPK Labuhan Angin</h4>
-              <a class="btn btn-primary" href="/data-unit/labuhan_angin">Lihat</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/pekanbaru.png" alt="" style="height: 90px;">
-              <h4>UPDK Pekanbaru</h4>
-              <a class="btn btn-primary" href="/data-unit/pekanbaru">Lihat</a>
-            </div>   
-          </div>
-          <div class="masonry-item col-md-4">
-            <div class="bgc-white bd bdrs-3 p-30 text-center">
-              <img class="mB-20" src="images/pandan.png" alt="" style="height: 90px;">
-              <h4>UPDK Pandan</h4>
-              <a class="btn btn-primary" href="/data-unit/pandan">Lihat</a>
-            </div>   
-          </div>
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/nagan-raya.png" alt="" style="height: 90px;">
+          <h4>UPK Nagan Raya</h4>
+          <a class="btn btn-primary" href="/data-unit/nagan_raya">Lihat</a>
         </div>
       </div>
-    </main>
-
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/labuhan-angin.png" alt="" style="height: 90px;">
+          <h4>UPK Labuhan Angin</h4>
+          <a class="btn btn-primary" href="/data-unit/labuhan_angin">Lihat</a>
+        </div>
+      </div>
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/pekanbaru.png" alt="" style="height: 90px;">
+          <h4>UPDK Pekanbaru</h4>
+          <a class="btn btn-primary" href="/data-unit/pekanbaru">Lihat</a>
+        </div>
+      </div>
+      <div class="masonry-item col-md-4">
+        <div class="bgc-white bd bdrs-3 p-30 text-center">
+          <img class="mB-20" src="images/pandan.png" alt="" style="height: 90px;">
+          <h4>UPDK Pandan</h4>
+          <a class="btn btn-primary" href="/data-unit/pandan">Lihat</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</main>
