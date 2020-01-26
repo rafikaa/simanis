@@ -4,24 +4,15 @@ const isAuthenticated = require('../middlewares/isAuthenticated');
 
 const router = express.Router();
 
+router.get(/.*e23a7dcaefbde4e74e263247aa42ecd7.ttf$/, (req, res, next) => {
+  return res.send('');
+});
+router.get(/.*a1ecc3b826d01251edddf29c3e4e1e97.woff$/, (req, res, next) => {
+  return res.send('');
+});
+
 router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { title: 'SIMANIS' });
-});
-
-router.get('/signin', function(req, res, next) {
-  res.render('signin', { title: 'Sign In' });
-});
-
-router.get('/data-unit', function(req, res, next) {
-  res.render('data-unit', { title: 'Data Unit' });
-});
-
-router.get('/data-unit-belawan', function(req, res, next) {
-  res.render('data-unit-belawan', { title: 'Data Unit' });
-});
-
-router.get('/input-data-unit', function(req, res, next) {
-  res.render('input-data-unit', { title: 'Data Unit' });
 });
 
 router.get('/data-nphr', function(req, res, next) {

@@ -1,0 +1,54 @@
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-6"></div>
+      <div class="masonry-item col-12">
+        <div class="mb-2">
+          {{#if hasUpdatePermission}}
+          <a href="{{unit.username}}/create" class="btn btn-primary btn-lg float-sm-right">Input Data Unit</a>
+          {{/if}}
+          <h3 class="c-grey-900 mL-10 mB-20">Data <span>{{unit.name}}</span></h3>
+        </div>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">{{success}}</div>
+        {{/if}}
+        <div class="bgc-white bd bdrs-3 p-20">
+          <table id="table-data-unit" class="table table-bordered mt-5" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Unit Layanan Pusat Listrik (ULPL)</th>
+                  <th>Tahun Pembuatan</th>
+                  <th>Status Unit</th>
+                  <th>Daya Mampu Pasok</th>
+                  <th>Daya Mampu Netto</th>
+                  <th>Manufaktur</th>
+                  <th>Tipe Mesin</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each unitData}}
+                <tr>
+                  <td>{{this.ulpl}}</td>
+                  <td>{{this.tahunPembuatan}}</td>
+                  <td>{{this.statusUnit}}</td>
+                  <td>{{this.dayaPasok}}</td>
+                  <td>{{this.dayaNetto}}</td>
+                  <td>{{this.manufaktur}}</td>
+                  <td>{{this.tipeMesin}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</main>
+<script>
+  $(document).ready(function () {
+    $('#table-data-unit').DataTable({
+      searching: false
+    });
+  });
+</script>
