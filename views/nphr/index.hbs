@@ -28,12 +28,12 @@
               <div class="col-sm-2">
                 <select name="dataPerUpk.upk" id="upk" class="form-control">
                   <option selected hidden disabled>Pilih UPK...</option>
-                  <option value="belawan">UPK Belawan</option>
-                  <option value="pangkalan_susu">UPK Pangkalan Susu</option>
-                  <option value="nagan_raya">UPK Nagan Raya</option>
-                  <option value="labuhan_angin">UPK Labuhan Angin</option>
-                  <option value="pekanbaru">UPDK Pekanbaru</option>
-                  <option value="pandan">UPDK Pandan</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <div class="form-group col-sm-2">
@@ -73,7 +73,7 @@
               <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahun" class="form-control" type="text" readonly />
+                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -81,14 +81,14 @@
               </div>
               <label for="upk" class="col-sm-1 col-form-label">UPK</label>
               <div class="col-sm-2">
-                <select id="upk" class="form-control">
-                  <option selected="selected">Pilih UPK...</option>
-                  <option value="upkBelawan">UPK Belawan</option>
-                  <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
-                  <option value="upkNaganRaya">UPK Nagan Raya</option>
-                  <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
-                  <option value="updkPekanbaru">UPK Pekan Baru</option>
-                  <option value="updkPandan">UPK Pandan</option>
+                <select name="dataTahunan.upk" id="upk" class="form-control">
+                  <option selected hidden disabled>Pilih UPK...</option>
+                  <option {{#ifequal query.dataTahunan.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
+                  <option {{#ifequal query.dataTahunan.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
+                  <option {{#ifequal query.dataTahunan.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <div class="form-group col-sm-2">
@@ -114,36 +114,23 @@
                 </tr>
               </thead>
               <tbody>
+                {{#each dataTahunan}}
                 <tr>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
+                  <td>{{this.ulpl}}</td>
+                  <td>{{this.jan}}</td>
+                  <td>{{this.feb}}</td>
+                  <td>{{this.mar}}</td>
+                  <td>{{this.apr}}</td>
+                  <td>{{this.may}}</td>
+                  <td>{{this.jun}}</td>
+                  <td>{{this.jul}}</td>
+                  <td>{{this.aug}}</td>
+                  <td>{{this.sep}}</td>
+                  <td>{{this.oct}}</td>
+                  <td>{{this.nov}}</td>
+                  <td>{{this.des}}</td>
                 </tr>
-                <tr>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
+                {{/each}}
               </tbody>
             </table>
           </div>

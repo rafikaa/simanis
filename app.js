@@ -19,7 +19,14 @@ const app = express();
 
 // view engine setup
 const hbs = exphbs.create({
-  helpers: {},
+  helpers: {
+    ifequal: function (var1, var2, block) {
+      if (var1 === var2) {
+        return block.fn(this);
+      }
+      return block.inverse(this);
+    }
+  },
   extname: '.hbs',
 });
 
