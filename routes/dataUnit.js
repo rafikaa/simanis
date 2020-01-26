@@ -9,7 +9,7 @@ const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 const router = express.Router();
 
 router.get('/', isAuthenticated, (req, res, next) => {
-  res.render('unit/home', {
+  res.render('unit/index', {
     layout: 'dashboard',
     title: 'Data Unit',
   });
