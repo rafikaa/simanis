@@ -40,6 +40,7 @@
                 <button class="btn btn-primary">Tampilkan data</button>
               </div>
             </div>
+            {{#if dataPerUpk}}
             <table id="table-data-nphr" class="table mt-5" cellspacing="0" width="100%">
               <thead>
                 <tr>
@@ -66,6 +67,7 @@
                 {{/each}}
               </tbody>
             </table>
+            {{/if}}
           </div>
           <div class="bgc-white bd bdrs-3 p-20 mT-20">
             <h4 class="mB-20">Data NPHR Tahunan</h4>
@@ -95,6 +97,7 @@
                 <button class="btn btn-primary">Tampilkan data</button>
               </div>
             </div>
+            {{#if dataTahunan}}
             <table id="table-data-nphr-tahunan" class="table mt-5" cellspacing="0" width="100%">
               <thead>
                 <tr>
@@ -133,6 +136,7 @@
                 {{/each}}
               </tbody>
             </table>
+            {{/if}}
           </div>
           <div class="bd bgc-white bd bdrs-3 p-20 mT-20">
             <h4 class="mB-20">Tren NPHR</h4>
@@ -152,30 +156,16 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {{#each topNphr}}
                       <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>{{{this.ulpl}}}</td>
+                        <td>{{{this.y2015}}}</td>
+                        <td>{{{this.y2016}}}</td>
+                        <td>{{{this.y2017}}}</td>
+                        <td>{{{this.y2018}}}</td>
+                        <td>{{{this.y2019}}}</td>
                       </tr>
-                      <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                      </tr>
-                      <tr class="table-light">
-                        <th scope="col">TOTAL</th>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                      </tr>
+                      {{/each}}
                     </tbody>
                   </table>
                 </div>
@@ -203,22 +193,23 @@
       searching: false
     });
     $(function () {
-      const bulan = '{{query.dataPerUpk.bulanTahun}}'.split('-')[0];
-      const tahun = '{{query.dataPerUpk.bulanTahun}}'.split('-')[1];
+      const [bln, thn] = '{{query.dataPerUpk.bulanTahun}}'.split('-');
+      const bulanTahun = bln && thn ? new Date(`${thn}-${bln}`) : new Date();
+      const tahun = '{{query.dataTahunan.tahun}}' ? new Date('{{query.dataTahunan.tahun}}') : new Date();
       $("#datepickerBulanTahun").datepicker({
         autoclose: true,
         todayHighlight: true,
         format: "mm-yyyy",
         startView: "months",
         minViewMode: "months"
-      }).datepicker('update', new Date(`${tahun}-${bulan}`));
+      }).datepicker('update', bulanTahun);
       $("#datepickerTahun").datepicker({
         autoclose: true,
         todayHighlight: true,
         format: "yyyy",
         startView: "years",
         minViewMode: "years"
-      }).datepicker('update', new Date('{{query.dataTahunan.tahun}}'));
+      }).datepicker('update', tahun);
     });
     var nphrChartBox = document.getElementById('nphr-chart-home');
     var nphrChart = new Chart(nphrChartBox, {

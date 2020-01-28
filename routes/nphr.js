@@ -16,6 +16,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
   if (req.query['dataTahunan.upk'] && req.query['dataTahunan.tahun']) {
     dataTahunan = await getYearlyNphr(req.query['dataTahunan.upk'], req.query['dataTahunan.tahun']);
   }
+  const topNphr = await getTopNphr();
 
   return res.render('nphr/index', {
     layout: 'dashboard',
@@ -33,6 +34,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     },
     dataPerUpk,
     dataTahunan,
+    topNphr,
   });
 });
 
@@ -77,6 +79,45 @@ const getYearlyNphr = async (upk, tahun) => {
 
   return yearlyNphr;
 }
+
+const getTopNphr = async () => {
+  const nphrList = await NPHR.find().lean();
+  const nphrByUlpl = {}, totalPerYear = {};
+  for (let i = 0; i < nphrList.length; i++) {
+    if (nphrByUlpl[nphrList[i].ulpl] === undefined) {
+      nphrByUlpl[nphrList[i].ulpl] = {};
+    }
+    if (nphrByUlpl[nphrList[i].ulpl][nphrList[i].tahun] === undefined) {
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].tahun] = nphrList[i].NPHR;
+    } else {
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].tahun] += nphrList[i].NPHR;
+    }
+    if (totalPerYear[nphrList[i].tahun] === undefined) {
+      totalPerYear[nphrList[i].tahun] = nphrList[i].NPHR;
+    } else {
+      totalPerYear[nphrList[i].tahun] += nphrList[i].NPHR;
+    }
+  }
+  const nphr = Object.keys(nphrByUlpl).map(ulpl => ({
+    ulpl,
+    y2015: nphrByUlpl[ulpl]['2015'],
+    y2016: nphrByUlpl[ulpl]['2016'],
+    y2017: nphrByUlpl[ulpl]['2017'],
+    y2018: nphrByUlpl[ulpl]['2018'],
+    y2019: nphrByUlpl[ulpl]['2019'],
+  }));
+
+  nphr.push({
+    ulpl: '<strong>TOTAL</strong>',
+    y2015: `<strong>${totalPerYear['2015'] || 0}</strong>`,
+    y2016: `<strong>${totalPerYear['2016'] || 0}</strong>`,
+    y2017: `<strong>${totalPerYear['2017'] || 0}</strong>`,
+    y2018: `<strong>${totalPerYear['2018'] || 0}</strong>`,
+    y2019: `<strong>${totalPerYear['2019'] || 0}</strong>`,
+  })
+
+  return nphr;
+};
 
 router.get(
   '/create',
