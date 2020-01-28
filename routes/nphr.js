@@ -16,7 +16,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
   if (req.query['dataTahunan.upk'] && req.query['dataTahunan.tahun']) {
     dataTahunan = await getYearlyNphr(req.query['dataTahunan.upk'], req.query['dataTahunan.tahun']);
   }
-  const topNphr = await getTopNphr();
+  // const topNphr = await getTopNphr();
 
   return res.render('nphr/index', {
     layout: 'dashboard',
@@ -34,7 +34,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     },
     dataPerUpk,
     dataTahunan,
-    topNphr,
+    // topNphr,
   });
 });
 
