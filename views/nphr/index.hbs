@@ -1,0 +1,258 @@
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-6"></div>
+      <div class="masonry-item col-12">
+        <div class="mb-2">
+          <a href="/nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data NPHR</a>
+          <h3 class="c-grey-900 mL-10 mB-20">Data NPHR Thermal Power Plant</h3>
+        </div>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">{{success}}</div>
+        {{/if}}
+
+        <form>
+          <div class="bgc-white bd bdrs-3 p-20">
+            <h4 class="mB-20">Data Per UPK</h4>
+            <div class="form-group row">
+              <label for="bulanTahun" class="col-sm-2 col-form-label">Bulan dan tahun</label>
+              <div class="col-sm-2">
+                <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                  <input name="dataPerUpk.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly value="{{query.dataPerUpk.bulanTahun}}"/>
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+              <label for="upk" class="col-sm-1 col-form-label">UPK</label>
+              <div class="col-sm-2">
+                <select name="dataPerUpk.upk" id="upk" class="form-control">
+                  <option selected hidden disabled>Pilih UPK...</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
+                  <option {{#ifequal query.dataPerUpk.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <button class="btn btn-primary">Tampilkan data</button>
+              </div>
+            </div>
+            {{#if dataPerUpk}}
+            <table id="table-data-nphr" class="table mt-5" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>ULPL</th>
+                  <th>Jenis BB</th>
+                  <th>Volume</th>
+                  <th>Nilai Kalor</th>
+                  <th>Total Kalori</th>
+                  <th>kWH Netto</th>
+                  <th>Tara Kalor (NPHR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each dataPerUpk}}
+                <tr>
+                  <td>{{this.ulpl}}</td>
+                  <td>{{#each this.bahanBakar}}{{this.jenis}}</br>{{/each}}</td>
+                  <td>{{#each this.bahanBakar}}{{this.volume}}</br>{{/each}}</td>
+                  <td>{{#each this.bahanBakar}}{{this.kalorJenis}}</br>{{/each}}</td>
+                  <td>{{this.totalKalori}}</td>
+                  <td>{{this.produksiNetto}}</td>
+                  <td>{{this.NPHR}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            {{/if}}
+          </div>
+          <div class="bgc-white bd bdrs-3 p-20 mT-20">
+            <h4 class="mB-20">Data NPHR Tahunan</h4>
+            <div class="form-group row">
+              <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
+              <div class="col-sm-2">
+                <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly  value="{{query.dataTahunan.tahun}}"/>
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+              <label for="upk" class="col-sm-1 col-form-label">UPK</label>
+              <div class="col-sm-2">
+                <select name="dataTahunan.upk" id="upk" class="form-control">
+                  <option selected hidden disabled>Pilih UPK...</option>
+                  <option {{#ifequal query.dataTahunan.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
+                  <option {{#ifequal query.dataTahunan.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
+                  <option {{#ifequal query.dataTahunan.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
+                  <option {{#ifequal query.dataTahunan.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <button class="btn btn-primary">Tampilkan data</button>
+              </div>
+            </div>
+            {{#if dataTahunan}}
+            <table id="table-data-nphr-tahunan" class="table mt-5" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>ULPL</th>
+                  <th>Jan</th>
+                  <th>Feb</th>
+                  <th>Mar</th>
+                  <th>April</th>
+                  <th>Mei</th>
+                  <th>Juni</th>
+                  <th>Juli</th>
+                  <th>Agt</th>
+                  <th>Sep</th>
+                  <th>Okt</th>
+                  <th>Nov</th>
+                  <th>Des</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each dataTahunan}}
+                <tr>
+                  <td>{{this.ulpl}}</td>
+                  <td>{{this.jan}}</td>
+                  <td>{{this.feb}}</td>
+                  <td>{{this.mar}}</td>
+                  <td>{{this.apr}}</td>
+                  <td>{{this.may}}</td>
+                  <td>{{this.jun}}</td>
+                  <td>{{this.jul}}</td>
+                  <td>{{this.aug}}</td>
+                  <td>{{this.sep}}</td>
+                  <td>{{this.oct}}</td>
+                  <td>{{this.nov}}</td>
+                  <td>{{this.des}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            {{/if}}
+          </div>
+          <div class="bd bgc-white bd bdrs-3 p-20 mT-20">
+            <h4 class="mB-20">Tren NPHR</h4>
+            <h5 class="c-grey-900 mB-20">Top 10 Kontributor NPHR</h5>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-7">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ULPL</th>
+                        <th scope="col">2015</th>
+                        <th scope="col">2016</th>
+                        <th scope="col">2017</th>
+                        <th scope="col">2018</th>
+                        <th scope="col">2019</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                      <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                      <tr class="table-light">
+                        <th scope="col">TOTAL</th>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-5">
+                  <div class="layer">
+                    <canvas id="nphr-chart-home" min-height="220"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>
+<script>
+  $(document).ready(function () {
+    $('#table-data-nphr').DataTable({
+      searching: false,
+      ordering: false
+    });
+    $('#table-data-nphr-tahunan').DataTable({
+      searching: false
+    });
+    $(function () {
+      const [bln, thn] = '{{query.dataPerUpk.bulanTahun}}'.split('-');
+      const bulanTahun = bln && thn ? new Date(`${thn}-${bln}`) : new Date();
+      const tahun = '{{query.dataTahunan.tahun}}' ? new Date('{{query.dataTahunan.tahun}}') : new Date();
+      $("#datepickerBulanTahun").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "mm-yyyy",
+        startView: "months",
+        minViewMode: "months"
+      }).datepicker('update', bulanTahun);
+      $("#datepickerTahun").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy",
+        startView: "years",
+        minViewMode: "years"
+      }).datepicker('update', tahun);
+    });
+    var nphrChartBox = document.getElementById('nphr-chart-home');
+    var nphrChart = new Chart(nphrChartBox, {
+      type: 'line',
+      data: {
+        labels: ['2015', '2016', '2017', '2018', '2019'],
+        datasets: [{
+          label: 'Target',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: '#673ab7',
+          pointBackgroundColor: '#512da8',
+          borderWidth: 2,
+          data: [60, 50, 70, 60, 50],
+        }, {
+          label: 'Realisasi',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: '#2196f3',
+          pointBackgroundColor: '#1976d2',
+          borderWidth: 2,
+          data: [70, 75, 85, 70, 75],
+        }],
+      },
+      options: {
+        legend: {
+          display: true,
+          position: 'bottom'
+        },
+      },
+    });
+  });
+
+</script>

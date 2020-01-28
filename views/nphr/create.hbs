@@ -1,0 +1,148 @@
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20">
+      <div class="col-md-8">
+        <div class="bgc-white bd bdrs-3 p-20">
+          <h4 class="c-grey-900 mB-30">Input Data NPHR</h4>
+          <form method="POST">
+            <div class="form-group row">
+              <label for="bulanTahun" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+              <div class="col-sm-8">
+                <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                  <input name="bulanTahun" id="bulanTahun" class="form-control" type="text" readonly />
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="upk" class="col-sm-4 col-form-label">UPK</label>
+              <div class="col-sm-8">
+                <select name="upk" class="form-control" id="upk">
+                  {{#each units}}
+                  <option value="{{this.username}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
+              <div class="col-sm-8">
+                <input name="ulpl" type="text" class="form-control" id="ulpl" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="jenisPembangkit" class="col-sm-4 col-form-label">Jenis Pembangkit</label>
+              <div class="col-sm-8">
+                <select name="jenisPembangkit" class="form-control" id="jenisPembangkitSelector">
+                  <option disabled hidden selected>Pilih jenis pembangkit...</option>
+                  <option value="PLTU">Pembangkit Listrik Tenaga Uap (PLTU)</option>
+                  <option value="PLTG">Pembangkit Listrik Tenaga Gas (PLTG)</option>
+                  <option value="PLTMG">Pembangkit Listrik Tenaga Mesin Gas (PLTMG)</option>
+                  <option value="PLTD">Pembangkit Listrik Tenaga Diesel (PLTD)</option>
+                </select>
+              </div>
+            </div>
+            <div id="batubara" class="pembangkit-form" style="display: none;">
+              <input name="jenis" type="text" class="form-control" placeholder="ton" hidden value="Batubara">
+              <div class="form-group row">
+                <label for="volumeBatubara" class="col-sm-4 col-form-label">Volume Batubara (ton)</label>
+                <div class="col-sm-8">
+                  <input name="volume" type="number" class="form-control" id="volumeBatubara" placeholder="ton">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="kalorBatubara" class="col-sm-4 col-form-label">Nilai Kalor Batubara (kcal/kg)</label>
+                <div class="col-sm-8">
+                  <input name="kalorJenis" type="number" class="form-control" id="kalorBatubara" placeholder="kcal/kg">
+                </div>
+              </div>
+            </div>
+            <div id="gas" class="pembangkit-form" style="display: none;">
+              <input name="jenis" type="text" class="form-control" placeholder="ton" hidden value="Gas">
+              <div class="form-group row">
+                <label for="volumeGas" class="col-sm-4 col-form-label">Volume Gas (MMBTU)</label>
+                <div class="col-sm-8">
+                  <input name="volume" type="number" class="form-control" id="volumeGas" placeholder="MMBTU">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="kalorGas" class="col-sm-4 col-form-label">Nilai Kalor Gas (kcal/MMBTU)</label>
+                <div class="col-sm-8">
+                  <input name="kalorJenis" type="number" class="form-control" id="kalorGas" placeholder="kcal/MMBTU">
+                </div>
+              </div>
+            </div>
+            <div id="hsd" class="pembangkit-form" style="display: none;">
+              <input name="jenis" type="text" class="form-control" placeholder="ton" hidden value="HSD">
+              <div class="form-group row">
+                <label for="volumeHSD" class="col-sm-4 col-form-label">Volume HSD (liter)</label>
+                <div class="col-sm-8">
+                  <input name="volume" type="number" class="form-control" id="volumeHSD" placeholder="liter">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="kalorHSD" class="col-sm-4 col-form-label">Nilai kalor HSD (kcal/L)</label>
+                <div class="col-sm-8">
+                  <input name="kalorJenis" type="number" class="form-control" id="kalorHSD" placeholder="kcal/L">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="produksiListrikNetto" class="col-sm-4 col-form-label">Produksi Listrik Netto
+                (kWh)</label>
+              <div class="col-sm-8">
+                <input name="produksiNetto" type="number" class="form-control" id="produksiListrikNetto" placeholder="kWh">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="targetNPHR" class="col-sm-4 col-form-label">Target NPHR</label>
+              <div class="col-sm-8">
+                <input name="targetNPHR" type="number" class="form-control" id="targetNPHR" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row mT-30 text-right">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  $(function () {
+    $('#jenisPembangkitSelector').change(function () {
+      $('.pembangkit-form').hide();
+      switch ($(this).val()) {
+        case 'PLTU':
+          $('#batubara').show();
+          $('#hsd').show();
+          break;
+        case 'PLTG':
+          $('#gas').show();
+          $('#hsd').show();
+          break;
+        case 'PLTMG':
+          $('#gas').show();
+          $('#hsd').show();
+          break;
+        case 'PLTD':
+          $('#hsd').show();
+          break;
+        default:
+          break;
+      }
+    });
+    $("#datepickerBulanTahun").datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: "mm-yyyy",
+      startView: "months",
+      minViewMode: "months"
+    }).datepicker('update', new Date());
+  });
+</script>
