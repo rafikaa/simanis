@@ -135,7 +135,7 @@
           {{!-- Data Pembangkit --}}
           <div class="masonry-item col-12">
             <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-20">Data Pembangkit</h4>
+              <h4 class="mB-20">Data Unit</h4>
               <table id="table-pembangkit-home" class="table" cellspacing="0" width="100%">
                 <thead>
                   <tr>
@@ -160,73 +160,82 @@
             </div>
           </div>
           {{!-- Top 10 NPHR Thermal Power Plant --}}
-          <div class="masonry-item col-12">
+          <div class="masonry-item col-6">
             <div class="bd bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-10">NPHR Thermal Power Plant</h4>
-              <h5 class="c-grey-900 mB-20">Top 10 Kontributor NPHR</h5>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-7">
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                          <th scope="col">ULPL</th>
-                          <th scope="col">2015</th>
-                          <th scope="col">2016</th>
-                          <th scope="col">2017</th>
-                          <th scope="col">2018</th>
-                          <th scope="col">2019</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                        <tr class="table-light">
-                          <th scope="col">TOTAL</th>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-5">
-                    <div class="layer">
-                      <canvas id="nphr-chart-home" min-height="220"></canvas>
+              <h4 class="mB-10">NPHR Thermal Power Plant</h4>
+              <h5 class="mB-20">Top 10 Kontributor NPHR</h5>
+              <form action="">
+                <div class="form-group row">
+                  <label for="tahun" class="col-sm-3 col-form-label">Pilih tahun</label>
+                  <div class="col-sm-4">
+                    <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
                     </div>
                   </div>
+                  <div class="form-group col-sm-4">
+                    <button class="btn btn-outline-primary">Tampilkan data</button>
+                  </div>
                 </div>
-              </div>
+              </form>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ULPL</th>
+                    <th scope="col">Tara Kalor (NPHR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           {{!-- Pemakaian Sendiri --}}
           <div class="masonry-item col-md-6">
             <div class="bd bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-20">Pemakaian Sendiri</h4>
+              <h4 class="mB-20">Pemakaian Sendiri</h4>
               <div class="layer">
                 <canvas id="pemakaian-chart-home" width="800" height="450"></canvas>
               </div>
@@ -235,9 +244,9 @@
           {{!-- Maturity Level --}}
           <div class="masonry-item col-md-6">
             <div class="bd bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900">Realisasi Maturity Level</h4>
-              <h5 class="c-grey-900 mB-20">Semester 2 Tahun 2019</h5>
-              <table class="table table-sm">
+              <h4>Realisasi Maturity Level</h4>
+              <h5 class="mB-20">Semester 2 Tahun 2019</h5>
+              <table class="table">
                 <thead>
                   <tr>
                     <th>UPK</th>
@@ -292,37 +301,6 @@
       searching: false
     });
   });
-  var nphrChartBox = document.getElementById('nphr-chart-home');
-  var nphrChart = new Chart(nphrChartBox, {
-    type: 'line',
-    data: {
-      labels: ['2015', '2016', '2017', '2018', '2019'],
-      datasets: [{
-        label: 'Target',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        borderColor: '#673ab7',
-        pointBackgroundColor: '#512da8',
-        borderWidth: 2,
-        data: [60, 50, 70, 60, 50],
-      }, {
-        label: 'Realisasi',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        borderColor: '#2196f3',
-        pointBackgroundColor: '#1976d2',
-        borderWidth: 2,
-        data: [70, 75, 85, 70, 75],
-      }],
-    },
-
-    options: {
-      legend: {
-        display: true,
-        position: 'bottom'
-      },
-    },
-
-  });
-
   new Chart(document.getElementById("pemakaian-chart-home"), {
     type: 'pie',
     data: {
