@@ -284,57 +284,34 @@
               </table>
             </div>
             <div class="bd bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="mB-20">Tren NPHR</h4>
-              <h5 class="c-grey-900 mB-20">Top 10 Kontributor NPHR</h5>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-7">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">ULPL</th>
-                          <th scope="col">2015</th>
-                          <th scope="col">2016</th>
-                          <th scope="col">2017</th>
-                          <th scope="col">2018</th>
-                          <th scope="col">2019</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                        <tr class="table-light">
-                          <th scope="col">TOTAL</th>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                          <td>-</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-5">
-                    <div class="layer">
-                      <canvas id="nphr-chart-home" min-height="220"></canvas>
+              <h4 class="mB-20">Visualisasi</h4>
+
+                <form action="">
+                <div class="form-group row">
+                  <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
+                  <div class="col-sm-2">
+                    <div id="datepickerTahun2" class="input-group date" data-date-format="yyyy">
+                      <input id="tahun" class="form-control" type="text" readonly />
+                      <div class="input-group-append">
+                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                      </div>
                     </div>
                   </div>
+                  <label for="ulpl" class="col-sm-1 col-form-label">ULPL</label>
+                  <div class="col-sm-2">
+                    <select id="ulpl" class="form-control">
+                      <option selected="selected">Pilih UPL...</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button class="btn btn-primary">Tampilkan data</button>
+                  </div>
                 </div>
-              </div>
+              </form>
+                <div class="layer">
+                  <canvas id="nphr-chart" height="120"></canvas>
+                </div>
+
             </div>
           </div>
 
@@ -350,7 +327,8 @@
       searching: false
     });
     $('#table-data-nphr-tahunan').DataTable({
-      searching: false
+      searching: false,
+      ordering: false
     });
     $(function () {
       $("#datepickerBulanTahun").datepicker({
@@ -367,26 +345,33 @@
         startView: "years",
         minViewMode: "years"
       }).datepicker('update', new Date());
+      $("#datepickerTahun2").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy",
+        startView: "years",
+        minViewMode: "years"
+      }).datepicker('update', new Date());
     });
-    var nphrChartBox = document.getElementById('nphr-chart-home');
+    var nphrChartBox = document.getElementById('nphr-chart');
     var nphrChart = new Chart(nphrChartBox, {
       type: 'line',
       data: {
-        labels: ['2015', '2016', '2017', '2018', '2019'],
+        labels: ['Jan', 'Feb', 'Mar', 'April',	'Mei',	'Juni',	'Juli',	'Agt',	'Sep',	'Okt',	'Nov',	'Des'],
         datasets: [{
           label: 'Target',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           borderColor: '#673ab7',
           pointBackgroundColor: '#512da8',
           borderWidth: 2,
-          data: [60, 50, 70, 60, 50],
+          data: [60, 50, 70, 60, 50, 60, 50, 70, 60, 50, 40, 30],
         }, {
           label: 'Realisasi',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           borderColor: '#2196f3',
           pointBackgroundColor: '#1976d2',
           borderWidth: 2,
-          data: [70, 75, 85, 70, 75],
+          data: [70, 75, 85, 70, 75, 70, 75, 85, 70, 75, 60, 55],
         }],
       },
       options: {
