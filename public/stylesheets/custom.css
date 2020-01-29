@@ -35,7 +35,7 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 
 /* Date Picker */
-#datepickerTahun input, #datepickerTahun2 input, #datepickerBulanTahun input {
+#datepickerTahun input, #datepickerTahunVisualisasi input, #datepickerBulanTahun input {
   background-color: #fff;
 }
 

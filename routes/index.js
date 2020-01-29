@@ -16,11 +16,11 @@ router.get('/', isAuthenticated, (req, res, next) => {
 });
 
 router.get('/analisa-nphr', function(req, res, next) {
-  res.render('analisa-nphr', { title: 'Analisa NPHR' });
+  res.render('analisa-nphr', { title: 'Analisis NPHR' });
 });
 
 router.get('/input-data-analisa-nphr', function(req, res, next) {
-  res.render('input-data-analisa-nphr', { title: 'Data Analisa NPHR' });
+  res.render('input-data-analisa-nphr', { title: 'Data Analisis NPHR' });
 });
 
 router.get('/pemakaian-sendiri', function(req, res, next) {
