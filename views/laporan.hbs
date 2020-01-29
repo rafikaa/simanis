@@ -1,234 +1,102 @@
-<div id="loader">
-  <div class="spinner"></div>
-</div>
-<script>
-  window.addEventListener('load', function load() {
-    const loader = document.getElementById('loader');
-    setTimeout(function () {
-      loader.classList.add('fadeOut');
-    }, 300);
-  });
-</script>
-<div>
-  <!-- #Left Sidebar ==================== -->
-  <div class="sidebar">
-    <div class="sidebar-inner">
-      <!-- ### $Sidebar Header ### -->
-      <div class="sidebar-logo">
-        <div class="peers ai-c fxw-nw">
-          <div class="peer peer-greed">
-            <a class="sidebar-link td-n" href="/">
-              <div class="peers ai-c fxw-nw">
-                <div class="peer">
-                  <div class="logo">
-                    <img src="/images/logo.png" alt="" style="height: 60px;">
+<!-- ### Screen Content ### -->
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-8"></div>
+      <div class="masonry-item col-md-8">
+        <div class="bgc-white bd bdrs-3 p-20">
+          <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
+          <form>
+            <div class="form-group row">
+              <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+              <div class="col-sm-8">
+                <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                  <input id="bulanTahunLaporan" class="form-control" type="text" readonly />
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
-                </div>
-                <div class="peer peer-greed">
-                  <h5 class="mB-0 logo-text">SIMANIS</h5>
-                  <h6 class="small mB-0 logo-text">Sistem Manajemen Efisiensi</h6>
                 </div>
               </div>
-            </a>
-          </div>
-          <div class="peer">
-            <div class="mobile-toggle sidebar-toggle">
-              <a href="" class="td-n">
-                <i class="ti-arrow-circle-left"></i>
-              </a>
             </div>
-          </div>
+            <div class="form-group row">
+              <label for="upk" class="col-sm-4 col-form-label">UPK</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="ulpl" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="berkasLaporan" class="col-sm-4 col-form-label">Berkas Laporan</label>
+              <div class="col-sm-8">
+                <input type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan">
+              </div>
+            </div>
+            <div class="form-group row mT-30 text-right">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="bgc-white bd bdrs-3 p-20 mT-20">
+          <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
+          <form action="">
+            <div class="form-group row">
+              <label for="upk" class="col-sm-1 col-form-label">UPK</label>
+              <div class="col-sm-3">
+                <select id="upk" class="form-control">
+                  <option selected="selected">Pilih UPK...</option>
+                  <option value="upkBelawan">UPK Belawan</option>
+                  <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
+                  <option value="upkNaganRaya">UPK Nagan Raya</option>
+                  <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
+                  <option value="updkPekanbaru">UPK Pekan Baru</option>
+                  <option value="updkPandan">UPK Pandan</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-3">
+                <button class="btn btn-primary">Tampilkan</button>
+              </div>
+            </div>
+          </form>
+          <table id="table-laporan" class="table table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Unit Pelaksana Pembangkit (UPK)</th>
+                <th>Unit Layanan Pusat Listrik (ULPL)</th>
+                <th>Periode Submit</th>
+                <th>Berkas Laporan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>UPK Belawan</td>
+                <td>ULPL 1</td>
+                <td>mm-yyyy</td>
+                <td>
+                  <a href="files/sample.pdf">Download</a>
+                </td>
+              </tr>
+              <tr>
+                <td>UPK Belawan</td>
+                <td>ULPL 2</td>
+                <td>mm-yyyy</td>
+                <td>
+                  <a href="files/sample.pdf">Download</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <!-- ### $Sidebar Menu ### -->
-      <ul class="sidebar-menu scrollable pos-r">
-        <li class="nav-item mT-20">
-          <a class="sidebar-link" href="/">
-            <span class="icon-holder">
-              <i class="ti-home c-blue-500"></i>
-            </span>
-            <span class="title">Beranda</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/unit">
-            <span class="icon-holder">
-              <i class="c-teal-500 ti-view-list-alt"></i>
-            </span>
-            <span class="title">Data Unit</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/data-nphr">
-            <span class="icon-holder">
-              <i class="c-orange-500 ti-layout-list-thumb"></i>
-            </span>
-            <span class="title">Data NPHR</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/analisa-nphr">
-            <span class="icon-holder">
-              <i class="c-indigo-500 ti-bar-chart"></i>
-            </span>
-            <span class="title">Analisis NPHR</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/pemakaian-sendiri">
-            <span class="icon-holder">
-              <i class="c-light-blue-500 ti-pulse"></i>
-            </span>
-            <span class="title">Pemakaian Sendiri</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/maturity-level">
-            <span class="icon-holder">
-              <i class="c-purple-500 ti-stats-up"></i>
-            </span>
-            <span class="title">Maturity Level</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class='sidebar-link' href="/laporan">
-            <span class="icon-holder">
-              <i class="c-red-500 ti-files"></i>
-            </span>
-            <span class="title">Laporan</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="sidebar-link" href="/download">
-            <span class="icon-holder">
-              {{!-- <i class="fas fa-download text-primary-faded"></i>  --}}
-              <span class="ti-download"></span>
-            </span>
-            <span class="title">Download</span>
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
-
-  <!-- #Main ============================ -->
-  <div class="page-container">
-    <!-- ### Topbar ### -->
-    <div class="header navbar">
-      <div class="header-container">
-        <ul class="nav-right">
-          <li class="notifications mr-3">
-            <a href="/auth/signout">
-              Logout
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ### Screen Content ### -->
-    <main class='main-content bgc-grey-100'>
-      <div id='mainContent'>
-        <div class="row gap-20 masonry pos-r">
-          <div class="masonry-sizer col-md-8"></div>
-          <div class="masonry-item col-md-8">
-            <div class="bgc-white bd bdrs-3 p-20">
-              <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
-              <form>
-                <div class="form-group row">
-                  <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
-                  <div class="col-sm-8">
-                    <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                      <input id="bulanTahunLaporan" class="form-control" type="text" readonly />
-                      <div class="input-group-append">
-                        <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="upk" class="col-sm-4 col-form-label">UPK</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="ulpl" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="berkasLaporan" class="col-sm-4 col-form-label">Berkas Laporan</label>
-                  <div class="col-sm-8">
-                    <input type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan">
-                  </div>
-                </div>
-                <div class="form-group row mT-30 text-right">
-                  <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="bgc-white bd bdrs-3 p-20 mT-20">
-              <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
-              <form action="">
-                <div class="form-group row">
-                  <label for="upk" class="col-sm-1 col-form-label">UPK</label>
-                  <div class="col-sm-3">
-                    <select id="upk" class="form-control">
-                      <option selected="selected">Pilih UPK...</option>
-                      <option value="upkBelawan">UPK Belawan</option>
-                      <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
-                      <option value="upkNaganRaya">UPK Nagan Raya</option>
-                      <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
-                      <option value="updkPekanbaru">UPK Pekan Baru</option>
-                      <option value="updkPandan">UPK Pandan</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-sm-3">
-                    <button class="btn btn-primary">Tampilkan</button>
-                  </div>
-                </div>
-              </form>
-              <table id="table-laporan" class="table table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Unit Pelaksana Pembangkit (UPK)</th>
-                    <th>Unit Layanan Pusat Listrik (ULPL)</th>
-                    <th>Periode Submit</th>
-                    <th>Berkas Laporan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 1</td>
-                    <td>mm-yyyy</td>
-                    <td>
-                      <a href="files/sample.pdf">Download</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>UPK Belawan</td>
-                    <td>ULPL 2</td>
-                    <td>mm-yyyy</td>
-                    <td>
-                      <a href="files/sample.pdf">Download</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-  </div>
-</div>
+</main>
 <script>
   $(document).ready(function () {
     $('#table-laporan').DataTable({
