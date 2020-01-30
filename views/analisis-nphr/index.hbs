@@ -1,0 +1,169 @@
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-6"></div>
+      <div class="masonry-item col-12">
+        <div class="mb-2">
+          <a href="/input-data-analisa-nphr" class="btn btn-primary btn-lg float-sm-right">Input Data Analisa NPHR</a>
+          <h3 class="c-grey-900 mB-20">Analisis NPHR</h3>
+        </div>
+        <div class="bgc-white bd bdrs-3 p-20">
+          <h4 class="c-grey-900 mB-20">Data Analisis NPHR</h4>
+          <form action="">
+            <div class="form-group row">
+              <label for="bulanTahun" class="col-sm-1 col-form-label">Periode</label>
+              <div class="col-sm-2">
+                <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                  <input id="bulanTahun" class="form-control" type="text" readonly />
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+              <label for="upk" class="col-sm-1 col-form-label">UPK</label>
+              <div class="col-sm-2" id="upk">
+                <select id="inputState" class="form-control">
+                  <option selected="selected">Pilih UPK...</option>
+                  <option value="upkBelawan">UPK Belawan</option>
+                  <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
+                  <option value="upkNaganRaya">UPK Nagan Raya</option>
+                  <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
+                  <option value="updkPekanbaru">UPK Pekan Baru</option>
+                  <option value="updkPandan">UPK Pandan</option>
+                </select>
+              </div>
+              <label for="ulpl" class="col-sm-1 col-form-label">ULPL</label>
+              <div class="col-sm-2" id="ulpl">
+                <select id="inputState" class="form-control">
+                  <option selected="selected">Pilih ULPL...</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <button class="btn btn-primary">Tampilkan data</button>
+              </div>
+            </div>
+          </form>
+          <table id="table-data-analisa-nphr" class="table table-bordered mt-5" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Baseline</th>
+                <th>Actual</th>
+                <th>Heat Rate Factor</th>
+                <th>Deviasi</th>
+                <th>Deviasi Heat Rate</th>
+                <th>Losses (%HR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="masonry-item col-md-8">
+        <div class="bgc-white p-20 bd">
+          <h4 class="c-grey-900">Heat Loss Waterfall</h4>
+          <div class="mT-30">
+            <canvas id="waterfall-chart" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item col-md-8">
+        <div class="bgc-white p-20 bd">
+          <h4 class="c-grey-900">Pareto Heat Rate</h4>
+          <div class="mT-30">
+            <canvas id="pareto-chart" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  $(document).ready(function () {
+    $('#table-data-analisa-nphr').DataTable({
+      searching: false
+    });
+  });
+  $(function () {
+    $("#datepickerBulanTahun").datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: "mm-yyyy",
+      startView: "months",
+      minViewMode: "months"
+    }).datepicker('update', new Date());
+  });
+
+  const waterfallChartBox = document.getElementById('waterfall-chart');
+  if (waterfallChartBox) {
+    const waterfallCtx = waterfallChartBox.getContext('2d');
+    new Chart(waterfallCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Actual', 'Param 1', 'Param 2', 'Param 3', 'Param 4', 'Param 5', 'Reference'],
+        datasets: [{
+          label: 'Deviasi Heat Rate (kCal/kWh)',
+          backgroundColor: '#2196f3',
+          borderColor: '#1976d2',
+          borderWidth: 1,
+          data: [3200, 24, 30, 40, 50, 100, 3002],
+        }],
+      },
+
+      options: {
+        responsive: true,
+        legend: {
+          position: 'bottom',
+        },
+      },
+    });
+  }
+
+  const paretoChartBox = document.getElementById('pareto-chart');
+  if (paretoChartBox) {
+    const paretoCtx = paretoChartBox.getContext('2d');
+    new Chart(paretoCtx, {
+      type: 'bar',
+      data: {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+          label: 'HR Losses',
+          backgroundColor: '#673ab7',
+          borderColor: '#512da8',
+          borderWidth: 1,
+          data: [10, 20, 30, 40, 50],
+        }, {
+          label: 'HR Cummulative',
+          backgroundColor: '#2196f3',
+          borderColor: '#1976d2',
+          borderWidth: 1,
+          data: [10, 20, 30, 40, 50],
+        }],
+      },
+
+      options: {
+        responsive: true,
+        legend: {
+          position: 'bottom',
+        },
+      },
+    });
+  }
+</script>

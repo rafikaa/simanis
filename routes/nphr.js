@@ -9,18 +9,28 @@ const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 const router = express.Router();
 
 router.get('/', isAuthenticated, async (req, res, next) => {
-  let dataPerUpk = [], dataTahunan = [], ulplChart = { target: '[]', realisasi: '[]'};
+  let dataPerUpk = [],
+    dataTahunan = [],
+    ulplChart = { target: '[]', realisasi: '[]' };
   if (req.query['dataPerUpk.upk'] && req.query['dataPerUpk.bulanTahun']) {
-    dataPerUpk = await getNphrForUpk(req.query['dataPerUpk.upk'], req.query['dataPerUpk.bulanTahun']);
+    dataPerUpk = await getNphrForUpk(
+      req.query['dataPerUpk.upk'],
+      req.query['dataPerUpk.bulanTahun']
+    );
   }
   if (req.query['dataTahunan.upk'] && req.query['dataTahunan.tahun']) {
-    dataTahunan = await getYearlyNphr(req.query['dataTahunan.upk'], req.query['dataTahunan.tahun']);
+    dataTahunan = await getYearlyNphr(
+      req.query['dataTahunan.upk'],
+      req.query['dataTahunan.tahun']
+    );
   }
   if (req.query['visualisasi.ulpl'] && req.query['visualisasi.tahun']) {
-    ulplChart = await getUlplChart(req.query['visualisasi.ulpl'], req.query['visualisasi.tahun']);
+    ulplChart = await getUlplChart(
+      req.query['visualisasi.ulpl'],
+      req.query['visualisasi.tahun']
+    );
   }
   const ulplList = await getUlplList();
-  console.log(ulplList)
 
   return res.render('nphr/index', {
     layout: 'dashboard',
@@ -54,7 +64,7 @@ const getNphrForUpk = async (upk, bulanTahun) => {
   } catch {
     return [];
   }
-}
+};
 
 const getYearlyNphr = async (upk, tahun) => {
   const nphrList = await NPHR.find({ upk, tahun }).lean();
@@ -64,26 +74,51 @@ const getYearlyNphr = async (upk, tahun) => {
       nphrByUlpl[nphrList[i].ulpl] = {};
     }
     if (nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan] === undefined) {
-      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan] = nphrList[i].NPHR;
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan] = {};
+    }
+    if (
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan].totalKalori === undefined
+    ) {
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan].totalKalori =
+        nphrList[i].totalKalori;
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan].produksiNetto =
+        nphrList[i].produksiNetto;
     } else {
-      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan] += nphrList[i].NPHR;
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan].totalKalori +=
+        nphrList[i].totalKalori;
+      nphrByUlpl[nphrList[i].ulpl][nphrList[i].bulan].produksiNetto +=
+        nphrList[i].produksiNetto;
     }
   }
 
+  const calculateNphr = (ulpl, bulan) => {
+    if (
+      !nphrByUlpl[ulpl][bulan] ||
+      !nphrByUlpl[ulpl][bulan].totalKalori ||
+      !nphrByUlpl[ulpl][bulan].produksiNetto
+    ) {
+      return 0;
+    }
+    return (
+      nphrByUlpl[ulpl][bulan].totalKalori /
+      nphrByUlpl[ulpl][bulan].produksiNetto
+    ).toFixed(2);
+  };
+
   const yearlyNphr = Object.keys(nphrByUlpl).map(ulpl => ({
     ulpl,
-    jan: nphrByUlpl[ulpl]['1'],
-    feb: nphrByUlpl[ulpl]['2'],
-    mar: nphrByUlpl[ulpl]['3'],
-    apr: nphrByUlpl[ulpl]['4'],
-    may: nphrByUlpl[ulpl]['5'],
-    jun: nphrByUlpl[ulpl]['6'],
-    jul: nphrByUlpl[ulpl]['7'],
-    aug: nphrByUlpl[ulpl]['8'],
-    sep: nphrByUlpl[ulpl]['9'],
-    oct: nphrByUlpl[ulpl]['10'],
-    nov: nphrByUlpl[ulpl]['11'],
-    des: nphrByUlpl[ulpl]['12'],
+    jan: calculateNphr(ulpl, ['1']),
+    feb: calculateNphr(ulpl, ['2']),
+    mar: calculateNphr(ulpl, ['3']),
+    apr: calculateNphr(ulpl, ['4']),
+    may: calculateNphr(ulpl, ['5']),
+    jun: calculateNphr(ulpl, ['6']),
+    jul: calculateNphr(ulpl, ['7']),
+    aug: calculateNphr(ulpl, ['8']),
+    sep: calculateNphr(ulpl, ['9']),
+    oct: calculateNphr(ulpl, ['10']),
+    nov: calculateNphr(ulpl, ['11']),
+    des: calculateNphr(ulpl, ['12']),
   }));
 
   return yearlyNphr;
@@ -95,7 +130,8 @@ const getUlplList = async () => {
 
 const getUlplChart = async (ulpl, tahun) => {
   const nphrList = await NPHR.find({ ulpl, tahun });
-  let target = [], realisasi = [];
+  let target = [],
+    realisasi = [];
   for (let i = 0; i < nphrList.length; i++) {
     const index = Number(nphrList[i].bulan) - 1;
     if (target[index] === undefined) {
@@ -109,7 +145,7 @@ const getUlplChart = async (ulpl, tahun) => {
       realisasi[index] += nphrList[i].NPHR;
     }
   }
-  console.log(target,realisasi)
+
   target = JSON.stringify(target.map(t => t || 0));
   realisasi = JSON.stringify(realisasi.map(r => r || 0));
 
@@ -181,14 +217,14 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     totalKalori,
     produksiNetto,
     targetNPHR,
-    NPHR: Math.round(totalKalori / Number(produksiNetto)),
+    NPHR: Math.round(totalKalori, number(produksiNetto)),
   });
 
   await nphr.save();
 
   req.flash('success', 'Data NPHR berhasil ditambahkan');
 
-  const queryDataPerUpk = `dataPerUpk.bulanTahun=${bulanTahun}&dataPerUpk.upk=${upk}`
+  const queryDataPerUpk = `dataPerUpk.bulanTahun=${bulanTahun}&dataPerUpk.upk=${upk}`;
   return res.redirect(`/nphr?${queryDataPerUpk}`);
 });
 
