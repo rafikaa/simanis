@@ -15,17 +15,6 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { layout: 'dashboard', title: 'SIMANIS' });
 });
 
-router.get('/analisa-nphr', function(req, res, next) {
-  res.render('analisa-nphr', { layout: 'dashboard', title: 'Analisis NPHR' });
-});
-
-router.get('/input-data-analisa-nphr', function(req, res, next) {
-  res.render('input-data-analisa-nphr', {
-    layout: 'dashboard',
-    title: 'Data Analisis NPHR',
-  });
-});
-
 router.get('/pemakaian-sendiri', function(req, res, next) {
   res.render('pemakaian-sendiri', {
     layout: 'dashboard',
