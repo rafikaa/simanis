@@ -63,14 +63,45 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     kalorJenis = Number(dataPembangkit.kalorJenis);
     rerataProduksiHarian = Number(dataPembangkit.rerataProduksiHarian);
 
+    let nettPlantHeatRate = {
+      baseline: 0,
+      actual: 0,
+    };
+
     for (let i = 0; i < dataPembangkit.parameters.name.length; i++) {
-      parameters.push({
-        name: dataPembangkit.parameters.name[i],
-        baseline: Number(dataPembangkit.parameters.baseline[i]),
-        actual: Number(dataPembangkit.parameters.actual[i]),
-        deviasiHeatRate: 0, // TODO
-        costBenefit: 0, // TODO
-      });
+      const name = dataPembangkit.parameters.name[i];
+      const baseline = Number(dataPembangkit.parameters.baseline[i]);
+      const actual = Number(dataPembangkit.parameters.actual[i]);
+      if (name === 'nettPlantHeatRate') {
+        const deviasiHeatRate = actual - baseline;
+        const costBenefit = (deviasiHeatRate * harga * kalorJenis) / 1000000;
+        nettPlantHeatRate = {
+          baseline,
+          actual,
+          deviasiHeatRate,
+        };
+        parameters.push({
+          name,
+          baseline,
+          actual,
+          deviasiHeatRate,
+          costBenefit,
+        });
+      } else {
+        parameters.push({
+          name,
+          baseline,
+          actual,
+          deviasiHeatRate: calcDeviasiHeatRate(
+            jenisPembangkit,
+            nettPlantHeatRate,
+            name,
+            baseline,
+            actual
+          ),
+          costBenefit: 0, // TODO
+        });
+      }
     }
   } else {
     return res.redirect('/analisis-nphr');
@@ -95,6 +126,86 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   return res.redirect(`/analisis-nphr?${queryAnalysisNPHR}`);
 });
+
+const calcDeviasiHeatRate = (
+  jenisPembangkit,
+  nettPlantHeatRate,
+  paramName,
+  baseline,
+  actual
+) => {
+  if (jenisPembangkit === 'pltg') {
+    const deviasiByHeatRateFactor = calcDeviasiByHeatRateFactorPltg(
+      paramName,
+      baseline,
+      actual
+    );
+    return (deviasiByHeatRateFactor * nettPlantHeatRate.deviasiHeatRate) / 100;
+  } else if (jenisPembangkit === 'pltu') {
+    const deviasiByHeatRateFactor = calcDeviasiByHeatRateFactorPltu(
+      paramName,
+      baseline,
+      actual
+    );
+    const nettPlantHeatRateDeviasiPercent =
+      ((nettPlantHeatRate.actual - nettPlantHeatRate.baseline) /
+        nettPlantHeatRate.baseline) *
+      100;
+    return (
+      (deviasiByHeatRateFactor * nettPlantHeatRate.deviasiHeatRate) /
+      nettPlantHeatRateDeviasiPercent
+    );
+  } else {
+    return 0;
+  }
+};
+
+const calcDeviasiByHeatRateFactorPltg = (paramName, baseline, actual) => {
+  const deviasiPercent = ((actual - baseline) / baseline) * 100;
+  switch (paramName) {
+    case 'gtgPlantEfficiency':
+      return -2.118 * deviasiPercent;
+    case 'compressorEfficiency':
+      return -1.6 * deviasiPercent;
+    case 'airInletTemperature':
+      return 0.033 * deviasiPercent;
+    case 'airInletDpFilter':
+      return 0.0011 * deviasiPercent;
+    case 'exhaustTemperature':
+      return (
+        0.0144 * Math.pow(deviasiPercent, 2) - 0.2249 * deviasiPercent - 5.1361
+      );
+    case 'compressorDischPressure':
+      return (
+        0.0076 * Math.pow(deviasiPercent, 3) +
+        0.0448 * Math.pow(deviasiPercent, 2) -
+        1.4125 * deviasiPercent -
+        1.9247
+      );
+    case 'compressorDischTemperature':
+      return (
+        -0.1267 * Math.pow(deviasiPercent, 3) -
+        1.0638 * Math.pow(deviasiPercent, 2) -
+        3.6701 * deviasiPercent -
+        6.1338
+      );
+    default:
+      return 0;
+  }
+};
+
+const calcDeviasiByHeatRateFactorPltu = (paramName, baseline, actual) => {
+  const deviasi = actual - baseline;
+  switch (paramName) {
+    case 'flueGasTempOutAH':
+      return (deviasi * 0.35) / 5.55;
+    case 'gasOutletAH':
+      return (deviasi * 0.29) / 1.43;
+    // TODO compelte this
+    default:
+      return 0;
+  }
+};
 
 const isAdminOrRelatedUnit = (user, unit) => {
   if (
