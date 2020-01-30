@@ -74,7 +74,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       const actual = Number(dataPembangkit.parameters.actual[i]);
       if (name === 'nettPlantHeatRate') {
         const deviasiHeatRate = actual - baseline;
-        const costBenefit = (deviasiHeatRate * harga * kalorJenis) / 1000000;
+        const costBenefit = calcCostBenefit(harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian);
         nettPlantHeatRate = {
           baseline,
           actual,
@@ -88,18 +88,20 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
           costBenefit,
         });
       } else {
+        const deviasiHeatRate = calcDeviasiHeatRate(
+          jenisPembangkit,
+          nettPlantHeatRate,
+          name,
+          baseline,
+          actual
+        );
+        const costBenefit = calcCostBenefit(harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian);
         parameters.push({
           name,
           baseline,
           actual,
-          deviasiHeatRate: calcDeviasiHeatRate(
-            jenisPembangkit,
-            nettPlantHeatRate,
-            name,
-            baseline,
-            actual
-          ),
-          costBenefit: 0, // TODO
+          deviasiHeatRate,
+          costBenefit,
         });
       }
     }
@@ -126,6 +128,11 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   return res.redirect(`/analisis-nphr?${queryAnalysisNPHR}`);
 });
+
+const calcCostBenefit = (harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian) => {
+  const rupiahPerCal = harga / kalorJenis;
+  return (deviasiHeatRate * rupiahPerCal * rerataProduksiHarian) / 1000000;
+}
 
 const calcDeviasiHeatRate = (
   jenisPembangkit,
@@ -201,7 +208,58 @@ const calcDeviasiByHeatRateFactorPltu = (paramName, baseline, actual) => {
       return (deviasi * 0.35) / 5.55;
     case 'gasOutletAH':
       return (deviasi * 0.29) / 1.43;
-    // TODO compelte this
+    case 'mainSteamTemp':
+      return (deviasi * -0.15) / 5.55;
+    case 'hotReheatTemperature':
+      return (deviasi * -0.14) / 5.55;
+    case 'mainSteamPress':
+      return (deviasi * -0.04) / 0.07;
+    case 'shSprayFlow':
+      return (deviasi * 0.025) / 1;
+    case 'reheatSprayFlow':
+      return (deviasi * 0.2) / 1;
+    case 'vacuumCondenser':
+      return (deviasi * 0.082) / 0.13;
+    case 'auxPower':
+      return (deviasi * 1) / 1;
+    case 'finalFeedWaterTemp':
+      return (deviasi * -0.1) / 2.77;
+    case 'unburnedCarbon':
+      return (deviasi * 1) / 1;
+    case 'hpTurbineEfficiency':
+      return (deviasi * -0.18) / 1;
+    case 'ipTurbineEfficiency':
+      return (deviasi * -0.17) / 1;
+    case 'lpTurbineEfficiency':
+      return (deviasi * -0.45) / 1;
+    case 'bfpEfficiency':
+      return (deviasi * -0.02) / 1;
+    case 'ttdHph1':
+      return (deviasi * 0.1) / 2.77;
+    case 'ttdHph2':
+      return (deviasi * 0.3) / 2.77;
+    case 'ttdHph3':
+      return (deviasi * 0.3) / 2.77;
+    case 'ttdLph5':
+      return (deviasi * 0.3) / 2.77;
+    case 'ttdLph6':
+      return (deviasi * 0.3) / 2.77;
+    case 'ttdLph7':
+      return (deviasi * 0.3) / 2.77;
+    case 'moistureInCoal':
+      return (deviasi * 0.17) / 1;
+    case 'hydrogenInCoal':
+      return (deviasi * 1.2) / 1;
+    case 'airHeaterLeakage':
+      return (deviasi * 0.5) / 1;
+    case 'airHeaterEffectiveness':
+      return (deviasi * -0.15) / 1;
+    case 'fdFanAirInletTemp':
+      return (deviasi * -0.05) / 5.55;
+    case 'millOutAirTemperature':
+      return (deviasi * -0.04) / 5.55;
+    case 'makeUpWater':
+      return (deviasi * 0.4) / 2.2;
     default:
       return 0;
   }
