@@ -4,7 +4,7 @@
       <div class="col-md-9">
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-30">Input Data Analisis NPHR</h4>
-          <form>
+          <form method="POST">
             <div class="form-group row">
               <label for="bulanTahun" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
               <div class="col-sm-8">
@@ -19,7 +19,12 @@
             <div class="form-group row">
               <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
               <div class="col-sm-8">
-                <input name="upk" type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+                <select name="upk" class="form-control" id="upk">
+                  <option disabled hidden selected>Pilih UPK...</option>
+                  {{#each units}}
+                  <option value="{{this.username}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
               </div>
             </div>
             <div class="form-group row">
@@ -626,7 +631,7 @@
             </div>
             <div id="pltg" class="pembangkit-form mT-30" style="display:none">
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="gtgPlantEfficiency">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="gtgPlantEfficiency">
                 <label class="col-sm-4 col-form-label">GTG Plant Efficiency (%)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -634,19 +639,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="compressorEfficiency">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorEfficiency">
                 <label class="col-sm-4 col-form-label">Compressor Efficiency (%)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -654,19 +659,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="airInletTemperature">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="airInletTemperature">
                 <label class="col-sm-4 col-form-label">Air Inlet Temperature (&#8457;)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -674,19 +679,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="airInletDpFilter">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="airInletDpFilter">
                 <label class="col-sm-4 col-form-label">Air Inlet DP Filter (inH2O)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -694,19 +699,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="exhaustTemperature">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="exhaustTemperature">
                 <label class="col-sm-4 col-form-label">Exhaust Temperature (&#8457;)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -714,19 +719,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="compressorDischPressure">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorDischPressure">
                 <label class="col-sm-4 col-form-label">Compressor Disch. Pressure (PSI)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -734,19 +739,19 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="compressorDischTemperature">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorDischTemperature">
                 <label class="col-sm-4 col-form-label">Compressor Disch. Temperature (&#8457;)</label>
                 <div class="col-sm-8">
                   <div class="row">
@@ -754,13 +759,13 @@
                       <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][baseline]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][baseline]" type="number" class="form-control" placeholder="">
                     </div>
                     <div class="col-md-2">
                       <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
                     </div>
                     <div class="col-md-4">
-                      <input name="pltu[parameters][actual]" type="number" class="form-control" placeholder="">
+                      <input name="pltg[parameters][actual]" type="number" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
@@ -768,20 +773,20 @@
               <div class="form-group row">
                 <label for="hargaGas" class="col-sm-4 col-form-label">Harga Gas (Rp/MMBTU)</label>
                 <div class="col-sm-8">
-                  <input type="number" class="form-control" id="hargaGas" placeholder="">
+                  <input name="pltg[harga]" type="number" class="form-control" id="hargaGas" placeholder="">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="nilaiKalorGas" class="col-sm-4 col-form-label">Nilai Kalor Gas (kCal/MMBTU)</label>
                 <div class="col-sm-8">
-                  <input type="number" class="form-control" id="nilaiKalorGas" placeholder="">
+                  <input name="pltg[kalorJenis]" type="number" class="form-control" id="nilaiKalorGas" placeholder="">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Average Produksi Listrik Harian
                   (kWh)</label>
                 <div class="col-sm-8">
-                  <input type="number" class="form-control" placeholder="">
+                  <input name="pltg[rerataProduksiHarian]" type="number" class="form-control" placeholder="">
                 </div>
               </div>
             </div>

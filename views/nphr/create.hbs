@@ -20,6 +20,7 @@
               <label for="upk" class="col-sm-4 col-form-label">UPK</label>
               <div class="col-sm-8">
                 <select name="upk" class="form-control" id="upk">
+                  <option disabled hidden selected>Pilih UPK...</option>
                   {{#each units}}
                   <option value="{{this.username}}">{{this.name}}</option>
                   {{/each}}

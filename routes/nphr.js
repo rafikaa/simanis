@@ -225,7 +225,11 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   req.flash('success', 'Data NPHR berhasil ditambahkan');
 
   const queryDataPerUpk = `dataPerUpk.bulanTahun=${bulanTahun}&dataPerUpk.upk=${upk}`;
-  return res.redirect(`/nphr?${queryDataPerUpk}`);
+  const queryDataTahunan = `dataTahunan.tahun=${tahun}&dataTahunan.upk=${upk}`;
+  const queryVisualisasi = `visualisasi.tahun=${tahun}&visualisasi.ulpl=${ulpl}`;
+  return res.redirect(
+    `/nphr?${queryDataPerUpk}&${queryDataTahunan}&${queryVisualisasi}`
+  );
 });
 
 const jenisPembangkitMap = {

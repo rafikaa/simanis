@@ -27,9 +27,11 @@ const nphrAnalysisSchema = new Schema(
     parameters: [
       {
         name: String,
-        actual: Number,
         baseline: Number,
-      }
+        actual: Number,
+        deviasiHeatRate: Number,
+        costBenefit: Number,
+      },
     ],
     harga: {
       type: Number,
