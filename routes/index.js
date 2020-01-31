@@ -15,36 +15,46 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { layout: 'dashboard', title: 'SIMANIS' });
 });
 
-router.get('/analisa-nphr', function(req, res, next) {
-  res.render('analisa-nphr', { layout: 'dashboard', title: 'Analisis NPHR' });
-});
-
-router.get('/input-data-analisa-nphr', function(req, res, next) {
-  res.render('input-data-analisa-nphr', { layout: 'dashboard', title: 'Data Analisis NPHR' });
-});
-
 router.get('/pemakaian-sendiri', function(req, res, next) {
-  res.render('pemakaian-sendiri', { layout: 'dashboard', title: 'Pemakaian Sendiri' });
+  res.render('pemakaian-sendiri', {
+    layout: 'dashboard',
+    title: 'Pemakaian Sendiri',
+  });
 });
 
 router.get('/input-pemakaian-sendiri', function(req, res, next) {
-  res.render('input-pemakaian-sendiri', { layout: 'dashboard', title: 'Pemakaian Sendiri' });
+  res.render('input-pemakaian-sendiri', {
+    layout: 'dashboard',
+    title: 'Pemakaian Sendiri',
+  });
 });
 
 router.get('/maturity-level', function(req, res, next) {
-  res.render('maturity-level', { layout: 'dashboard', title: 'Maturity Level' });
+  res.render('maturity-level', {
+    layout: 'dashboard',
+    title: 'Maturity Level',
+  });
 });
 
 router.get('/maturity-level-x', function(req, res, next) {
-  res.render('maturity-level-x', { layout: 'dashboard', title: 'Maturity Level' });
+  res.render('maturity-level-x', {
+    layout: 'dashboard',
+    title: 'Maturity Level',
+  });
 });
 
 router.get('/input-maturity-level', function(req, res, next) {
-  res.render('input-maturity-level', { layout: 'dashboard', title: 'Maturity Level' });
+  res.render('input-maturity-level', {
+    layout: 'dashboard',
+    title: 'Maturity Level',
+  });
 });
 
 router.get('/input-maturity-level-target', function(req, res, next) {
-  res.render('input-maturity-level-target', { layout: 'dashboard', title: 'Maturity Level' });
+  res.render('input-maturity-level-target', {
+    layout: 'dashboard',
+    title: 'Maturity Level',
+  });
 });
 
 router.get('/laporan', function(req, res, next) {

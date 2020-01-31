@@ -1,0 +1,858 @@
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20">
+      <div class="col-md-9">
+        <div class="bgc-white bd bdrs-3 p-20">
+          <h4 class="c-grey-900 mB-30">Input Data Analisis NPHR</h4>
+          <form method="POST">
+            <div class="form-group row">
+              <label for="bulanTahun" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
+              <div class="col-sm-8">
+                <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
+                  <input name="bulanTahun" id="bulanTahun" class="form-control" type="text" readonly />
+                  <div class="input-group-append">
+                    <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
+              <div class="col-sm-8">
+                <select name="upk" class="form-control" id="upk">
+                  <option disabled hidden selected>Pilih UPK...</option>
+                  {{#each units}}
+                  <option value="{{this.username}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
+              <div class="col-sm-8">
+                <input name="ulpl" type="text" class="form-control" id="ulpl" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="jenisPembangkit" class="col-sm-4 col-form-label">Jenis Pembangkit</label>
+              <div class="col-sm-8">
+                <select name="jenisPembangkit" class="form-control" id="jenisPembangkitSelector">
+                  <option selected="selected">Pilih jenis pembangkit...</option>
+                  <option value="pltu">Pembangkit Listrik Tenaga Uap (PLTU)</option>
+                  <option value="pltg">Pembangkit Listrik Tenaga Gas (PLTG)</option>
+                </select>
+              </div>
+            </div>
+            <div id="pltu" class="pembangkit-form mT-20" style="display:none">
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="nettPlantHeatRate">
+                <label class="col-sm-4 col-form-label">Nett Plant Heat Rate (kCal/kWh)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h5 class="mB-10">Operator Controllable</h5>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="flueGasTempOutAH">
+                <label class="col-sm-4 col-form-label">Flue Gas Temp Out AH (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="gasOutletAH">
+                <label class="col-sm-4 col-form-label">Gas Outlet AH (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="mainSteamTemp">
+                <label class="col-sm-4 col-form-label">Main Steam Temp (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="hotReheatTemperature">
+                <label class="col-sm-4 col-form-label">Hot Reheat Temperature (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="mainSteamPress">
+                <label class="col-sm-4 col-form-label">Main Steam Press (MPa)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="shSprayFlow">
+                <label class="col-sm-4 col-form-label">SH Spray Flow (% MSF)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="reheatSprayFlow">
+                <label class="col-sm-4 col-form-label">Reheat Spray Flow (% MSF)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="vacuumCondenser">
+                <label class="col-sm-4 col-form-label">Vacuum Condenser (kPa)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="auxPower">
+                <label class="col-sm-4 col-form-label">Aux Power (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="finalFeedWaterTemp">
+                <label class="col-sm-4 col-form-label">Final Feed Water Temp (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="unburnedCarbon">
+                <label class="col-sm-4 col-form-label">Unburned Carbon (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h5 class="mB-10">Turbine Cycle Components</h5>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="hpTurbineEfficiency">
+                <label class="col-sm-4 col-form-label">HP Turbine Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ipTurbineEfficiency">
+                <label class="col-sm-4 col-form-label">IP Turbine Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="lpTurbineEfficiency">
+                <label class="col-sm-4 col-form-label">LP Turbine Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="bepEfficiency">
+                <label class="col-sm-4 col-form-label">BEP Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdHph1">
+                <label class="col-sm-4 col-form-label">TTD HPH1 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdHph2">
+                <label class="col-sm-4 col-form-label">TTD HPH2 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdHph3">
+                <label class="col-sm-4 col-form-label">TTD HPH3 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdLph5">
+                <label class="col-sm-4 col-form-label">TTD LPH5 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdLph6">
+                <label class="col-sm-4 col-form-label">TTD LPH6 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="ttdLph7">
+                <label class="col-sm-4 col-form-label">TTD LPH7 (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h5 class="mB-10">Boiler Components</h5>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="moistureInCoal">
+                <label class="col-sm-4 col-form-label">Moisture in Coal (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="hydrogenInCoal">
+                <label class="col-sm-4 col-form-label">Hydrogen in Coal (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="airHeaterLeakage">
+                <label class="col-sm-4 col-form-label">Air Heater Leakage (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="airHeaterEffectiveness">
+                <label class="col-sm-4 col-form-label">Air Heater Effectiveness (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="fdFanInletAirTemp">
+                <label class="col-sm-4 col-form-label">FD Fan Inlet Air Temp (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="millOutAirTemperature">
+                <label class="col-sm-4 col-form-label">Mill Out Air Temperature (&#8451;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h5 class="mB-10">Make Up</h5>
+              <div class="form-group row">
+                <input type="hidden" name="pltu[parameters][name]" class="form-control" placeholder="" value="makeUpWater">
+                <label class="col-sm-4 col-form-label">Make Up Water (T/h)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltu[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="hargaBatubara" class="col-sm-4 col-form-label">Harga Batubara (Rp/kg)</label>
+                <div class="col-sm-8">
+                  <input name="pltu[harga]" type="number" step="0.01" class="form-control" id="hargaBatubara" placeholder="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="nilaiKalorBatubara" class="col-sm-4 col-form-label">Nilai Kalor Batubara
+                  (Kcal/kg)</label>
+                <div class="col-sm-8">
+                  <input name="pltu[kalorJenis]" type="number" step="0.01" class="form-control" id="nilaiKalorBatubara" placeholder="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Average Produksi Listrik Harian
+                  (kWh)</label>
+                <div class="col-sm-8">
+                  <input name="pltu[rerataProduksiHarian]" type="number" step="0.01" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div id="pltg" class="pembangkit-form mT-30" style="display:none">
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="nettPlantHeatRate">
+                <label class="col-sm-4 col-form-label">Nett Plant Heat Rate (kCal/kWh)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="gtgPlantEfficiency">
+                <label class="col-sm-4 col-form-label">GTG Plant Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorEfficiency">
+                <label class="col-sm-4 col-form-label">Compressor Efficiency (%)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="airInletTemperature">
+                <label class="col-sm-4 col-form-label">Air Inlet Temperature (&#8457;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="airInletDpFilter">
+                <label class="col-sm-4 col-form-label">Air Inlet DP Filter (inH2O)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="exhaustTemperature">
+                <label class="col-sm-4 col-form-label">Exhaust Temperature (&#8457;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorDischPressure">
+                <label class="col-sm-4 col-form-label">Compressor Disch. Pressure (PSI)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <input type="hidden" name="pltg[parameters][name]" class="form-control" placeholder="" value="compressorDischTemperature">
+                <label class="col-sm-4 col-form-label">Compressor Disch. Temperature (&#8457;)</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Baseline</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][baseline]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                      <label for="" class="pL-0 col-sm-4 col-form-label">Actual</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input name="pltg[parameters][actual]" type="number" step="0.01" class="form-control" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="hargaGas" class="col-sm-4 col-form-label">Harga Gas (Rp/MMBTU)</label>
+                <div class="col-sm-8">
+                  <input name="pltg[harga]" type="number" class="form-control" id="hargaGas" placeholder="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="nilaiKalorGas" class="col-sm-4 col-form-label">Nilai Kalor Gas (kCal/MMBTU)</label>
+                <div class="col-sm-8">
+                  <input name="pltg[kalorJenis]" type="number" step="0.01" class="form-control" id="nilaiKalorGas" placeholder="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Average Produksi Listrik Harian
+                  (kWh)</label>
+                <div class="col-sm-8">
+                  <input name="pltg[rerataProduksiHarian]" type="number" step="0.01" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row mT-30 text-right">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  $(function () {
+    $('#jenisPembangkitSelector').change(function () {
+      $('.pembangkit-form').hide();
+      $('#' + $(this).val()).show();
+    });
+    $("#datepickerBulanTahun").datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: "mm-yyyy",
+      startView: "months",
+      minViewMode: "months"
+    }).datepicker('update', new Date());
+  });
+</script>
