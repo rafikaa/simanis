@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
-const hbsHelpers = require('handlebars-helpers')(['math', 'string']);
+const hbsHelpers = require('handlebars-helpers');
 const flash = require('connect-flash');
 const session = require('express-session');
 
@@ -28,11 +28,12 @@ const hbs = exphbs.create({
       }
       return block.inverse(this);
     },
-    ...hbsHelpers,
   },
   extname: '.hbs',
 });
-
+hbsHelpers({
+  handlebars: hbs.handlebars
+});
 app.engine('.hbs', hbs.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');

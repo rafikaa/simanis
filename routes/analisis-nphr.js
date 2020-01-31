@@ -21,20 +21,24 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     },
   };
 
-  let parameters = []
+  let parameters = [];
   if (bulanTahun && upk && ulpl) {
     const [bulan, tahun] = bulanTahun.split('-');
-    const nphrAnalysis = await NPHRAnalysis.findOne({ bulan, tahun, upk, ulpl }).lean();
-    if (nphrAnalysis) { 
+    const nphrAnalysis = await NPHRAnalysis.findOne({
+      bulan,
+      tahun,
+      upk,
+      ulpl,
+    }).lean();
+    if (nphrAnalysis) {
       parameters = nphrAnalysis.parameters;
     }
-
-    console.log(parameters)
   }
 
   return res.render('analisis-nphr/index', {
     layout: 'dashboard',
     title: 'Analisis NPHR',
+    success: req.flash('success'),
     ulplList,
     query,
     parameters,
@@ -67,62 +71,69 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   }
 
   const [bulan, tahun] = bulanTahun.split('-');
-  const parameters = [];
-  let harga = 0,
-    kalorJenis = 0,
-    rerataProduksiHarian = 0;
 
-  if (jenisPembangkit === 'pltg' || jenisPembangkit === 'pltu') {
-    const dataPembangkit = req.body[jenisPembangkit];
-    harga = Number(dataPembangkit.harga);
-    kalorJenis = Number(dataPembangkit.kalorJenis);
-    rerataProduksiHarian = Number(dataPembangkit.rerataProduksiHarian);
-
-    let nettPlantHeatRate = {
-      baseline: 0,
-      actual: 0,
-    };
-
-    for (let i = 0; i < dataPembangkit.parameters.name.length; i++) {
-      const name = dataPembangkit.parameters.name[i];
-      const baseline = Number(dataPembangkit.parameters.baseline[i]);
-      const actual = Number(dataPembangkit.parameters.actual[i]);
-      if (name === 'nettPlantHeatRate') {
-        const heatRate = actual - baseline;
-        const costBenefit = calcCostBenefit(harga, kalorJenis, heatRate, rerataProduksiHarian);
-        nettPlantHeatRate = {
-          baseline,
-          actual,
-          heatRate,
-        };
-        parameters.push({
-          name,
-          baseline,
-          actual,
-          heatRate,
-          costBenefit,
-        });
-      } else {
-        const heatRate = calcHeatRate(
-          jenisPembangkit,
-          nettPlantHeatRate,
-          name,
-          baseline,
-          actual
-        );
-        const costBenefit = calcCostBenefit(harga, kalorJenis, heatRate, rerataProduksiHarian);
-        parameters.push({
-          name,
-          baseline,
-          actual,
-          heatRate,
-          costBenefit,
-        });
-      }
-    }
-  } else {
+  if (jenisPembangkit != 'pltg' && jenisPembangkit != 'pltu') {
     return res.redirect('/analisis-nphr');
   }
+  const dataPembangkit = req.body[jenisPembangkit];
+  const harga = Number(dataPembangkit.harga);
+  const kalorJenis = Number(dataPembangkit.kalorJenis);
+  const rerataProduksiHarian = Number(dataPembangkit.rerataProduksiHarian);
+
+  let nettPlantHeatRate = {
+    baseline: 0,
+    actual: 0,
+  };
+
+  const parameters = [];
+  for (let i = 0; i < dataPembangkit.parameters.name.length; i++) {
+    const name = dataPembangkit.parameters.name[i];
+    const baseline = Number(dataPembangkit.parameters.baseline[i]);
+    const actual = Number(dataPembangkit.parameters.actual[i]);
+    if (name === 'nettPlantHeatRate') {
+      const heatRate = actual - baseline;
+      const costBenefit = calcCostBenefit(
+        harga,
+        kalorJenis,
+        heatRate,
+        rerataProduksiHarian
+      );
+      nettPlantHeatRate = {
+        baseline,
+        actual,
+        heatRate,
+      };
+      parameters.push({
+        name,
+        baseline,
+        actual,
+        heatRate,
+        costBenefit,
+      });
+    } else {
+      const heatRate = calcHeatRate(
+        jenisPembangkit,
+        nettPlantHeatRate,
+        name,
+        baseline,
+        actual
+      );
+      const costBenefit = calcCostBenefit(
+        harga,
+        kalorJenis,
+        heatRate,
+        rerataProduksiHarian
+      );
+      parameters.push({
+        name,
+        baseline,
+        actual,
+        heatRate,
+        costBenefit,
+      });
+    }
+  }
+
   const nphrAnalysis = new NPHRAnalysis({
     bulan,
     tahun,
@@ -147,7 +158,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 const calcCostBenefit = (harga, kalorJenis, heatRate, rerataProduksiHarian) => {
   const rupiahPerCal = harga / kalorJenis;
   return (heatRate * rupiahPerCal * rerataProduksiHarian) / 1000000;
-}
+};
 
 const calcHeatRate = (
   jenisPembangkit,
