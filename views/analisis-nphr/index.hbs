@@ -4,7 +4,7 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-2">
-          <a href="/analisis-nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data Analisa NPHR</a>
+          <a href="/analisis-nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data Analisis NPHR</a>
           <h3 class="c-grey-900 mB-20">Analisis NPHR</h3>
         </div>
         {{#if success}}
@@ -71,21 +71,21 @@
               {{/each}}
             </tbody>
           </table>
-        </div>
-      </div>
-      <div class="masonry-item col-md-8">
-        <div class="bgc-white p-20 bd">
-          <h4 class="c-grey-900">Heat Loss Waterfall</h4>
-          <div class="mT-30">
-            <canvas id="waterfall-chart" height="160"></canvas>
+          <div class="row mT-20">
+            <div class="col-md-8">
+              <h5>Heat Loss Waterfall</h5>
+              <div class="mT-30">
+                <canvas id="waterfall-chart" height="160"></canvas>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="masonry-item col-md-8">
-        <div class="bgc-white p-20 bd">
-          <h4 class="c-grey-900">Pareto Heat Rate</h4>
-          <div class="mT-30">
-            <canvas id="pareto-chart" height="160"></canvas>
+          <div class="row mT-20">
+            <div class="col-md-8">
+              <h5>Pareto Heat Rate</h5>
+              <div class="mT-30">
+                <canvas id="pareto-chart" height="160"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -113,9 +113,9 @@
   if (waterfallChartBox) {
     const waterfallCtx = waterfallChartBox.getContext('2d');
     new Chart(waterfallCtx, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: {
-        labels: ['Actual', 'Param 1', 'Param 2', 'Param 3', 'Param 4', 'Param 5', 'Reference'],
+        labels: ['Heat Rate Actual', 'Param 1', 'Param 2', 'Param 3', 'Param 4', 'Param 5', 'Heat Rate Reference'],
         datasets: [{
           label: 'Deviasi Heat Rate (kCal/kWh)',
           backgroundColor: '#2196f3',
@@ -140,19 +140,22 @@
     new Chart(paretoCtx, {
       type: 'bar',
       data: {
-        labels: ['1', '2', '3', '4', '5'],
+        labels: ['Param 1', 'Param 2', 'Param 3', 'Param 4'],
         datasets: [{
-          label: 'HR Losses',
+          label: 'HR Losses (kCal/kWh)',
           backgroundColor: '#673ab7',
           borderColor: '#512da8',
           borderWidth: 1,
-          data: [10, 20, 30, 40, 50],
+          data: [160.4546, 24.1397, 0.2221, 0.0034],
+          order: 2
         }, {
-          label: 'HR Cummulative',
-          backgroundColor: '#2196f3',
+          label: 'HR Cummulative (kCal/kWh)',
           borderColor: '#1976d2',
-          borderWidth: 1,
-          data: [10, 20, 30, 40, 50],
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderWidth: 2,
+          data: [86.8167, 99.8779, 99.9981, 100],
+          type: 'line',
+          order: 1
         }],
       },
 
