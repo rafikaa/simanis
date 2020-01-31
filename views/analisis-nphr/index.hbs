@@ -14,7 +14,7 @@
               <label for="bulanTahun" class="col-sm-1 col-form-label">Periode</label>
               <div class="col-sm-2">
                 <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                  <input name="dataAnalysisNPHR.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly />
+                  <input name="dataAnalisis.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -22,7 +22,7 @@
               </div>
               <label for="upk" class="col-sm-1 col-form-label">UPK</label>
               <div class="col-sm-2" id="upk">
-                <select name="dataAnalysisNPHR.upk" id="upk" class="form-control">
+                <select name="dataAnalisis.upk" id="upk" class="form-control">
                   <option selected hidden disabled>Pilih UPK...</option>
                   <option {{#ifequal query.dataAnalisis.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
                   <option {{#ifequal query.dataAnalisis.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
@@ -34,7 +34,7 @@
               </div>
               <label for="ulpl" class="col-sm-1 col-form-label">ULPL</label>
               <div class="col-sm-2" id="ulpl">
-                <select name="dataAnalysisNPHR.ulpl" id="ulpl" class="form-control">
+                <select name="dataAnalisis.ulpl" id="ulpl" class="form-control">
                   <option selected hidden disabled>Pilih ULPL...</option>
                   {{#each ulplList}}
                   <option {{#ifequal ../query.visualisasi.ulpl this}}selected{{/ifequal}} value="{{this}}">{{this}}</option>
@@ -50,27 +50,22 @@
             <thead>
               <tr>
                 <th>Parameter</th>
-                <th>Actual</th>
                 <th>Baseline</th>
+                <th>Actual</th>
                 <th>Heat Rate (kCal/kWh)</th>
                 <th>Cost Benefit (Rp juta/hari)</th>
               </tr>
             </thead>
             <tbody>
+              {{#each parameters}}
               <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{this.name}}</td>
+                <td>{{this.baseline}}</td>
+                <td>{{this.actual}}</td>
+                <td>{{this.heatRate}}</td>
+                <td>{{this.costBenefit}}</td>
               </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -97,7 +92,8 @@
 <script>
   $(document).ready(function () {
     $('#table-data-analisa-nphr').DataTable({
-      searching: false
+      searching: false,
+      "order": [],
     });
   });
   $(function () {

@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
+const hbsHelpers = require('handlebars-helpers')(['math', 'string']);
 const flash = require('connect-flash');
 const session = require('express-session');
 
@@ -27,6 +28,7 @@ const hbs = exphbs.create({
       }
       return block.inverse(this);
     },
+    ...hbsHelpers,
   },
   extname: '.hbs',
 });

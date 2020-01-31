@@ -10,19 +10,34 @@ const router = express.Router();
 
 router.get('/', isAuthenticated, async (req, res, next) => {
   const ulplList = await getUlplList();
+  const bulanTahun = req.query['dataAnalisis.bulanTahun'];
+  const upk = req.query['dataAnalisis.upk'];
+  const ulpl = req.query['dataAnalisis.ulpl'];
   const query = {
     dataAnalisis: {
-      bulanTahun: req.query['dataAnalisis.bulanTahun'],
-      upk: req.query['dataAnalisis.upk'],
-      ulpl: req.query['dataAnalisis.ulpl'],
+      bulanTahun,
+      upk,
+      ulpl,
     },
   };
+
+  let parameters = []
+  if (bulanTahun && upk && ulpl) {
+    const [bulan, tahun] = bulanTahun.split('-');
+    const nphrAnalysis = await NPHRAnalysis.findOne({ bulan, tahun, upk, ulpl }).lean();
+    if (nphrAnalysis) { 
+      parameters = nphrAnalysis.parameters;
+    }
+
+    console.log(parameters)
+  }
 
   return res.render('analisis-nphr/index', {
     layout: 'dashboard',
     title: 'Analisis NPHR',
     ulplList,
     query,
+    parameters,
   });
 });
 
@@ -73,34 +88,34 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       const baseline = Number(dataPembangkit.parameters.baseline[i]);
       const actual = Number(dataPembangkit.parameters.actual[i]);
       if (name === 'nettPlantHeatRate') {
-        const deviasiHeatRate = actual - baseline;
-        const costBenefit = calcCostBenefit(harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian);
+        const heatRate = actual - baseline;
+        const costBenefit = calcCostBenefit(harga, kalorJenis, heatRate, rerataProduksiHarian);
         nettPlantHeatRate = {
           baseline,
           actual,
-          deviasiHeatRate,
+          heatRate,
         };
         parameters.push({
           name,
           baseline,
           actual,
-          deviasiHeatRate,
+          heatRate,
           costBenefit,
         });
       } else {
-        const deviasiHeatRate = calcDeviasiHeatRate(
+        const heatRate = calcHeatRate(
           jenisPembangkit,
           nettPlantHeatRate,
           name,
           baseline,
           actual
         );
-        const costBenefit = calcCostBenefit(harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian);
+        const costBenefit = calcCostBenefit(harga, kalorJenis, heatRate, rerataProduksiHarian);
         parameters.push({
           name,
           baseline,
           actual,
-          deviasiHeatRate,
+          heatRate,
           costBenefit,
         });
       }
@@ -129,12 +144,12 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   return res.redirect(`/analisis-nphr?${queryAnalysisNPHR}`);
 });
 
-const calcCostBenefit = (harga, kalorJenis, deviasiHeatRate, rerataProduksiHarian) => {
+const calcCostBenefit = (harga, kalorJenis, heatRate, rerataProduksiHarian) => {
   const rupiahPerCal = harga / kalorJenis;
-  return (deviasiHeatRate * rupiahPerCal * rerataProduksiHarian) / 1000000;
+  return (heatRate * rupiahPerCal * rerataProduksiHarian) / 1000000;
 }
 
-const calcDeviasiHeatRate = (
+const calcHeatRate = (
   jenisPembangkit,
   nettPlantHeatRate,
   paramName,
@@ -147,7 +162,7 @@ const calcDeviasiHeatRate = (
       baseline,
       actual
     );
-    return (deviasiByHeatRateFactor * nettPlantHeatRate.deviasiHeatRate) / 100;
+    return (deviasiByHeatRateFactor * nettPlantHeatRate.heatRate) / 100;
   } else if (jenisPembangkit === 'pltu') {
     const deviasiByHeatRateFactor = calcDeviasiByHeatRateFactorPltu(
       paramName,
@@ -159,7 +174,7 @@ const calcDeviasiHeatRate = (
         nettPlantHeatRate.baseline) *
       100;
     return (
-      (deviasiByHeatRateFactor * nettPlantHeatRate.deviasiHeatRate) /
+      (deviasiByHeatRateFactor * nettPlantHeatRate.heatRate) /
       nettPlantHeatRateDeviasiPercent
     );
   } else {

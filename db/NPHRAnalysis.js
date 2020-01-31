@@ -29,7 +29,7 @@ const nphrAnalysisSchema = new Schema(
         name: String,
         baseline: Number,
         actual: Number,
-        deviasiHeatRate: Number,
+        heatRate: Number,
         costBenefit: Number,
       },
     ],
