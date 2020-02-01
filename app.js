@@ -32,7 +32,7 @@ const hbs = exphbs.create({
   extname: '.hbs',
 });
 hbsHelpers({
-  handlebars: hbs.handlebars
+  handlebars: hbs.handlebars,
 });
 app.engine('.hbs', hbs.engine);
 app.set('views', path.join(__dirname, 'views'));

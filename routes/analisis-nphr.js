@@ -4,9 +4,48 @@ const User = require('../db/User');
 const NPHRAnalysis = require('../db/NPHRAnalysis');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
 const router = express.Router();
+
+const paramNames = {
+  nettPlantHeatRate: 'Nett Plant Heat Rate (kCal/kWh)',
+  gtgPlantEfficiency: 'GTG Plant Efficiency (%)',
+  compressorEfficiency: 'Compressor Efficiency (%)',
+  airInletTemperature: 'Air Inlet Temperature(℉)',
+  airInletDpFilter: 'Air Inlet DP Filter (inH2O)',
+  exhaustTemperature: 'Exhaust Temperature (℉)',
+  compressorDischPressure: 'Compressor Disch. Pressure (PSI)',
+  compressorDischTemperature: 'Compressor Disch. Temperature (℉)',
+  flueGasTempOutAH: 'Flue Gas Temp Out AH (℃)',
+  gasOutletAH: 'Gas Outlet AH (%)',
+  mainSteamTemp: 'Main Steam Temp (℃)',
+  hotReheatTemperature: 'Hot Reheat Temperature (℃)',
+  mainSteamPress: 'Main Steam Press (MPa)',
+  shSprayFlow: 'SH Spray Flow (% MSF)',
+  reheatSprayFlow: 'Reheat Spray Flow (% MSF)',
+  vacuumCondenser: 'Vacuum Condenser (kPa)',
+  auxPower: 'Aux Power (%)',
+  finalFeedWaterTemp: 'Final Feed Water Temp (℃)',
+  unburnedCarbon: 'Unburned Carbon (%)',
+  hpTurbineEfficiency: 'HP Turbine Efficiency (%)',
+  ipTurbineEfficiency: 'IP Turbine Efficiency (%)',
+  lpTurbineEfficiency: 'LP Turbine Efficiency (%)',
+  bfpEfficiency: 'BEP Efficiency (%)',
+  ttdHph1: 'TTD HPH1 (℃)',
+  ttdHph2: 'TTD HPH2 (℃)',
+  ttdHph3: 'TTD HPH3 (℃)',
+  ttdLph5: 'TTD LPH5 (℃)',
+  ttdLph6: 'TTD LPH6 (℃)',
+  ttdLph7: 'TTD LPH7 (℃)',
+  moistureInCoal: 'Moisture in Coal (%)',
+  hydrogenInCoal: 'Hydrogen in Coal (%)',
+  airHeaterLeakage: 'Air Heater Leakage (%)',
+  airHeaterEffectiveness: 'Air Heater Effectiveness (%)',
+  fdFanAirInletTemp: 'FD Fan Inlet Air Temp (℃)',
+  millOutAirTemperature: 'Mill Out Air Temperature (℃)',
+  makeUpWater: 'Make Up Water (T/h)',
+  otherLosses: 'Other Losses/Gain (kCal/kWh)',
+};
 
 router.get('/', isAuthenticated, async (req, res, next) => {
   const ulplList = await getUlplList();
@@ -39,6 +78,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     layout: 'dashboard',
     title: 'Analisis NPHR',
     success: req.flash('success'),
+    paramNames,
     ulplList,
     query,
     parameters,
@@ -59,6 +99,7 @@ router.get('/create', isAuthenticated, async (req, res, next) => {
   return res.render('analisis-nphr/create', {
     layout: 'dashboard',
     title: 'Data Analisis NPHR',
+    paramNames,
     units,
   });
 });
@@ -83,13 +124,15 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   let nettPlantHeatRate = {
     baseline: 0,
     actual: 0,
+    heatRate: 0,
   };
 
   const parameters = [];
+  let sumHeatRate = 0;
   for (let i = 0; i < dataPembangkit.parameters.name.length; i++) {
     const name = dataPembangkit.parameters.name[i];
-    const baseline = Number(dataPembangkit.parameters.baseline[i]);
-    const actual = Number(dataPembangkit.parameters.actual[i]);
+    const baseline = Number(dataPembangkit.parameters.baseline[i] || 0);
+    const actual = Number(dataPembangkit.parameters.actual[i] || 0);
     if (name === 'nettPlantHeatRate') {
       const heatRate = actual - baseline;
       const costBenefit = calcCostBenefit(
@@ -118,6 +161,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
         baseline,
         actual
       );
+      sumHeatRate += heatRate > 0 ? heatRate : 0;
       const costBenefit = calcCostBenefit(
         harga,
         kalorJenis,
@@ -133,6 +177,16 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       });
     }
   }
+  parameters.push({
+    name: 'otherLosses',
+    heatRate: nettPlantHeatRate.heatRate - sumHeatRate,
+    costBenefit: calcCostBenefit(
+      harga,
+      kalorJenis,
+      nettPlantHeatRate.heatRate - sumHeatRate,
+      rerataProduksiHarian
+    ),
+  });
 
   const nphrAnalysis = new NPHRAnalysis({
     bulan,
