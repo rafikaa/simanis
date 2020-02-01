@@ -40,7 +40,7 @@
                 <select name="dataAnalisis.ulpl" id="ulpl" class="form-control">
                   <option selected hidden disabled>Pilih ULPL...</option>
                   {{#each ulplList}}
-                  <option {{#ifequal ../query.visualisasi.ulpl this}}selected{{/ifequal}} value="{{this}}">{{this}}</option>
+                  <option {{#ifequal ../query.dataAnalisis.ulpl this}}selected{{/ifequal}} value="{{this}}">{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -62,7 +62,7 @@
             <tbody>
               {{#each parameters}}
               <tr>
-                <td>{{this.name}}</td>
+                <td>{{lookup ../paramNames this.name}}</td>
                 <td>{{this.baseline}}</td>
                 <td>{{toFixed this.actual 4}}</td>
                 <td>{{toFixed this.heatRate 4}}</td>
@@ -100,13 +100,15 @@
     });
   });
   $(function () {
+    const [bln, thn] = '{{query.dataAnalisis.bulanTahun}}'.split('-');
+    const bulanTahun = bln && thn ? new Date(`${thn}-${bln}`) : new Date();
     $("#datepickerBulanTahun").datepicker({
       autoclose: true,
       todayHighlight: true,
       format: "mm-yyyy",
       startView: "months",
       minViewMode: "months"
-    }).datepicker('update', new Date());
+    }).datepicker('update', bulanTahun);
   });
 
   const waterfallChartBox = document.getElementById('waterfall-chart');
