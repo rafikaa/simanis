@@ -4,7 +4,6 @@ const User = require('../db/User');
 const NPHRAnalysis = require('../db/NPHRAnalysis');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
 const router = express.Router();
 
@@ -45,6 +44,7 @@ const paramNames = {
   fdFanAirInletTemp: 'FD Fan Inlet Air Temp (℃)',
   millOutAirTemperature: 'Mill Out Air Temperature (℃)',
   makeUpWater: 'Make Up Water (T/h)',
+  otherLosses: 'Other Losses/Gain (kCal/kWh)',
 };
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -124,13 +124,15 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   let nettPlantHeatRate = {
     baseline: 0,
     actual: 0,
+    heatRate: 0,
   };
 
   const parameters = [];
+  let sumHeatRate = 0;
   for (let i = 0; i < dataPembangkit.parameters.name.length; i++) {
     const name = dataPembangkit.parameters.name[i];
-    const baseline = Number(dataPembangkit.parameters.baseline[i]);
-    const actual = Number(dataPembangkit.parameters.actual[i]);
+    const baseline = Number(dataPembangkit.parameters.baseline[i] || 0);
+    const actual = Number(dataPembangkit.parameters.actual[i] || 0);
     if (name === 'nettPlantHeatRate') {
       const heatRate = actual - baseline;
       const costBenefit = calcCostBenefit(
@@ -159,6 +161,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
         baseline,
         actual
       );
+      sumHeatRate += heatRate > 0 ? heatRate : 0;
       const costBenefit = calcCostBenefit(
         harga,
         kalorJenis,
@@ -174,6 +177,16 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       });
     }
   }
+  parameters.push({
+    name: 'otherLosses',
+    heatRate: nettPlantHeatRate.heatRate - sumHeatRate,
+    costBenefit: calcCostBenefit(
+      harga,
+      kalorJenis,
+      nettPlantHeatRate.heatRate - sumHeatRate,
+      rerataProduksiHarian
+    ),
+  });
 
   const nphrAnalysis = new NPHRAnalysis({
     bulan,

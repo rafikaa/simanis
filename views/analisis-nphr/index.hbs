@@ -7,9 +7,9 @@
           <a href="/analisis-nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data Analisis NPHR</a>
           <h3 class="c-grey-900 mB-20">Analisis NPHR</h3>
         </div>
-        {{#if success}}
-        <div class="alert alert-success" role="alert">{{success}}</div>
-        {{/if}}
+        {{#each success}}
+        <div class="alert alert-success" role="alert">{{this}}</div>
+        {{/each}}
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-20">Data Analisis NPHR</h4>
           <form action="">
@@ -63,8 +63,8 @@
               {{#each parameters}}
               <tr>
                 <td>{{lookup ../paramNames this.name}}</td>
-                <td>{{this.baseline}}</td>
-                <td>{{toFixed this.actual 4}}</td>
+                <td>{{#if this.baseline}}{{toFixed this.baseline 4}}{{/if}}</td>
+                <td>{{#if this.baseline}}{{toFixed this.actual 4}}{{/if}}</td>
                 <td>{{toFixed this.heatRate 4}}</td>
                 <td>{{toFixed this.costBenefit 4}}</td>
               </tr>
