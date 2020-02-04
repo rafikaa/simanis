@@ -49,6 +49,12 @@
               </div>
             </div>
           </form>
+          {{#if warningMsg}}
+          <div class="alert alert-warning" role="alert">{{warningMsg}}</div>
+          {{/if}}
+          {{#if infoMsg}}
+          <div class="alert alert-info" role="alert">{{infoMsg}}</div>
+          {{/if}}
           {{#if parameters}}
           <table id="table-data-analisa-nphr" class="table table-bordered mt-5" cellspacing="0" width="100%">
             <thead>
