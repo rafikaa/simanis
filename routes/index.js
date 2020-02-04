@@ -15,20 +15,6 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { layout: 'dashboard', title: 'SIMANIS' });
 });
 
-router.get('/pemakaian-sendiri', function(req, res, next) {
-  res.render('pemakaian-sendiri', {
-    layout: 'dashboard',
-    title: 'Pemakaian Sendiri',
-  });
-});
-
-router.get('/input-pemakaian-sendiri', function(req, res, next) {
-  res.render('input-pemakaian-sendiri', {
-    layout: 'dashboard',
-    title: 'Pemakaian Sendiri',
-  });
-});
-
 router.get('/maturity-level', function(req, res, next) {
   res.render('maturity-level', {
     layout: 'dashboard',
