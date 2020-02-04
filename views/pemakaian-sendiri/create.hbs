@@ -5,12 +5,12 @@
       <div class="col-md-8">
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-30">Input Data Pemakaian Sendiri</h4>
-          <form>
+          <form method="POST">
             <div class="form-group row">
               <label for="bulanTahun" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
               <div class="col-sm-8">
                 <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                  <input id="bulanTahun" class="form-control" type="text" readonly />
+                  <input name="bulanTahun" id="bulanTahun" class="form-control" type="text" required readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -20,19 +20,24 @@
             <div class="form-group row">
               <label for="upk" class="col-sm-4 col-form-label">Unit Pelaksana Pembangkit (UPK)</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+                <select name="upk" class="form-control" id="upk" required>
+                  <option disabled hidden selected>Pilih UPK...</option>
+                  {{#each units}}
+                  <option value="{{this.username}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <label for="ulpl" class="col-sm-4 col-form-label">Unit Layanan Pusat Listrik (ULPL)</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="ulpl" placeholder="">
+                <input name="ulpl" type="text" class="form-control" id="ulpl" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="jenisPembangkit" class="col-sm-4 col-form-label">Jenis Pembangkit</label>
               <div class="col-sm-8">
-                <select class="form-control" id="jenisPembangkit">
+                <select name="jenisPembangkit" class="form-control" id="jenisPembangkit" required>
                   <option selected="selected">Pilih jenis pembangkit...</option>
                   <option value="pltu">Pembangkit Listrik Tenaga Uap (PLTU)</option>
                   <option value="pltg">Pembangkit Listrik Tenaga Gas (PLTG)</option>
@@ -44,13 +49,13 @@
             <div class="form-group row">
               <label for="produksiBruto" class="col-sm-4 col-form-label">Produksi Bruto (kWh)</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="produksiBruto" placeholder="kWh">
+                <input name="produksiBruto" type="number" step="0.0001" class="form-control" id="produksiBruto" placeholder="kWh" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="pemakaianSendiri" class="col-sm-4 col-form-label">Pemakaian Sendiri (kWh)</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="pemakaianSendiri" placeholder="kWh">
+                <input name="pemakaianSendiri" type="number" step="0.0001" class="form-control" id="pemakaianSendiri" placeholder="kWh" required>
               </div>
             </div>
             <div class="form-group row mT-30 text-right">

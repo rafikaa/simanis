@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const nphrAnalysisSchema = new Schema(
+const ownUsageSchema = new Schema(
   {
     bulan: {
       type: Number,
@@ -24,24 +24,11 @@ const nphrAnalysisSchema = new Schema(
       type: String,
       required: true,
     },
-    parameters: [
-      {
-        name: String,
-        baseline: Number,
-        actual: Number,
-        heatRate: Number,
-        costBenefit: Number,
-      },
-    ],
-    harga: {
+    produksiBruto: {
       type: Number,
       required: true,
     },
-    kalorJenis: {
-      type: Number,
-      required: true,
-    },
-    rerataProduksiHarian: {
+    pemakaianSendiri: {
       type: Number,
       required: true,
     },
@@ -51,11 +38,8 @@ const nphrAnalysisSchema = new Schema(
   }
 );
 
-nphrAnalysisSchema.index(
-  { bulan: 1, tahun: 1, upk: 1, ulpl: 1 },
-  { unique: true }
-);
+ownUsageSchema.index({ bulan: 1, tahun: 1, upk: 1, ulpl: 1 }, { unique: true });
 
-const NPHRAnalysis = mongoose.model('NPHRAnalysis', nphrAnalysisSchema);
+const OwnUsage = mongoose.model('OwnUsage', ownUsageSchema);
 
-module.exports = NPHRAnalysis;
+module.exports = OwnUsage;

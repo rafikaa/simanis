@@ -5,10 +5,13 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-3">
-          <a href="/input-pemakaian-sendiri" class="btn btn-primary btn-lg float-sm-right">Input Data Pemakaian
+          <a href="/pemakaian-sendiri/create" class="btn btn-primary btn-lg float-sm-right">Input Data Pemakaian
             Sendiri</a>
           <h3 class="c-grey-900 mL-10 mB-20">Pemakaian Sendiri</h3>
         </div>
+        {{#each success}}
+        <div class="alert alert-success" role="alert">{{this}}</div>
+        {{/each}}
         <div class="bgc-white bd bdrs-3 mT-20 p-20">
           <h4 class="c-grey-900 mB-20">Data Pemakaian Sendiri</h4>
           <form action="">
@@ -16,7 +19,7 @@
               <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahun" class="form-control" type="text" readonly />
+                  <input name="tahun" id="tahun" class="form-control" type="text" readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -27,6 +30,13 @@
               </div>
             </div>
           </form>
+          {{#if warningMsg}}
+          <div class="alert alert-warning" role="alert">{{warningMsg}}</div>
+          {{/if}}
+          {{#if infoMsg}}
+          <div class="alert alert-info" role="alert">{{infoMsg}}</div>
+          {{/if}}
+          {{#if psPerUpk}}
           <div class="row">
             <div class="col-12">
               <h5 class="mB-20">Pemakaian Sendiri Per UPK</h5>
@@ -49,40 +59,29 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{#each psPerUpk}}
                   <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.jan}}</td>
+                    <td>{{this.feb}}</td>
+                    <td>{{this.mar}}</td>
+                    <td>{{this.apr}}</td>
+                    <td>{{this.may}}</td>
+                    <td>{{this.jun}}</td>
+                    <td>{{this.jul}}</td>
+                    <td>{{this.aug}}</td>
+                    <td>{{this.sep}}</td>
+                    <td>{{this.oct}}</td>
+                    <td>{{this.nov}}</td>
+                    <td>{{this.dec}}</td>
                   </tr>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
+                  {{/each}}
                 </tbody>
               </table>
             </div>
           </div>
+          {{/if}}
+          {{#if psPerPembangkit}}
           <div class="row mT-15">
             <div class="col-12">
               <h5 class="mB-20">Pemakaian Sendiri Per Jenis Pembangkit</h5>
@@ -105,51 +104,43 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{#each psPerPembangkit}}
                   <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.jan}}</td>
+                    <td>{{this.feb}}</td>
+                    <td>{{this.mar}}</td>
+                    <td>{{this.apr}}</td>
+                    <td>{{this.may}}</td>
+                    <td>{{this.jun}}</td>
+                    <td>{{this.jul}}</td>
+                    <td>{{this.aug}}</td>
+                    <td>{{this.sep}}</td>
+                    <td>{{this.oct}}</td>
+                    <td>{{this.nov}}</td>
+                    <td>{{this.dec}}</td>
                   </tr>
-                  <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                  </tr>
+                  {{/each}}
                 </tbody>
               </table>
             </div>
           </div>
+          {{/if}}
           <div class="row mT-15">
+            {{#if chartPerUpk.values}}
             <div class="col-md-6">
               <div class="layer">
                 <canvas id="pemakaian-chart-per-upk"></canvas>
               </div>
             </div>
+            {{/if}}
+            {{#if chartPerPembangkit.values}}
             <div class="col-md-6">
               <div class="layer">
                 <canvas id="pemakaian-chart-home"></canvas>
               </div>
             </div>
+            {{/if}}
           </div>
         </div>
       </div>
@@ -158,22 +149,23 @@
 </main>
 <script>
   $(function () {
+    const tahun = '{{query.tahun}}' ? new Date('{{query.tahun}}') : new Date();
     $("#datepickerTahun").datepicker({
       autoclose: true,
       todayHighlight: true,
       format: "yyyy",
       startView: "years",
       minViewMode: "years"
-    }).datepicker('update', new Date());
+    }).datepicker('update', tahun);
   });
   new Chart(document.getElementById("pemakaian-chart-per-upk"), {
     type: 'pie',
     data: {
-      labels: ["UPK Belawan", "UPK Pangkalan Susu", "UPK Nagan Raya"],
+      labels: {{{ JSONstringify chartPerUpk.labels }}},
       datasets: [{
         label: "Percentage",
-        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-        data: [81, 4, 1]
+        backgroundColor: {{{ JSONstringify chartPerPembangkit.colors }}},
+        data: {{ JSONstringify chartPerUpk.values }}
       }]
     },
     options: {
@@ -196,11 +188,11 @@
   new Chart(document.getElementById("pemakaian-chart-home"), {
     type: 'pie',
     data: {
-      labels: ["PLTU Batubara", "PLTG Gas", "PLTU Gas", "PLTD Gas", "PLTD Minyak"],
+      labels: {{{ JSONstringify chartPerPembangkit.labels }}},
       datasets: [{
         label: "Percentage",
-        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-        data: [81, 2, 4, 4, 1]
+        backgroundColor: {{{ JSONstringify chartPerPembangkit.colors }}},
+        data: {{ JSONstringify chartPerPembangkit.values }}
       }]
     },
     options: {

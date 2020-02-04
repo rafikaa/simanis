@@ -13,6 +13,7 @@ const authRouter = require('./routes/auth');
 const unitRouter = require('./routes/unit');
 const nphrRouter = require('./routes/nphr');
 const analisisNphrRouter = require('./routes/analisis-nphr');
+const pemakaianSendiriRouter = require('./routes/pemakaian-sendiri');
 
 const dbConnection = require('./db/connection');
 dbConnection.connect();
@@ -56,6 +57,7 @@ app.use('/auth', authRouter);
 app.use('/unit', unitRouter);
 app.use('/nphr', nphrRouter);
 app.use('/analisis-nphr', analisisNphrRouter);
+app.use('/pemakaian-sendiri', pemakaianSendiriRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
