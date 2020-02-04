@@ -66,7 +66,8 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 
   let parameters = [],
     waterfall = { labels: [], values: [] },
-    pareto = { labels: [], barValues: [], lineValues: [] };
+    pareto = { labels: [], barValues: [], lineValues: [] },
+    warningMsg = '', infoMsg = '';
   if (bulanTahun && upk && ulpl) {
     const [bulan, tahun] = bulanTahun.split('-');
     const nphrAnalysis = await NPHRAnalysis.findOne({
@@ -77,15 +78,21 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     }).lean();
     if (nphrAnalysis) {
       parameters = nphrAnalysis.parameters;
+    } else {
+      warningMsg = 'Tidak ada data untuk periode / UPK / ULPL yang dipilih.';
     }
     waterfall = await getWaterfallChart(nphrAnalysis);
     pareto = await getParetoChart(nphrAnalysis);
+  } else {
+    infoMsg = 'Silakan pilih periode, UPK, dan ULPL di atas untuk melihat data.';
   }
 
   return res.render('analisis-nphr/index', {
     layout: 'dashboard',
     title: 'Analisis NPHR',
     success: req.flash('success'),
+    infoMsg,
+    warningMsg,
     paramNames,
     ulplList,
     query,
