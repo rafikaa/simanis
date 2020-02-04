@@ -65,8 +65,8 @@ router.get('/', isAuthenticated, async (req, res, next) => {
   };
 
   let parameters = [],
-    waterfall = {},
-    pareto = {};
+    waterfall = { labels: [], values: [] },
+    pareto = { labels: [], barValues: [], lineValues: [] };
   if (bulanTahun && upk && ulpl) {
     const [bulan, tahun] = bulanTahun.split('-');
     const nphrAnalysis = await NPHRAnalysis.findOne({
