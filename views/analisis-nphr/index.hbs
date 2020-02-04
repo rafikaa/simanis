@@ -49,6 +49,7 @@
               </div>
             </div>
           </form>
+          {{#if parameters}}
           <table id="table-data-analisa-nphr" class="table table-bordered mt-5" cellspacing="0" width="100%">
             <thead>
               <tr>
@@ -72,7 +73,7 @@
             </tbody>
           </table>
           <div class="row mT-20">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <h5>Heat Loss Waterfall</h5>
               <div class="mT-30">
                 <canvas id="waterfall-chart" height="160"></canvas>
@@ -80,13 +81,14 @@
             </div>
           </div>
           <div class="row mT-20">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <h5>Pareto Heat Rate</h5>
               <div class="mT-30">
                 <canvas id="pareto-chart" height="160"></canvas>
               </div>
             </div>
           </div>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -117,13 +119,13 @@
     new Chart(waterfallCtx, {
       type: 'horizontalBar',
       data: {
-        labels: ['Heat Rate Actual', 'Param 1', 'Param 2', 'Param 3', 'Param 4', 'Param 5', 'Heat Rate Reference'],
+        labels: {{{ JSONstringify waterfall.labels }}},
         datasets: [{
           label: 'Deviasi Heat Rate (kCal/kWh)',
           backgroundColor: '#2196f3',
           borderColor: '#1976d2',
           borderWidth: 1,
-          data: [3200, 24, 30, 40, 50, 100, 3002],
+          data: {{ JSONstringify waterfall.values }},
         }],
       },
 
@@ -142,20 +144,20 @@
     new Chart(paretoCtx, {
       type: 'bar',
       data: {
-        labels: ['Param 1', 'Param 2', 'Param 3', 'Param 4'],
+        labels: {{{ JSONstringify pareto.labels }}},
         datasets: [{
           label: 'HR Losses (kCal/kWh)',
           backgroundColor: '#673ab7',
           borderColor: '#512da8',
           borderWidth: 1,
-          data: [160.4546, 24.1397, 0.2221, 0.0034],
+          data: {{ JSONstringify pareto.barValues }},
           order: 2
         }, {
-          label: 'HR Cummulative (kCal/kWh)',
+          label: 'HR Cummulative (%)',
           borderColor: '#1976d2',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           borderWidth: 2,
-          data: [86.8167, 99.8779, 99.9981, 100],
+          data: {{ JSONstringify pareto.lineValues }},
           type: 'line',
           order: 1
         }],
@@ -165,6 +167,11 @@
         responsive: true,
         legend: {
           position: 'bottom',
+        }, 
+        elements: {
+          line: {
+            tension: 0,
+          },
         },
       },
     });

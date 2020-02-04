@@ -47,6 +47,10 @@ const paramNames = {
   otherLosses: 'Other Losses/Gain (kCal/kWh)',
 };
 
+const round = (num, numOfDecimal) => {
+  return parseFloat(num.toFixed(numOfDecimal));
+};
+
 router.get('/', isAuthenticated, async (req, res, next) => {
   const ulplList = await getUlplList();
   const bulanTahun = req.query['dataAnalisis.bulanTahun'];
@@ -60,18 +64,22 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     },
   };
 
-  let parameters = [];
+  let parameters = [],
+    waterfall = { labels: [], values: [] },
+    pareto = { labels: [], barValues: [], lineValues: [] };
   if (bulanTahun && upk && ulpl) {
     const [bulan, tahun] = bulanTahun.split('-');
     const nphrAnalysis = await NPHRAnalysis.findOne({
-      bulan,
-      tahun,
       upk,
       ulpl,
+      bulan,
+      tahun,
     }).lean();
     if (nphrAnalysis) {
       parameters = nphrAnalysis.parameters;
     }
+    waterfall = await getWaterfallChart(nphrAnalysis);
+    pareto = await getParetoChart(nphrAnalysis);
   }
 
   return res.render('analisis-nphr/index', {
@@ -82,8 +90,64 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     ulplList,
     query,
     parameters,
+    waterfall,
+    pareto,
   });
 });
+
+const getWaterfallChart = async nphrAnalysis => {
+  const labels = [],
+    values = [];
+
+  if (nphrAnalysis) {
+    nphrAnalysis.parameters.forEach((param, i) => {
+      if (param.name === 'nettPlantHeatRate') {
+        values[0] = round(param.actual, 4);
+        values[nphrAnalysis.parameters.length] = round(param.baseline, 4);
+        labels[0] = 'Heat Rate Actual';
+        labels[nphrAnalysis.parameters.length] = 'Heat Rate Reference';
+      } else {
+        labels[i] = paramNames[param.name];
+        values[i] = round(param.heatRate, 4);
+      }
+    });
+  }
+
+  return { labels, values };
+};
+
+const getParetoChart = async nphrAnalysis => {
+  const labels = [],
+    barValues = [],
+    lineValues = [];
+
+  const sortDesc = (param1, param2) => param2.heatRate - param1.heatRate;
+
+  if (nphrAnalysis) {
+    const maxLabels = nphrAnalysis.jenisPembangkit === 'pltg' ? 5 : 10;
+    const params = JSON.parse(JSON.stringify(nphrAnalysis.parameters));
+    const sortedParams = params.sort(sortDesc).slice(0, maxLabels);
+
+    let sumOfPositiveHeatRate = 0;
+    for (let { name, heatRate } of sortedParams) {
+      if (name === 'nettPlantHeatRate') continue;
+      if (heatRate <= 0) break;
+      labels.push(paramNames[name]);
+      barValues.push(round(heatRate, 4));
+      sumOfPositiveHeatRate += heatRate;
+    }
+    let tempSum = 0;
+    for (let { name, heatRate } of sortedParams) {
+      if (name === 'nettPlantHeatRate') continue;
+      if (heatRate <= 0) break;
+      tempSum += heatRate;
+      const percentage = (tempSum / sumOfPositiveHeatRate) * 100;
+      lineValues.push(round(percentage, 4));
+    }
+  }
+
+  return { labels, barValues, lineValues };
+};
 
 router.get('/create', isAuthenticated, async (req, res, next) => {
   let units = [];
