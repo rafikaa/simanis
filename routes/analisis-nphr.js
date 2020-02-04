@@ -122,10 +122,11 @@ const getParetoChart = async nphrAnalysis => {
     lineValues = [];
 
   const sortDesc = (param1, param2) => param2.heatRate - param1.heatRate;
+  const maxLabels = nphrAnalysis.jenisPembangkit === 'pltg' ? 5 : 10;
 
   if (nphrAnalysis) {
     const params = JSON.parse(JSON.stringify(nphrAnalysis.parameters));
-    const sortedParams = params.sort(sortDesc);
+    const sortedParams = params.sort(sortDesc).slice(0, maxLabels);
 
     let sumOfPositiveHeatRate = 0;
     for (let { name, heatRate } of sortedParams) {
