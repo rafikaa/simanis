@@ -5,16 +5,18 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "dev": "node_modules/.bin/nodemon ./bin/www",
+    "dev": "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials/simanisapp-heroku.json node_modules/.bin/nodemon ./bin/www",
     "start": "node ./bin/www",
     "pretty": "prettier --write \"**/*.js\""
   },
   "dependencies": {
+    "@google-cloud/storage": "^4.3.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
     "form-data": "^2.3.3",

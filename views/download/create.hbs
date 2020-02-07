@@ -1,22 +1,28 @@
 <!-- ### Screen Content ### -->
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
+    {{#each success}}
+    <div class="alert alert-success" role="alert">{{this}}</div>
+    {{/each}}
+    {{#if error}}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+    {{/if}}
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-8"></div>
       <div class="masonry-item col-md-8">
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-30">Tambah Berkas Baru</h4>
-          <form>
+          <form method="POST" enctype="multipart/form-data">
             <div class="form-group row">
               <label for="judul" class="col-sm-4 col-form-label">Judul Berkas</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="judul" placeholder="">
+                <input name="title" type="text" class="form-control" id="judul" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="berkasDownload" class="col-sm-4 col-form-label">Berkas</label>
               <div class="col-sm-8">
-                <input type="file" class="form-control-file" id="berkasDownload" name="berkasLaporan">
+                <input name="file" type="file" class="form-control-file" id="berkasDownload" required>
               </div>
             </div>
             <div class="form-group row mT-30 text-right">
@@ -37,13 +43,15 @@
               </tr>
             </thead>
             <tbody>
+              {{#each files}}
               <tr>
-                <td>Analisis variability</td>
+                <td>{{this.title}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm">Download</button>
-                  <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+                  <a class="btn btn-outline-primary btn-sm" href="/download/{{this.name}}">Download</a>
+                  <a class="btn btn-outline-danger btn-sm" href="/download/{{this.name}}/delete">Hapus</a>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

@@ -47,14 +47,6 @@ router.get('/laporan', function(req, res, next) {
   res.render('laporan', { layout: 'dashboard', title: 'Laporan' });
 });
 
-router.get('/download', function(req, res, next) {
-  res.render('download', { layout: 'dashboard', title: 'Download' });
-});
-
-router.get('/input-download', function(req, res, next) {
-  res.render('input-download', { layout: 'dashboard', title: 'Download' });
-});
-
 router.get('/404', function(req, res, next) {
   res.render('404', { title: 'Error' });
 });

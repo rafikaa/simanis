@@ -7,6 +7,7 @@ const exphbs = require('express-handlebars');
 const hbsHelpers = require('handlebars-helpers');
 const flash = require('connect-flash');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -14,6 +15,7 @@ const unitRouter = require('./routes/unit');
 const nphrRouter = require('./routes/nphr');
 const analisisNphrRouter = require('./routes/analisis-nphr');
 const pemakaianSendiriRouter = require('./routes/pemakaian-sendiri');
+const downloadRouter = require('./routes/download');
 
 const dbConnection = require('./db/connection');
 dbConnection.connect();
@@ -51,6 +53,7 @@ app.use(
   })
 );
 app.use(flash());
+app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
@@ -58,6 +61,7 @@ app.use('/unit', unitRouter);
 app.use('/nphr', nphrRouter);
 app.use('/analisis-nphr', analisisNphrRouter);
 app.use('/pemakaian-sendiri', pemakaianSendiriRouter);
+app.use('/download', downloadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
