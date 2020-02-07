@@ -4,48 +4,23 @@
       <div class="masonry-sizer col-md-12"></div>
       <div class="masonry-item col-md-12">
         <div class="mT-10">
-          <a href="/download/create" class="btn btn-primary btn-lg float-sm-right">Edit Berkas</a>
+          {{#if hasUpdatePermission}}<a href="/download/create" class="btn btn-primary btn-lg float-sm-right">Edit Berkas</a>{{/if}}
           <h3 class="c-grey-900 mL-10">Downloads</h3>
         </div>
       </div>
     </div>
     <div class="row gap-20 masonry pos-r">
+      {{#each files}}
       <div class="masonry-item col-md-2">
         <div class="bgc-white bd bdrs-3 p-30 text-center">
           <span style="font-size: 32px;">
             <i class="ti-file c-blue-500"></i>
           </span>
-          <h6>Analisis variability</h6>
-          <a class="btn btn-primary" href="files/sample.pdf">Download</a>
+          <h6>{{this.title}}</h6>
+          <a class="btn btn-primary" href="/download/{{this.name}}">Download</a>
         </div>
       </div>
-      <div class="masonry-item col-md-2">
-        <div class="bgc-white bd bdrs-3 p-30 text-center">
-          <span style="font-size: 32px;">
-            <i class="ti-file c-blue-500"></i>
-          </span>
-          <h6>Template Laporan</h6>
-          <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-        </div>
-      </div>
-      <div class="masonry-item col-md-2">
-        <div class="bgc-white bd bdrs-3 p-30 text-center">
-          <span style="font-size: 32px;">
-            <i class="ti-file c-blue-500"></i>
-          </span>
-          <h6>Panduan Efisiensi</h6>
-          <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-        </div>
-      </div>
-      <div class="masonry-item col-md-2">
-        <div class="bgc-white bd bdrs-3 p-30 text-center">
-          <span style="font-size: 32px;">
-            <i class="ti-file c-blue-500"></i>
-          </span>
-          <h6>Panduan Efisiensi</h6>
-          <a class="btn btn-primary" href="files/sample.pdf">Download</a>
-        </div>
-      </div>
+      {{/each}}
     </div>
   </div>
 </main>
