@@ -43,13 +43,15 @@
               </tr>
             </thead>
             <tbody>
+              {{#each files}}
               <tr>
-                <td>Analisis variability</td>
+                <td>{{this.title}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm">Download</button>
-                  <button type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
+                  <a class="btn btn-outline-primary btn-sm" href="/download/{{this.name}}">Download</a>
+                  <a class="btn btn-outline-danger btn-sm" href="/download/{{this.name}}/delete">Hapus</a>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

@@ -5,7 +5,7 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "dev": "node_modules/.bin/nodemon ./bin/www",
+    "dev": "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials/simanisapp-heroku.json node_modules/.bin/nodemon ./bin/www",
     "start": "node ./bin/www",
     "pretty": "prettier --write \"**/*.js\""
   },

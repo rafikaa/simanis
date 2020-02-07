@@ -24,15 +24,26 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 });
 
 router.get('/create', isAuthenticated, async (req, res, next) => {
+  if (req.user.accountType != 'ADMIN') {
+    return res.redirect('/download');
+  }
+
+  const files = await Download.find().lean();
+
   return res.render('download/create', {
     layout: 'dashboard',
     title: 'Download',
     success: req.flash('success'),
     error: req.flash('error'),
+    files,
   });
 });
 
 router.post('/create', isAuthenticated, async (req, res, next) => {
+  if (req.user.accountType != 'ADMIN') {
+    return res.redirect('/download');
+  }
+
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -57,7 +68,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       size: file.size,
     });
     await download.save();
-    req.flash('success', 'File berhasil diupload');
+    req.flash('success', `File "${file.title}" berhasil diupload`);
   } catch (err) {
     console.error(err);
     req.flash('error', `Kesalahan sewaktu mengunggah file: ${err.message}`);
@@ -69,16 +80,44 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 router.get('/:filename', isAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
   const file = await Download.findOne({ name: filename }).lean();
-  const tempPath = path.resolve(`upload/${file.name}`);
+  if (file) {
+    const tempPath = path.resolve(`upload/${file.name}`);
 
-  await storage
-    .bucket('simanis')
-    .file(file.gsPath)
-    .download({
-      destination: tempPath,
-    });
+    await storage
+      .bucket('simanis')
+      .file(file.gsPath)
+      .download({
+        destination: tempPath,
+      });
+
+    return res.download(`upload/${file.name}`);
+  }
+
+  return res.status(404).send('Not found');
+});
+
+router.get('/:filename/delete', isAuthenticated, async (req, res, next) => {
+  if (req.user.accountType != 'ADMIN') {
+    return res.redirect('/download');
+  }
+
+  const { filename } = req.params;
+  const file = await Download.findOne({ name: filename }).lean();
+
+  try {
+    await storage
+      .bucket('simanis')
+      .file(file.gsPath)
+      .delete();
   
-  res.download(`upload/${file.name}`);
+    await Download.deleteOne({ name: filename });
+    req.flash('success', `File "${file.title}" berhasil dihapus`);
+  } catch (err) {
+    console.error(`GET /:filename/delete ${err}`);
+    req.flash('error', `Gagal menghapus file "${file.title}"`);
+  }
+
+  return res.redirect('/download/create');
 });
 
 module.exports = router;
