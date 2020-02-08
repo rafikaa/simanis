@@ -4,9 +4,9 @@
     {{#each success}}
     <div class="alert alert-success" role="alert">{{this}}</div>
     {{/each}}
-    {{#if error}}
-    <div class="alert alert-danger" role="alert">{{error}}</div>
-    {{/if}}
+    {{#each error}}
+    <div class="alert alert-danger" role="alert">{{this}}</div>
+    {{/each}}
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-8"></div>
       <div class="masonry-item col-md-8">

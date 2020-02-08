@@ -45,10 +45,16 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   }
 
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
+    req.flash('error', `Kesalahan sewaktu mengunggah file: ${err.message}`);
+    return res.redirect('/download/create');
   }
 
   let file = req.files.file;
+
+  if (file.size > 100000000) { // No more than 100mb
+    req.flash('error', `File "${file.name}" terlalu besar.`);
+    return res.redirect('/download/create');
+  }
 
   const tempPath = path.resolve(`upload/${file.name}`);
   const gsPath = `downloads/${file.name}`;
@@ -68,7 +74,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
       size: file.size,
     });
     await download.save();
-    req.flash('success', `File "${file.title}" berhasil diupload`);
+    req.flash('success', `File "${req.body.title}" berhasil diupload`);
   } catch (err) {
     console.error(err);
     req.flash('error', `Kesalahan sewaktu mengunggah file: ${err.message}`);
