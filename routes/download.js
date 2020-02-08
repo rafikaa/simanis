@@ -51,7 +51,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   let file = req.files.file;
 
-  if (file.size > 100_000_000) {
+  if (file.size > 100000000) { // No more than 100mb
     req.flash('error', `File "${file.name}" terlalu besar.`);
     return res.redirect('/download/create');
   }
