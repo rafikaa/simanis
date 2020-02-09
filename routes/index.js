@@ -43,10 +43,6 @@ router.get('/input-maturity-level-target', function(req, res, next) {
   });
 });
 
-router.get('/laporan', function(req, res, next) {
-  res.render('laporan', { layout: 'dashboard', title: 'Laporan' });
-});
-
 router.get('/404', function(req, res, next) {
   res.render('404', { title: 'Error' });
 });
