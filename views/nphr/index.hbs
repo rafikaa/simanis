@@ -18,7 +18,8 @@
               <label for="bulanTahun" class="col-sm-2 col-form-label">Bulan dan tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                  <input name="dataPerUpk.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly value="{{query.dataPerUpk.bulanTahun}}"/>
+                  <input name="dataPerUpk.bulanTahun" id="bulanTahun" class="form-control" type="text" readonly
+                    value="{{query.dataPerUpk.bulanTahun}}" />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -28,12 +29,16 @@
               <div class="col-sm-2">
                 <select name="dataPerUpk.upk" id="upk" class="form-control">
                   <option selected hidden disabled>Pilih UPK...</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
-                  <option {{#ifequal query.dataPerUpk.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
+                  <option {{#eq query.dataPerUpk.upk 'belawan'}}selected{{/eq}} value="belawan">UPK Belawan</option>
+                  <option {{#eq query.dataPerUpk.upk 'pangkalan_susu'}}selected{{/eq}} value="pangkalan_susu">UPK
+                    Pangkalan Susu</option>
+                  <option {{#eq query.dataPerUpk.upk 'nagan_raya'}}selected{{/eq}} value="nagan_raya">UPK Nagan Raya
+                  </option>
+                  <option {{#eq query.dataPerUpk.upk 'labuhan_angin'}}selected{{/eq}} value="labuhan_angin">UPK Labuhan
+                    Angin</option>
+                  <option {{#eq query.dataPerUpk.upk 'pekanbaru'}}selected{{/eq}} value="pekanbaru">UPDK Pekanbaru
+                  </option>
+                  <option {{#eq query.dataPerUpk.upk 'pandan'}}selected{{/eq}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <div class="form-group col-sm-2">
@@ -75,7 +80,8 @@
               <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly  value="{{query.dataTahunan.tahun}}"/>
+                  <input name="dataTahunan.tahun" id="tahun" class="form-control" type="text" readonly
+                    value="{{query.dataTahunan.tahun}}" />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -85,12 +91,16 @@
               <div class="col-sm-2">
                 <select name="dataTahunan.upk" id="upk" class="form-control">
                   <option selected hidden disabled>Pilih UPK...</option>
-                  <option {{#ifequal query.dataTahunan.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
-                  <option {{#ifequal query.dataTahunan.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
-                  <option {{#ifequal query.dataTahunan.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
-                  <option {{#ifequal query.dataTahunan.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
-                  <option {{#ifequal query.dataTahunan.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
-                  <option {{#ifequal query.dataTahunan.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
+                  <option {{#eq query.dataTahunan.upk 'belawan'}}selected{{/eq}} value="belawan">UPK Belawan</option>
+                  <option {{#eq query.dataTahunan.upk 'pangkalan_susu'}}selected{{/eq}} value="pangkalan_susu">UPK
+                    Pangkalan Susu</option>
+                  <option {{#eq query.dataTahunan.upk 'nagan_raya'}}selected{{/eq}} value="nagan_raya">UPK Nagan Raya
+                  </option>
+                  <option {{#eq query.dataTahunan.upk 'labuhan_angin'}}selected{{/eq}} value="labuhan_angin">UPK Labuhan
+                    Angin</option>
+                  <option {{#eq query.dataTahunan.upk 'pekanbaru'}}selected{{/eq}} value="pekanbaru">UPDK Pekanbaru
+                  </option>
+                  <option {{#eq query.dataTahunan.upk 'pandan'}}selected{{/eq}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <div class="form-group col-sm-2">
@@ -144,7 +154,8 @@
               <label for="tahunVisualisasi" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahunVisualisasi" class="input-group date" data-date-format="yyyy">
-                  <input name="visualisasi.tahun" id="tahunVisualisasi" class="form-control" type="text" readonly  value="{{query.visualisasi.tahun}}"/>
+                  <input name="visualisasi.tahun" id="tahunVisualisasi" class="form-control" type="text" readonly
+                    value="{{query.visualisasi.tahun}}" />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -155,7 +166,7 @@
                 <select name="visualisasi.ulpl" id="ulpl" class="form-control">
                   <option selected hidden disabled>Pilih ULPL...</option>
                   {{#each ulplList}}
-                  <option {{#ifequal ../query.visualisasi.ulpl this}}selected{{/ifequal}} value="{{this}}">{{this}}</option>
+                  <option {{#eq ../query.visualisasi.ulpl this}}selected{{/eq}} value="{{this}}">{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -222,22 +233,22 @@
           borderColor: '#673ab7',
           pointBackgroundColor: '#512da8',
           borderWidth: 2,
-          data: {{ulplChart.target}},
-        }, {
-          label: 'Realisasi',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: '#2196f3',
-          pointBackgroundColor: '#1976d2',
-          borderWidth: 2,
-          data: {{ ulplChart.realisasi }},
+          data: {{ ulplChart.target }},
+    }, {
+      label: 'Realisasi',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      borderColor: '#2196f3',
+      pointBackgroundColor: '#1976d2',
+      borderWidth: 2,
+      data: {{ ulplChart.realisasi }},
         }],
       },
-      options: {
-        legend: {
-          display: true,
-          position: 'bottom'
-        },
-      },
+    options: {
+    legend: {
+      display: true,
+      position: 'bottom'
+    },
+  },
     });
   });
 

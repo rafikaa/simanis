@@ -27,12 +27,16 @@
               <div class="col-sm-2" id="upk">
                 <select name="dataAnalisis.upk" id="upk" class="form-control">
                   <option selected hidden disabled>Pilih UPK...</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'belawan'}}selected{{/ifequal}} value="belawan">UPK Belawan</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'pangkalan_susu'}}selected{{/ifequal}} value="pangkalan_susu">UPK Pangkalan Susu</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'nagan_raya'}}selected{{/ifequal}} value="nagan_raya">UPK Nagan Raya</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'labuhan_angin'}}selected{{/ifequal}} value="labuhan_angin">UPK Labuhan Angin</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'pekanbaru'}}selected{{/ifequal}} value="pekanbaru">UPDK Pekanbaru</option>
-                  <option {{#ifequal query.dataAnalisis.upk 'pandan'}}selected{{/ifequal}} value="pandan">UPDK Pandan</option>
+                  <option {{#eq query.dataAnalisis.upk 'belawan'}}selected{{/eq}} value="belawan">UPK Belawan</option>
+                  <option {{#eq query.dataAnalisis.upk 'pangkalan_susu'}}selected{{/eq}} value="pangkalan_susu">UPK
+                    Pangkalan Susu</option>
+                  <option {{#eq query.dataAnalisis.upk 'nagan_raya'}}selected{{/eq}} value="nagan_raya">UPK Nagan Raya
+                  </option>
+                  <option {{#eq query.dataAnalisis.upk 'labuhan_angin'}}selected{{/eq}} value="labuhan_angin">UPK
+                    Labuhan Angin</option>
+                  <option {{#eq query.dataAnalisis.upk 'pekanbaru'}}selected{{/eq}} value="pekanbaru">UPDK Pekanbaru
+                  </option>
+                  <option {{#eq query.dataAnalisis.upk 'pandan'}}selected{{/eq}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <label for="ulpl" class="col-sm-1 col-form-label">ULPL</label>
@@ -40,7 +44,7 @@
                 <select name="dataAnalisis.ulpl" id="ulpl" class="form-control">
                   <option selected hidden disabled>Pilih ULPL...</option>
                   {{#each ulplList}}
-                  <option {{#ifequal ../query.dataAnalisis.ulpl this}}selected{{/ifequal}} value="{{this}}">{{this}}</option>
+                  <option {{#eq ../query.dataAnalisis.ulpl this}}selected{{/eq}} value="{{this}}">{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -126,21 +130,21 @@
       type: 'horizontalBar',
       data: {
         labels: {{{ JSONstringify waterfall.labels }}},
-        datasets: [{
-          label: 'Deviasi Heat Rate (kCal/kWh)',
-          backgroundColor: '#2196f3',
-          borderColor: '#1976d2',
-          borderWidth: 1,
-          data: {{ JSONstringify waterfall.values }},
+  datasets: [{
+    label: 'Deviasi Heat Rate (kCal/kWh)',
+    backgroundColor: '#2196f3',
+    borderColor: '#1976d2',
+    borderWidth: 1,
+    data: {{ JSONstringify waterfall.values }},
         }],
       },
 
-      options: {
-        responsive: true,
-        legend: {
-          position: 'bottom',
+  options: {
+    responsive: true,
+      legend: {
+      position: 'bottom',
         },
-      },
+  },
     });
   }
 
@@ -151,55 +155,55 @@
       type: 'bar',
       data: {
         labels: {{{ JSONstringify pareto.labels }}},
-        datasets: [{
-          label: 'HR Losses (kCal/kWh)',
-          backgroundColor: '#673ab7',
-          borderColor: '#512da8',
-          borderWidth: 1,
-          data: {{ JSONstringify pareto.barValues }},
-          order: 2,
-          yAxisID: "y-axis-kcal-kwh",
+  datasets: [{
+    label: 'HR Losses (kCal/kWh)',
+    backgroundColor: '#673ab7',
+    borderColor: '#512da8',
+    borderWidth: 1,
+    data: {{ JSONstringify pareto.barValues }},
+    order: 2,
+    yAxisID: "y-axis-kcal-kwh",
         }, {
-          label: 'HR Cummulative (%)',
-          borderColor: '#1976d2',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderWidth: 2,
-          data: {{ JSONstringify pareto.lineValues }},
-          type: 'line',
-          order: 1,
-          yAxisID: "y-axis-percentage"
+    label: 'HR Cummulative (%)',
+    borderColor: '#1976d2',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderWidth: 2,
+    data: {{ JSONstringify pareto.lineValues }},
+    type: 'line',
+    order: 1,
+    yAxisID: "y-axis-percentage"
         }],
       },
 
-      options: {
-        responsive: true,
-        legend: {
-          position: 'bottom',
-        }, 
-        elements: {
-          line: {
-            tension: 0,
+  options: {
+    responsive: true,
+      legend: {
+      position: 'bottom',
+        },
+    elements: {
+      line: {
+        tension: 0,
           },
-        },
-        scales: {
-          yAxes: [{
-            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-            display: true,
-            position: "left",
-            id: "y-axis-kcal-kwh",
-          }, {
-            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-            display: true,
-            position: "right",
-            id: "y-axis-percentage",
+    },
+    scales: {
+      yAxes: [{
+        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+        display: true,
+        position: "left",
+        id: "y-axis-kcal-kwh",
+      }, {
+        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+        display: true,
+        position: "right",
+        id: "y-axis-percentage",
 
-            // grid line settings
-            gridLines: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
-            },
-          }],
+        // grid line settings
+        gridLines: {
+          drawOnChartArea: false, // only want the grid lines for one axis to show up
         },
-      },
+      }],
+        },
+  },
     });
   }
 </script>
