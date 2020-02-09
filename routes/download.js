@@ -51,7 +51,8 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   let file = req.files.file;
 
-  if (file.size > 100000000) { // No more than 100mb
+  // No more than 100mb
+  if (file.size > 100000000) {
     req.flash('error', `File "${file.name}" terlalu besar.`);
     return res.redirect('/download/create');
   }
@@ -115,7 +116,7 @@ router.get('/:filename/delete', isAuthenticated, async (req, res, next) => {
       .bucket('simanis')
       .file(file.gsPath)
       .delete();
-  
+
     await Download.deleteOne({ name: filename });
     req.flash('success', `File "${file.title}" berhasil dihapus`);
   } catch (err) {

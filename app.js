@@ -15,6 +15,7 @@ const unitRouter = require('./routes/unit');
 const nphrRouter = require('./routes/nphr');
 const analisisNphrRouter = require('./routes/analisis-nphr');
 const pemakaianSendiriRouter = require('./routes/pemakaian-sendiri');
+const laporanRouter = require('./routes/laporan');
 const downloadRouter = require('./routes/download');
 
 const dbConnection = require('./db/connection');
@@ -24,14 +25,6 @@ const app = express();
 
 // view engine setup
 const hbs = exphbs.create({
-  helpers: {
-    ifequal: function(var1, var2, block) {
-      if (var1 === var2) {
-        return block.fn(this);
-      }
-      return block.inverse(this);
-    },
-  },
   extname: '.hbs',
 });
 hbsHelpers({
@@ -61,6 +54,7 @@ app.use('/unit', unitRouter);
 app.use('/nphr', nphrRouter);
 app.use('/analisis-nphr', analisisNphrRouter);
 app.use('/pemakaian-sendiri', pemakaianSendiriRouter);
+app.use('/laporan', laporanRouter);
 app.use('/download', downloadRouter);
 
 // catch 404 and forward to error handler
