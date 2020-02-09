@@ -4,7 +4,7 @@ const express = require('express');
 const { Storage } = require('@google-cloud/storage');
 
 const User = require('../db/User');
-const Download = require('../db/Download');
+const Laporan = require('../db/Laporan');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
@@ -12,40 +12,49 @@ const router = express.Router();
 const storage = new Storage();
 
 router.get('/', isAuthenticated, async (req, res, next) => {
-  // const hasUpdatePermission = req.user.accountType === 'ADMIN';
-  // const files = await Download.find().lean();
+  let units = [];
+  if (req.user.accountType === 'ADMIN') {
+    units = await User.find({ accountType: 'UNIT' }, [
+      'name',
+      'username',
+    ]).lean();
+  } else if (req.user.accountType === 'UNIT') {
+    units = [req.user];
+  }
+  const { upk } = req.query;
+  const laporanList = await Laporan.find({ upk }).lean();
+  const query = { upk };
 
   return res.render('laporan/index', {
     layout: 'dashboard',
     title: 'Laporan',
+    success: req.flash('success'),
+    error: req.flash('error'),
+    laporanList,
+    units,
+    query,
   });
-  // return res.render('download/index', {
-  //   layout: 'dashboard',
-  //   title: 'Download',
-  //   files,
-  //   hasUpdatePermission,
-  // });
 });
 
 router.post('/', isAuthenticated, async (req, res, next) => {
-  if (req.user.accountType != 'ADMIN') {
-    return res.redirect('/download');
-  }
+  const { bulanTahun, upk, ulpl } = req.body;
+  const [bulan, tahun] = bulanTahun.split('-');
 
   if (!req.files || Object.keys(req.files).length === 0) {
     req.flash('error', `Kesalahan sewaktu mengunggah file: ${err.message}`);
-    return res.redirect('/download/create');
+    return res.redirect('/laporan');
   }
 
   let file = req.files.file;
 
-  if (file.size > 100000000) { // No more than 100mb
+  // No more than 100mb
+  if (file.size > 100000000) {
     req.flash('error', `File "${file.name}" terlalu besar.`);
-    return res.redirect('/download/create');
+    return res.redirect('/laporan');
   }
 
   const tempPath = path.resolve(`upload/${file.name}`);
-  const gsPath = `downloads/${file.name}`;
+  const gsPath = `laporan/${file.name}`;
 
   try {
     await file.mv(tempPath);
@@ -55,25 +64,28 @@ router.post('/', isAuthenticated, async (req, res, next) => {
         cacheControl: 'public, max-age=31536000',
       },
     });
-    const download = new Download({
-      title: req.body.title,
+    const laporan = new Laporan({
+      bulan,
+      tahun,
+      upk,
+      ulpl,
       name: file.name,
       gsPath,
       size: file.size,
     });
-    await download.save();
-    req.flash('success', `File "${req.body.title}" berhasil diupload`);
+    await laporan.save();
+    req.flash('success', `File "${file.name}" berhasil diupload`);
   } catch (err) {
     console.error(err);
     req.flash('error', `Kesalahan sewaktu mengunggah file: ${err.message}`);
   }
 
-  return res.redirect('/download/create');
+  return res.redirect(`/laporan?upk=${upk}`);
 });
 
 router.get('/:filename', isAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
-  const file = await Download.findOne({ name: filename }).lean();
+  const file = await Laporan.findOne({ name: filename }).lean();
   if (file) {
     const tempPath = path.resolve(`upload/${file.name}`);
 

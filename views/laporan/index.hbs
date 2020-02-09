@@ -1,17 +1,23 @@
 <!-- ### Screen Content ### -->
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
+    {{#each success}}
+    <div class="alert alert-success" role="alert">{{this}}</div>
+    {{/each}}
+    {{#each error}}
+    <div class="alert alert-danger" role="alert">{{this}}</div>
+    {{/each}}
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-8"></div>
       <div class="masonry-item col-md-8">
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
-          <form>
+          <form method="POST" enctype="multipart/form-data">
             <div class="form-group row">
               <label for="bulanTahunLaporan" class="col-sm-4 col-form-label">Bulan dan Tahun</label>
               <div class="col-sm-8">
                 <div id="datepickerBulanTahun" class="input-group date" data-date-format="mm-yyyy">
-                  <input id="bulanTahunLaporan" class="form-control" type="text" readonly />
+                  <input name="bulanTahun" id="bulanTahunLaporan" class="form-control" type="text" readonly required/>
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -21,19 +27,24 @@
             <div class="form-group row">
               <label for="upk" class="col-sm-4 col-form-label">UPK</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="upk" placeholder="UPK Belawan" disabled>
+                <select name="upk" class="form-control" id="upk" required>
+                  <option disabled hidden selected>Pilih UPK...</option>
+                  {{#each units}}
+                  <option value="{{this.username}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <label for="ulpl" class="col-sm-4 col-form-label">ULPL</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="ulpl" placeholder="">
+                <input name="ulpl" type="text" class="form-control" id="ulpl" placeholder="" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="berkasLaporan" class="col-sm-4 col-form-label">Berkas Laporan</label>
               <div class="col-sm-8">
-                <input type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan">
+                <input name="file" type="file" class="form-control-file" id="berkasLaporan" name="berkasLaporan" required>
               </div>
             </div>
             <div class="form-group row mT-30 text-right">
@@ -45,18 +56,18 @@
         </div>
         <div class="bgc-white bd bdrs-3 p-20 mT-20">
           <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
-          <form action="">
+          <form>
             <div class="form-group row">
               <label for="upk" class="col-sm-1 col-form-label">UPK</label>
               <div class="col-sm-3">
-                <select id="upk" class="form-control">
-                  <option selected="selected">Pilih UPK...</option>
-                  <option value="upkBelawan">UPK Belawan</option>
-                  <option value="upkPangkalanSusu">UPK Pangkalan Susu</option>
-                  <option value="upkNaganRaya">UPK Nagan Raya</option>
-                  <option value="upkLabuhanAngin">UPK Labuhan Angin</option>
-                  <option value="updkPekanbaru">UPK Pekan Baru</option>
-                  <option value="updkPandan">UPK Pandan</option>
+                <select name="upk" id="upk" class="form-control">
+                  <option selected hidden disabled>Pilih UPK...</option>
+                  <option {{#eq query.upk 'belawan'}}selected{{/eq}} value="belawan">UPK Belawan</option>
+                  <option {{#eq query.upk 'pangkalan_susu'}}selected{{/eq}} value="pangkalan_susu">UPK Pangkalan Susu</option>
+                  <option {{#eq query.upk 'nagan_raya'}}selected{{/eq}} value="nagan_raya">UPK Nagan Raya</option>
+                  <option {{#eq query.upk 'labuhan_angin'}}selected{{/eq}} value="labuhan_angin">UPK Labuhan Angin</option>
+                  <option {{#eq query.upk 'pekanbaru'}}selected{{/eq}} value="pekanbaru">UPDK Pekanbaru</option>
+                  <option {{#eq query.upk 'pandan'}}selected{{/eq}} value="pandan">UPDK Pandan</option>
                 </select>
               </div>
               <div class="form-group col-sm-3">
@@ -67,29 +78,21 @@
           <table id="table-laporan" class="table table-bordered" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>Unit Pelaksana Pembangkit (UPK)</th>
                 <th>Unit Layanan Pusat Listrik (ULPL)</th>
                 <th>Periode Submit</th>
                 <th>Berkas Laporan</th>
               </tr>
             </thead>
             <tbody>
+              {{#each laporanList}}
               <tr>
-                <td>UPK Belawan</td>
-                <td>ULPL 1</td>
-                <td>mm-yyyy</td>
+                <td>{{this.ulpl}}</td>
+                <td>{{this.bulan}}-{{this.tahun}}</td>
                 <td>
-                  <a href="files/sample.pdf">Download</a>
+                  <a href="/laporan/{{this.name}}">Download</a>
                 </td>
               </tr>
-              <tr>
-                <td>UPK Belawan</td>
-                <td>ULPL 2</td>
-                <td>mm-yyyy</td>
-                <td>
-                  <a href="files/sample.pdf">Download</a>
-                </td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -100,7 +103,8 @@
 <script>
   $(document).ready(function () {
     $('#table-laporan').DataTable({
-      searching: false
+      searching: false,
+      "order": [],
     });
     $("#datepickerBulanTahun").datepicker({
       autoclose: true,
