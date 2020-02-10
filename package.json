@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials/simanisapp-heroku.json node_modules/.bin/nodemon ./bin/www",
-    "start": "node ./bin/www",
+    "start": "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials/simanisapp-heroku.json node ./bin/www",
     "pretty": "prettier --write \"**/*.js\""
   },
   "dependencies": {
