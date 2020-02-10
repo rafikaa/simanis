@@ -15,34 +15,6 @@ router.get('/', isAuthenticated, (req, res, next) => {
   res.render('index', { layout: 'dashboard', title: 'SIMANIS' });
 });
 
-router.get('/maturity-level', function(req, res, next) {
-  res.render('maturity-level', {
-    layout: 'dashboard',
-    title: 'Maturity Level',
-  });
-});
-
-router.get('/maturity-level-x', function(req, res, next) {
-  res.render('maturity-level-x', {
-    layout: 'dashboard',
-    title: 'Maturity Level',
-  });
-});
-
-router.get('/input-maturity-level', function(req, res, next) {
-  res.render('input-maturity-level', {
-    layout: 'dashboard',
-    title: 'Maturity Level',
-  });
-});
-
-router.get('/input-maturity-level-target', function(req, res, next) {
-  res.render('input-maturity-level-target', {
-    layout: 'dashboard',
-    title: 'Maturity Level',
-  });
-});
-
 router.get('/404', function(req, res, next) {
   res.render('404', { title: 'Error' });
 });

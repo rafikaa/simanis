@@ -15,6 +15,7 @@ const unitRouter = require('./routes/unit');
 const nphrRouter = require('./routes/nphr');
 const analisisNphrRouter = require('./routes/analisis-nphr');
 const pemakaianSendiriRouter = require('./routes/pemakaian-sendiri');
+const maturityLevelRouter = require('./routes/maturity-level');
 const laporanRouter = require('./routes/laporan');
 const downloadRouter = require('./routes/download');
 
@@ -54,6 +55,7 @@ app.use('/unit', unitRouter);
 app.use('/nphr', nphrRouter);
 app.use('/analisis-nphr', analisisNphrRouter);
 app.use('/pemakaian-sendiri', pemakaianSendiriRouter);
+app.use('/maturity-level', maturityLevelRouter);
 app.use('/laporan', laporanRouter);
 app.use('/download', downloadRouter);
 
