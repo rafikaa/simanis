@@ -7,9 +7,9 @@
           <a href="/nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data NPHR</a>
           <h3 class="c-grey-900 mL-10 mB-20">Data NPHR Thermal Power Plant</h3>
         </div>
-        {{#if success}}
-        <div class="alert alert-success" role="alert">{{success}}</div>
-        {{/if}}
+        {{#each success}}
+        <div class="alert alert-success" role="alert">{{this}}</div>
+        {{/each}}
 
         <form>
           <div class="bgc-white bd bdrs-3 p-20">
