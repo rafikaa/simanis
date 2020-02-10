@@ -23,13 +23,12 @@ const getUpkNames = async () => {
   return upkNames;
 };
 
-
 router.get('/', isAuthenticated, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   const query = req.query;
   const { semester, tahun } = query;
   const upkNames = await getUpkNames();
-  let mls = await MaturityLevel.find({ semester, tahun }).lean()
+  let mls = await MaturityLevel.find({ semester, tahun }).lean();
   mls = mls.map(m => ({ ...m, upkName: upkNames[m.upk] }));
 
   return res.render('maturity-level/index', {
@@ -118,11 +117,25 @@ router.post('/target', isAuthenticated, async (req, res, next) => {
 
 router.get('/realisasi', isAuthenticated, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
+  const units = await getUnitList(req.user);
 
   return res.render('maturity-level/realisasi', {
     layout: 'dashboard',
     title: 'Maturity Level',
     isAdmin,
+    units,
+  });
+});
+
+router.post('/realisasi', isAuthenticated, async (req, res, next) => {
+  const isAdmin = req.user.accountType === 'ADMIN';
+  const units = await getUnitList(req.user);
+
+  return res.render('maturity-level/realisasi', {
+    layout: 'dashboard',
+    title: 'Maturity Level',
+    isAdmin,
+    units,
   });
 });
 

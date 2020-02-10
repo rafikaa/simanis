@@ -19,66 +19,82 @@ const maturityLevelSchema = new Schema(
     pengumpulanDataEfisiensi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     perhitunganPerformanceTest: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     pemodelan: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     heatRateAnalysis: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     auxiliaryPowerAnalysis: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     rekomendasi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     pelaporanEfisiensi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     monitoringPostProgram: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [{
-        type: Boolean,
-        required: true,
-      }],
+      detailRealisasi: [
+        {
+          type: [Boolean],
+          required: true,
+        },
+      ],
     },
     averageTarget: Number,
     averageRealisasi: Number,
@@ -90,9 +106,6 @@ const maturityLevelSchema = new Schema(
 
 maturityLevelSchema.index({ semester: 1, tahun: 1, upk: 1 }, { unique: true });
 
-const MaturityLevel = mongoose.model(
-  'MaturityLevel',
-  maturityLevelSchema
-);
+const MaturityLevel = mongoose.model('MaturityLevel', maturityLevelSchema);
 
 module.exports = MaturityLevel;
