@@ -129,11 +129,13 @@ router.get('/realisasi', isAuthenticated, async (req, res, next) => {
 const parseFormData = (body) => {
   const formData = {};
   for (let formKey of Object.keys(body)) {
-    const keys = formKey.replace(/]/g, '');
-    const [key, idx1, idx2] = keys.split('[');
-    if (!formData[key]) formData[key] = [];
-    if (!formData[key][Number(idx1)]) formData[key][Number(idx1)] = [];
-    formData[key][Number(idx1)][Number(idx2)] = body[formKey] === 'y';
+    if (formKey !== 'semester' && formKey !== 'tahun' && formKey !== 'upk') {
+      const keys = formKey.replace(/]/g, '');
+      const [key, idx1, idx2] = keys.split('[');
+      if (!formData[key]) formData[key] = [];
+      if (!formData[key][Number(idx1)]) formData[key][Number(idx1)] = [];
+      formData[key][Number(idx1)][Number(idx2)] = body[formKey] === 'y';
+    }
   }
   return formData;
 };
@@ -144,6 +146,55 @@ const weight = {
     [0.3, 0.3, 0.4],
     [0.2, 0.3, 0.3, 0.2],
     [0.5, 0.5],
+    [0.4, 0.6],
+  ],
+  perhitunganPerformanceTest: [
+    [0.2, 0.8],
+    [0.4, 0.6],
+    [0.4, 0.6],
+    [0.5, 0.5],
+    [0.4, 0.6],
+  ],
+  pemodelan: [
+    [0.7, 0.3],
+    [0.4, 0.4, 0.2],
+    [0.5, 0.5],
+    [0.6, 0.4],
+    [0.4, 0.6],
+  ],
+  analisisDataEfisiensi: [
+    [0.3, 0.7],
+    [0.5, 0.5],
+    [0.7, 0.3],
+    [0.6, 0.4],
+    [0.6, 0.4],
+  ],
+  auxiliaryPowerAnalysis: [
+    [0.3, 0.7],
+    [0.5, 0.5],
+    [0.3, 0.7],
+    [0.6, 0.4],
+    [0.5, 0.5],
+  ],
+  pelaporanEfisiensi: [
+    [0.3, 0.7],
+    [0.4, 0.3, 0.3],
+    [0.4, 0.3, 0.3],
+    [0.25, 0.25, 0.25, 0.25],
+    [0.15, 0.15, 0.3, 0.4],
+  ],
+  pelaporanEfisiensi: [
+    [0.3, 0.7],
+    [0.7, 0.3],
+    [0.6, 0.4],
+    [0.6, 0.4],
+    [0.4, 0.6],
+  ],
+  monitoringPostProgram: [
+    [0.3, 0.7],
+    [0.2, 0.6, 0.2],
+    [0.3, 0.7],
+    [0.3, 0.7],
     [0.4, 0.6],
   ],
 };
@@ -163,18 +214,11 @@ const calculateScores = (formData) => {
       }
     }
   }
+  return scores;
 };
 
 router.post('/realisasi', isAuthenticated, async (req, res, next) => {
-  const isAdmin = req.user.accountType === 'ADMIN';
-  const units = await getUnitList(req.user);
-
-  const formData = parseFormData(req.body);
-  const scores = calculateScores(formData);
-  console.log(formData);
-  console.log(scores);
-  const sumRealisasi = Object.values(scores).reduce((a, b) => a + b, 0);
-  const averageRealisasi = (sumRealisasi / Object.values(scores).length) || 0;
+  const { semester, tahun, upk } = req.body;
 
   let ml = await MaturityLevel.findOne({ semester, tahun, upk });
 
@@ -186,6 +230,41 @@ router.post('/realisasi', isAuthenticated, async (req, res, next) => {
     });
   }
 
+  for (let file of req.files) {
+    // No more than 100mb
+    if (file.size > 100000000) {
+      req.flash('error', `File "${file.name}" terlalu besar.`);
+      return res.redirect('/maturity-level/realisasi');
+    }
+
+    const tempPath = path.resolve(`upload/${file.name}`);
+    const gsPath = `maturity-level/${file.name}`;
+    await file.mv(tempPath);
+    await storage.bucket('simanis').upload(tempPath, {
+      destination: gsPath,
+      metadata: {
+        cacheControl: 'public, max-age=31536000',
+      },
+    });
+    const laporan = new Laporan({
+      bulan,
+      tahun,
+      upk,
+      ulpl,
+      name: file.name,
+      gsPath,
+      size: file.size,
+    });
+    await laporan.save();
+  }
+
+  const formData = parseFormData(req.body);
+  const scores = calculateScores(formData);
+  console.log(formData);
+  console.log(scores);
+  const sumRealisasi = Object.values(scores).reduce((a, b) => a + b, 0);
+  const averageRealisasi = (sumRealisasi / Object.values(scores).length) || 0;
+
   ml.pengumpulanDataEfisiensi.realisasi = scores.pengumpulanDataEfisiensi;
   ml.perhitunganPerformanceTest.realisasi = scores.perhitunganPerformanceTest;
   ml.pemodelan.realisasi = scores.pemodelan;
@@ -196,16 +275,12 @@ router.post('/realisasi', isAuthenticated, async (req, res, next) => {
   ml.monitoringPostProgram.realisasi = scores.monitoringPostProgram;
   ml.averageRealisasi = averageRealisasi;
 
-  await ml.save();
+  // await ml.save();
 
   // TODO upload file
 
-  return res.render('maturity-level/realisasi', {
-    layout: 'dashboard',
-    title: 'Maturity Level',
-    isAdmin,
-    units,
-  });
+
+  return res.redirect('/maturity-level/realisasi');
 });
 
 router.get('/:upk', isAuthenticated, async (req, res, next) => {
