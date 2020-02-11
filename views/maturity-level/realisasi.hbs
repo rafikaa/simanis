@@ -10,7 +10,7 @@
             <div class="form-group row">
               <label for="semester" class="col-sm-4 col-form-label">Semester</label>
               <div class="col-sm-8">
-                <select class="form-control" id="semester">
+                <select class="form-control" id="semester" required>
                   <option selected="selected">Pilih semester...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -21,7 +21,7 @@
               <label for="tahunMaturity" class="col-sm-4 col-form-label">Tahun</label>
               <div class="col-sm-8">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahun" class="form-control" type="text" readonly />
+                  <input id="tahun" class="form-control" type="text" readonly required/>
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
