@@ -121,6 +121,8 @@ router.get('/realisasi', isAuthenticated, async (req, res, next) => {
   return res.render('maturity-level/realisasi', {
     layout: 'dashboard',
     title: 'Maturity Level',
+    success: req.flash('success'),
+    error: req.flash('error'),
     isAdmin,
     units,
   });
@@ -162,7 +164,7 @@ const weight = {
     [0.6, 0.4],
     [0.4, 0.6],
   ],
-  analisisDataEfisiensi: [
+  heatRateAnalysis: [
     [0.3, 0.7],
     [0.5, 0.5],
     [0.7, 0.3],
@@ -176,7 +178,7 @@ const weight = {
     [0.6, 0.4],
     [0.5, 0.5],
   ],
-  pelaporanEfisiensi: [
+  rekomendasi: [
     [0.3, 0.7],
     [0.4, 0.3, 0.3],
     [0.4, 0.3, 0.3],
@@ -230,15 +232,17 @@ router.post('/realisasi', isAuthenticated, async (req, res, next) => {
     });
   }
 
-  for (let file of req.files) {
+  for (let fileKey of Object.keys(req.files)) {
+    const file = req.files[fileKey];
     // No more than 100mb
     if (file.size > 100000000) {
       req.flash('error', `File "${file.name}" terlalu besar.`);
       return res.redirect('/maturity-level/realisasi');
     }
 
-    const tempPath = path.resolve(`upload/${file.name}`);
-    const gsPath = `maturity-level/${file.name}`;
+    const filename = `${Date.now()}-${file.name}`;
+    const tempPath = path.resolve(`upload/${filename}`);
+    const gsPath = `maturity-level/${filename}`;
     await file.mv(tempPath);
     await storage.bucket('simanis').upload(tempPath, {
       destination: gsPath,
@@ -246,41 +250,58 @@ router.post('/realisasi', isAuthenticated, async (req, res, next) => {
         cacheControl: 'public, max-age=31536000',
       },
     });
-    const laporan = new Laporan({
-      bulan,
-      tahun,
-      upk,
-      ulpl,
-      name: file.name,
-      gsPath,
-      size: file.size,
-    });
-    await laporan.save();
+    ml[fileKey].fileGsPath = gsPath;
+    ml[fileKey].fileName = file.name;
   }
 
   const formData = parseFormData(req.body);
   const scores = calculateScores(formData);
-  console.log(formData);
-  console.log(scores);
   const sumRealisasi = Object.values(scores).reduce((a, b) => a + b, 0);
   const averageRealisasi = (sumRealisasi / Object.values(scores).length) || 0;
 
   ml.pengumpulanDataEfisiensi.realisasi = scores.pengumpulanDataEfisiensi;
+  ml.pengumpulanDataEfisiensi.detailRealisasi = formData.pengumpulanDataEfisiensi;
   ml.perhitunganPerformanceTest.realisasi = scores.perhitunganPerformanceTest;
+  ml.perhitunganPerformanceTest.detailRealisasi = formData.perhitunganPerformanceTest;
   ml.pemodelan.realisasi = scores.pemodelan;
+  ml.pemodelan.detailRealisasi = formData.pemodelan;
   ml.heatRateAnalysis.realisasi = scores.heatRateAnalysis;
+  ml.heatRateAnalysis.detailRealisasi = formData.heatRateAnalysis;
   ml.auxiliaryPowerAnalysis.realisasi = scores.auxiliaryPowerAnalysis;
+  ml.auxiliaryPowerAnalysis.detailRealisasi = formData.auxiliaryPowerAnalysis;
   ml.rekomendasi.realisasi = scores.rekomendasi;
+  ml.rekomendasi.detailRealisasi = formData.rekomendasi;
   ml.pelaporanEfisiensi.realisasi = scores.pelaporanEfisiensi;
+  ml.pelaporanEfisiensi.detailRealisasi = formData.pelaporanEfisiensi;
   ml.monitoringPostProgram.realisasi = scores.monitoringPostProgram;
+  ml.monitoringPostProgram.detailRealisasi = formData.monitoringPostProgram;
   ml.averageRealisasi = averageRealisasi;
 
-  // await ml.save();
+  await ml.save();
 
-  // TODO upload file
+  req.flash('success', 'Data Realisasi Maturity Level berhasil disimpan');
+  const query = `semester=${semester}&tahun=${tahun}`;
+  return res.redirect(`/maturity-level?${query}`);
+});
 
+router.get('/download', isAuthenticated, async (req, res, next) => {
+  const { semester, tahun, upk, laporan } = req.query;
+  const ml = await MaturityLevel.findOne({ semester, tahun, upk }).lean();
 
-  return res.redirect('/maturity-level/realisasi');
+  if (ml[laporan].fileName && ml[laporan].fileGsPath) {
+    const tempPath = path.resolve(`upload/${ml[laporan].fileName}`);
+
+    await storage
+      .bucket('simanis')
+      .file(ml[laporan].fileGsPath)
+      .download({
+        destination: tempPath,
+      });
+
+    return res.download(`upload/${ml[laporan].fileName}`);
+  }
+
+  return res.status(404).send('Not found');
 });
 
 router.get('/:upk', isAuthenticated, async (req, res, next) => {

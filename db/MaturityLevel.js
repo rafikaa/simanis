@@ -19,82 +19,58 @@ const maturityLevelSchema = new Schema(
     pengumpulanDataEfisiensi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     perhitunganPerformanceTest: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     pemodelan: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     heatRateAnalysis: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     auxiliaryPowerAnalysis: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     rekomendasi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     pelaporanEfisiensi: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     monitoringPostProgram: {
       target: Number,
       realisasi: Number,
-      detailRealisasi: [
-        {
-          type: [Boolean],
-          required: true,
-        },
-      ],
+      detailRealisasi: [[Boolean]],
+      fileGsPath: String,
+      fileName: String,
     },
     averageTarget: Number,
     averageRealisasi: Number,

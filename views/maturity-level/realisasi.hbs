@@ -1,6 +1,12 @@
 <!-- ### Screen Content ### -->
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
+    {{#each success}}
+    <div class="alert alert-success" role="alert">{{this}}</div>
+    {{/each}}
+    {{#each error}}
+    <div class="alert alert-danger" role="alert">{{this}}</div>
+    {{/each}}
     <div class="row gap-20">
       <div class="col-md-8">
         <h3 class="c-grey-900 mB-15">Input Data Maturity Level</h3>
@@ -236,7 +242,7 @@
                 </div>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat file hasil running pemodelan efisiensi</span>
+                <span class="d-block">Terdapat Laporan hasil performance test</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[0][1]" id="maturity-b12-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b12-ya">Ya</label>
@@ -250,8 +256,7 @@
                 <h5>Level 2 (Stabilizing)</h5>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat jadwal dan realisasi running model based normalisation lebih dari 80%
-                  dari rencana</span>
+                <span class="d-block">Terdapat IK performance test untuk plant, serta data referensi performance test</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[1][0]" id="maturity-b21-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b21-ya">Ya</label>
@@ -262,8 +267,8 @@
                 </div>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat file laporan hasil running gate cycle rutin tiap bulan (digabungkan
-                  dalam Laporan Efisiensi Bulanan Unit)</span>
+                <span class="d-block">Terdapat jadwal & realisasi pelaksanaan performance test plan lebih dari 80% dari jadwal kecuali jika terjadi unplanned
+                outage</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[1][1]" id="maturity-b22-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b22-ya">Ya</label>
@@ -273,23 +278,11 @@
                   <label class="form-check-label" for="maturity-b22-tidak">Tidak</label>
                 </div>
               </div>
-              <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat IK Pengoperasian Permodelan Efisiensi</span>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[1][2]" id="maturity-b23-ya" value="y" required>
-                  <label class="form-check-label" for="maturity-b23-ya">Ya</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[1][2]" id="maturity-b23-tidak" value="t" required>
-                  <label class="form-check-label" for="maturity-b23-tidak">Tidak</label>
-                </div>
-              </div>
               <div class="col-sm-12 mB-12">
                 <h5>Level 3 (Preventing)</h5>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Semua list equipment peralatan yang ada di Heat balance diagram sudah masuk ke
-                  pemodelan</span>
+                <span class="d-block">Terdapat folder / outner yang khusus digunakan untuk menyimpan hasil performance test</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[2][0]" id="maturity-b31-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b31-ya">Ya</label>
@@ -300,8 +293,8 @@
                 </div>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Jumlah equipment yang dimodelkan sudah sesuai dengan Heat Balance Diagram dan
-                  kondisi aktual di lapangan atau sesuai dengan design specification di manual book</span>
+                <span class="d-block">IK Performance test yang ada direview dan disesuaikan dengan standard uji dari ASME PTC atau standar internasional
+                lainnya yang diakui (ISO, DIN, EN, JIS dsb)</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[2][1]" id="maturity-b32-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b32-ya">Ya</label>
@@ -315,8 +308,8 @@
                 <h5>Level 4 (Optimizing)</h5>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat bukti model dikembangkan untuk aplikasi lain seperti simulasi pola
-                  operasi, process design, operator training, trouble shooting, efficiency improvement dsb</span>
+                <span class="d-block">Terdapat IK Performance equipment yang lain minimal 5 (lima) buah (di luar IK Performance Test Boiler, HRSG, Steam
+                Turbine, Gas Turbine dan Plant)</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[3][0]" id="maturity-b41-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b41-ya">Ya</label>
@@ -327,8 +320,8 @@
                 </div>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Terdapat bukti laporan dan tindak lanjut dari simulasi pada model tersebut
-                </span>
+                <span class="d-block">Terdapat Laporan Performance Test Untuk Overall Plant disertai dengan perhitungan performance di luar peralatan utama
+                minimal 5 (lima) buah</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[3][1]" id="maturity-b42-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b42-ya">Ya</label>
@@ -342,7 +335,7 @@
                 <h5>Level 5 (Excellence)</h5>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Seluruh equipment unit sudah dimasukan ke dalam pemodelan</span>
+                <span class="d-block">Terdapat IK performance test untuk seluruh equipment di unit yang terkait efisiensi</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[4][0]" id="maturity-b51-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b51-ya">Ya</label>
@@ -353,8 +346,7 @@
                 </div>
               </div>
               <div class="col-sm-12 mB-15">
-                <span class="d-block">Pemodelan di unit digunakan sebagai rujukan atau tempat benchmarking unit
-                  pembangkit lang lain</span>
+                <span class="d-block">Terdapat Laporan performance test equipment unit minimal pada 90% peralatan di unit yang terkait efisiensi</span>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="perhitunganPerformanceTest[4][1]" id="maturity-b52-ya" value="y" required>
                   <label class="form-check-label" for="maturity-b52-ya">Ya</label>
@@ -368,6 +360,161 @@
                 <div class="form-group">
                   <label for="evidence">Upload Evidence</label>
                   <input name="perhitunganPerformanceTest" type="file" class="form-control-file" id="evidence" placeholder="" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{!-- Pemodelan --}}
+          <div class="bgc-white bd bdrs-3 p-20 mT-20">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <h4 class="font-weight-bolder">Pemodelan</h4>
+                <h5>Level 1 (Fire Fighting)</h5>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat bidang yang berfungsi untuk melaksanakan performance test</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[0][0]" id="maturity-b11-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b11-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[0][0]" id="maturity-b11-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b11-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat file hasil running pemodelan efisiensi</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[0][1]" id="maturity-b12-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b12-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[0][1]" id="maturity-b12-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b12-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-12">
+                <h5>Level 2 (Stabilizing)</h5>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat jadwal dan realisasi running model based normalisation lebih dari 80%
+                  dari rencana</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][0]" id="maturity-b21-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b21-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][0]" id="maturity-b21-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b21-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat file laporan hasil running gate cycle rutin tiap bulan (digabungkan
+                  dalam Laporan Efisiensi Bulanan Unit)</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][1]" id="maturity-b22-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b22-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][1]" id="maturity-b22-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b22-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat IK Pengoperasian Permodelan Efisiensi</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][2]" id="maturity-b23-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b23-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[1][2]" id="maturity-b23-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b23-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-12">
+                <h5>Level 3 (Preventing)</h5>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Semua list equipment peralatan yang ada di Heat balance diagram sudah masuk ke
+                  pemodelan</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[2][0]" id="maturity-b31-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b31-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[2][0]" id="maturity-b31-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b31-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Jumlah equipment yang dimodelkan sudah sesuai dengan Heat Balance Diagram dan
+                  kondisi aktual di lapangan atau sesuai dengan design specification di manual book</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[2][1]" id="maturity-b32-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b32-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[2][1]" id="maturity-b32-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b32-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-12">
+                <h5>Level 4 (Optimizing)</h5>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat bukti model dikembangkan untuk aplikasi lain seperti simulasi pola
+                  operasi, process design, operator training, trouble shooting, efficiency improvement dsb</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[3][0]" id="maturity-b41-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b41-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[3][0]" id="maturity-b41-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b41-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Terdapat bukti laporan dan tindak lanjut dari simulasi pada model tersebut
+                </span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[3][1]" id="maturity-b42-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b42-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[3][1]" id="maturity-b42-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b42-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-12">
+                <h5>Level 5 (Excellence)</h5>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Seluruh equipment unit sudah dimasukan ke dalam pemodelan</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[4][0]" id="maturity-b51-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b51-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[4][0]" id="maturity-b51-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b51-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12 mB-15">
+                <span class="d-block">Pemodelan di unit digunakan sebagai rujukan atau tempat benchmarking unit
+                  pembangkit lang lain</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[4][1]" id="maturity-b52-ya" value="y" required>
+                  <label class="form-check-label" for="maturity-b52-ya">Ya</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="pemodelan[4][1]" id="maturity-b52-tidak" value="t" required>
+                  <label class="form-check-label" for="maturity-b52-tidak">Tidak</label>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="evidence">Upload Evidence</label>
+                  <input name="pemodelan" type="file" class="form-control-file" id="evidence" placeholder="" required>
                 </div>
               </div>
             </div>
