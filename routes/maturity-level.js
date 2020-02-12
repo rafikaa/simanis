@@ -324,6 +324,45 @@ router.get('/:upk', isAuthenticated, async (req, res, next) => {
   });
 });
 
+router.post('/:upk', isAuthenticated, async (req, res, next) => {
+  const isAdmin = req.user.accountType === 'ADMIN';
+  if (!isAdmin) {
+    req.flash('error', 'Tidak mempunyai akses');
+    return res.redirect('/maturity-level');
+  }
+  const { upk } = req.params;
+  const { semester, tahun } = req.query;
+  const ml = await MaturityLevel.findOne({ semester, tahun, upk });
+
+  console.log(req.body)
+
+  ml.pengumpulanDataEfisiensi.approved = getApprovalBool(req.body.pengumpulanDataEfisiensi.approval);
+  ml.pengumpulanDataEfisiensi.catatan = req.body.pengumpulanDataEfisiensi.catatan;
+  ml.perhitunganPerformanceTest.approved = getApprovalBool(req.body.perhitunganPerformanceTest.approval);
+  ml.perhitunganPerformanceTest.catatan = req.body.perhitunganPerformanceTest.catatan;
+  ml.pemodelan.approved = getApprovalBool(req.body.pemodelan.approval);
+  ml.pemodelan.catatan = req.body.pemodelan.catatan;
+  ml.heatRateAnalysis.approved = getApprovalBool(req.body.heatRateAnalysis.approval);
+  ml.heatRateAnalysis.catatan = req.body.heatRateAnalysis.catatan;
+  ml.auxiliaryPowerAnalysis.approved = getApprovalBool(req.body.auxiliaryPowerAnalysis.approval);
+  ml.auxiliaryPowerAnalysis.catatan = req.body.auxiliaryPowerAnalysis.catatan;
+  ml.rekomendasi.approved = getApprovalBool(req.body.rekomendasi.approval);
+  ml.rekomendasi.catatan = req.body.rekomendasi.catatan;
+  ml.pelaporanEfisiensi.approved = getApprovalBool(req.body.pelaporanEfisiensi.approval);
+  ml.pelaporanEfisiensi.catatan = req.body.pelaporanEfisiensi.catatan;
+  ml.monitoringPostProgram.approved = getApprovalBool(req.body.monitoringPostProgram.approval);
+  ml.monitoringPostProgram.catatan = req.body.monitoringPostProgram.catatan;
+
+  await ml.save();
+
+  req.flash('success', 'Status dan catatan Maturity Level berhasil disimpan');
+
+  const query = `semester=${semester}&tahun=${tahun}`;
+  return res.redirect(`/maturity-level/${upk}?${query}`);
+});
+
+const getApprovalBool = (approval) => approval === 'Approved' ? true : approval === 'Rejected' ? false : undefined;
+
 const getUnitList = async user => {
   let units = [];
   if (user.accountType === 'ADMIN') {

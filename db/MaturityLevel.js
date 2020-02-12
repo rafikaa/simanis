@@ -22,6 +22,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     perhitunganPerformanceTest: {
       target: Number,
@@ -29,6 +31,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     pemodelan: {
       target: Number,
@@ -36,6 +40,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     heatRateAnalysis: {
       target: Number,
@@ -43,6 +49,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     auxiliaryPowerAnalysis: {
       target: Number,
@@ -50,6 +58,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     rekomendasi: {
       target: Number,
@@ -57,6 +67,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     pelaporanEfisiensi: {
       target: Number,
@@ -64,6 +76,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     monitoringPostProgram: {
       target: Number,
@@ -71,6 +85,8 @@ const maturityLevelSchema = new Schema(
       detailRealisasi: [[Boolean]],
       fileGsPath: String,
       fileName: String,
+      approved: Boolean,
+      catatan: String,
     },
     averageTarget: Number,
     averageRealisasi: Number,
