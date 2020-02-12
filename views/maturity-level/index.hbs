@@ -1,32 +1,38 @@
 <!-- ### Screen Content ### -->
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
+    {{#each success}}
+    <div class="alert alert-success" role="alert">{{this}}</div>
+    {{/each}}
+    {{#each error}}
+    <div class="alert alert-danger" role="alert">{{this}}</div>
+    {{/each}}
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-2">
-          <a href="/input-maturity-level" class="btn btn-primary btn-lg float-sm-right mL-10">Input Data Realisasi
-            ML</a>
-          <a href="/input-maturity-level-target" class="btn btn-primary btn-lg float-sm-right">Input Data Target
-            ML</a>
+          <a href="/maturity-level/realisasi" class="btn btn-primary btn-lg float-sm-right mL-10">Input Data Realisasi ML</a>
+          {{#if isAdmin}}
+          <a href="/maturity-level/target" class="btn btn-primary btn-lg float-sm-right">Input Data Target ML</a>
+          {{/if}}
           <h3 class="c-grey-900 mL-10 mB-20">Maturity Level</h3>
         </div>
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="mB-20">Rekapitulasi</h4>
-          <form action="">
+          <form>
             <div class="form-group row">
               <label for="semester" class="col-sm-1 col-form-label">Semester</label>
               <div class="col-sm-2">
-                <select class="form-control" id="semester">
+                <select name="semester" class="form-control" id="semester">
                   <option selected="selected">Pilih semester...</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
+                  <option {{#eq query.semester '1'}}selected{{/eq}} value="1">1</option>
+                  <option {{#eq query.semester '2'}}selected{{/eq}} value="2">2</option>
                 </select>
               </div>
               <label for="tahun" class="col-sm-1 col-form-label">Tahun</label>
               <div class="col-sm-2">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahun" class="form-control" type="text" readonly />
+                  <input name="tahun" id="tahun" class="form-control" type="text" readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -47,14 +53,16 @@
               </tr>
             </thead>
             <tbody>
+              {{#each mls}}
               <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{this.upkName}}</td>
+                <td>{{this.averageTarget}}</td>
+                <td>{{this.averageRealisasi}}</td>
                 <td>
-                  <a href="/maturity-level-x" class="btn btn-outline-primary btn-sm">Lihat detail</a>
+                  <a href="/maturity-level/{{this.upk}}?semester={{../query.semester}}&tahun={{../query.tahun}}" class="btn btn-outline-primary btn-sm">Lihat detail</a>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -67,12 +75,13 @@
     $('#table-rekap-maturity').DataTable({
       searching: false
     });
+    const tahun = '{{query.tahun}}' ? new Date('{{query.tahun}}') : new Date();
     $("#datepickerTahun").datepicker({
       autoclose: true,
       todayHighlight: true,
       format: "yyyy",
       startView: "years",
       minViewMode: "years"
-    }).datepicker('update', new Date());
+    }).datepicker('update', tahun);
   });
 </script>

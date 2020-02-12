@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const bodyParser = require('body-parser')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -15,6 +16,7 @@ const unitRouter = require('./routes/unit');
 const nphrRouter = require('./routes/nphr');
 const analisisNphrRouter = require('./routes/analisis-nphr');
 const pemakaianSendiriRouter = require('./routes/pemakaian-sendiri');
+const maturityLevelRouter = require('./routes/maturity-level');
 const laporanRouter = require('./routes/laporan');
 const downloadRouter = require('./routes/download');
 
@@ -35,8 +37,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -54,6 +56,7 @@ app.use('/unit', unitRouter);
 app.use('/nphr', nphrRouter);
 app.use('/analisis-nphr', analisisNphrRouter);
 app.use('/pemakaian-sendiri', pemakaianSendiriRouter);
+app.use('/maturity-level', maturityLevelRouter);
 app.use('/laporan', laporanRouter);
 app.use('/download', downloadRouter);
 

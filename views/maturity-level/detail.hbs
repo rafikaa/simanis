@@ -1,0 +1,196 @@
+<!-- ### Screen Content ### -->
+<main class='main-content bgc-grey-100'>
+  <div id='mainContent'>
+    <div class="row gap-20 masonry pos-r">
+      <div class="masonry-sizer col-md-6"></div>
+      <div class="masonry-item col-12">
+        <form action="/maturity-level/{{ml.upk}}?semester={{query.semester}}&tahun={{query.tahun}}" method="POST">
+          <div class="mb-2">
+            {{#if isAdmin}}<button type="submit" class="btn btn-primary btn-lg float-sm-right mL-10">Simpan</button>{{/if}}
+            <h3 class="c-grey-900 mL-10 mB-20">Maturity Level {{upkName}}</h3>
+          </div>
+          <div class="bgc-white bd bdrs-3 p-20">
+            <table id="table-rekap-maturity" class="table mt-5" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Sub Area</th>
+                  <th>ML Target</th>
+                  <th>ML Realisasi</th>
+                  <th>Evidence</th>
+                  <th>Status</th>
+                  <th>Catatan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pengumpulan Data Efisiensi</td>
+                  <td>{{ml.pengumpulanDataEfisiensi.target}}</td>
+                  <td>{{ml.pengumpulanDataEfisiensi.realisasi}}</td>
+                  <td>
+                    <a class="" href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=pengumpulanDataEfisiensi">{{ml.pengumpulanDataEfisiensi.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="pengumpulanDataEfisiensi[approval]" class="custom-select custom-select-sm" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.pengumpulanDataEfisiensi.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.pengumpulanDataEfisiensi.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="pengumpulanDataEfisiensi[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.pengumpulanDataEfisiensi.catatan}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Perhitungan Performance Test</td>
+                  <td>{{ml.perhitunganPerformanceTest.target}}</td>
+                  <td>{{ml.perhitunganPerformanceTest.realisasi}}</td>
+                  <td>
+                    <a class="" href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=perhitunganPerformanceTest">{{ml.perhitunganPerformanceTest.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="perhitunganPerformanceTest[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.perhitunganPerformanceTest.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.perhitunganPerformanceTest.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="perhitunganPerformanceTest[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.perhitunganPerformanceTest.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Pemodelan</td>
+                  <td>{{ml.pemodelan.target}}</td>
+                  <td>{{ml.pemodelan.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=pemodelan">{{ml.pemodelan.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="pemodelan[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.pemodelan.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.pemodelan.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="pemodelan[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.pemodelan.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Heat Rate Analysis</td>
+                  <td>{{ml.heatRateAnalysis.target}}</td>
+                  <td>{{ml.heatRateAnalysis.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=heatRateAnalysis">{{ml.heatRateAnalysis.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="heatRateAnalysis[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.heatRateAnalysis.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.heatRateAnalysis.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="heatRateAnalysis[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.heatRateAnalysis.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Auxiliary Power Analysis</td>
+                  <td>{{ml.auxiliaryPowerAnalysis.target}}</td>
+                  <td>{{ml.auxiliaryPowerAnalysis.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=auxiliaryPowerAnalysis">{{ml.auxiliaryPowerAnalysis.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="auxiliaryPowerAnalysis[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.auxiliaryPowerAnalysis.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.auxiliaryPowerAnalysis.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="auxiliaryPowerAnalysis[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.auxiliaryPowerAnalysis.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Rekomendasi</td>
+                  <td>{{ml.rekomendasi.target}}</td>
+                  <td>{{ml.auxiliaryPowerAnalysis.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=rekomendasi">{{ml.rekomendasi.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="rekomendasi[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.rekomendasi.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.rekomendasi.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="rekomendasi[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.rekomendasi.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Pelaporan Efisiensi</td>
+                  <td>{{ml.pelaporanEfisiensi.target}}</td>
+                  <td>{{ml.pelaporanEfisiensi.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=pelaporanEfisiensi">{{ml.pelaporanEfisiensi.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="pelaporanEfisiensi[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.pelaporanEfisiensi.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.pelaporanEfisiensi.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="pelaporanEfisiensi[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.pelaporanEfisiensi.catatan}}">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Monitoring Post Program</td>
+                  <td>{{ml.monitoringPostProgram.target}}</td>
+                  <td>{{ml.monitoringPostProgram.realisasi}}</td>
+                  <td>
+                    <a class=""
+                      href="/maturity-level/download?upk={{ml.upk}}&semester={{ml.semester}}&tahun={{ml.tahun}}&laporan=monitoringPostProgram">{{ml.monitoringPostProgram.fileName}}</a>
+                  </td>
+                  <td>
+                    <select name="monitoringPostProgram[approval]" class="custom-select custom-select-sm disabled" id="maturityApprovalStatus" {{#isFalsey isAdmin}}disabled{{/isFalsey}}>
+                      <option disabled hidden selected>Waiting for approval</option>
+                      <option {{#eq ml.monitoringPostProgram.approved true}}selected{{/eq}}>Approved</option>
+                      <option {{#eq ml.monitoringPostProgram.approved false}}selected{{/eq}}>Rejected</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="monitoringPostProgram[catatan]" class="form-control form-control-sm" type="text" placeholder="beri catatan..." {{#isFalsey isAdmin}}disabled{{/isFalsey}} value="{{ml.monitoringPostProgram.catatan}}">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  $(document).ready(function () {
+    $('#table-rekap-maturity').DataTable({
+      searching: false,
+      order: []
+    });
+  });
+</script>
