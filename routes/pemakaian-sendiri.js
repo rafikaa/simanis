@@ -38,7 +38,7 @@ const getRandomColor = () => {
   const r = Math.floor(Math.random() * 200);
   const g = Math.floor(Math.random() * 200);
   const b = Math.floor(Math.random() * 200);
-  color = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.2)';
+  color = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.6)';
   return color;
 };
 

@@ -15,16 +15,13 @@
               </tr>
             </thead>
             <tbody>
+              {{#each unitData}}
               <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{this.upkName}}</td>
+                <td>{{this.dayaPasok}}</td>
+                <td>{{this.dayaNetto}}</td>
               </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -165,7 +162,8 @@
 <script>
   $(document).ready(function () {
     $('#table-pembangkit-home').DataTable({
-      searching: false
+      searching: false,
+      order: [],
     });
   });
   new Chart(document.getElementById("pemakaian-chart-home"), {
@@ -195,4 +193,11 @@
       }
     }
   });
+  $("#datepickerTahun").datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    format: "yyyy",
+    startView: "years",
+    minViewMode: "years"
+  }).datepicker('update', new Date());
 </script>
