@@ -15,16 +15,13 @@
               </tr>
             </thead>
             <tbody>
+              {{#each unitData}}
               <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{this.upkName}}</td>
+                <td>{{this.dayaPasok}}</td>
+                <td>{{this.dayaNetto}}</td>
               </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -39,7 +36,7 @@
               <label for="tahun" class="col-sm-3 col-form-label">Pilih tahun</label>
               <div class="col-sm-4">
                 <div id="datepickerTahun" class="input-group date" data-date-format="yyyy">
-                  <input id="tahun" class="form-control" type="text" readonly />
+                  <input name="tahun" id="tahun" class="form-control" type="text" readonly />
                   <div class="input-group-append">
                     <span class="input-group-text input-group-addon"><i class="ti-calendar"></i></span>
                   </div>
@@ -58,46 +55,12 @@
               </tr>
             </thead>
             <tbody>
+              {{#each topNphrContributors}}
               <tr>
-                <td>-</td>
-                <td>-</td>
+                <td>{{this.ulpl}}</td>
+                <td>{{this.nphr}}</td>
               </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>-</td>
-                <td>-</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -127,33 +90,33 @@
             <tbody>
               <tr>
                 <th scope="row">UPK Belawan</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.belawan.target}}</td>
+                <td>{{maturityLevel.belawan.realisasi}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Pangkalan Susu</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.pangkalan_susu.target}}</td>
+                <td>{{maturityLevel.pangkalan_susu.realisasi}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Nagan Raya</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.nagan_raya.target}}</td>
+                <td>{{maturityLevel.nagan_raya.realisasi}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Labuhan Angin</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.labuhan_angin.target}}</td>
+                <td>{{maturityLevel.labuhan_angin.realisasi}}</td>
               </tr>
               <tr>
                 <th scope="row">UPDK Pekanbaru</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.pekanbaru.target}}</td>
+                <td>{{maturityLevel.pekanbaru.realisasi}}</td>
               </tr>
               <tr>
                 <th scope="row">UPDK Pandan</th>
-                <td>-</td>
-                <td>-</td>
+                <td>{{maturityLevel.pandan.target}}</td>
+                <td>{{maturityLevel.pandan.realisasi}}</td>
               </tr>
             </tbody>
           </table>
@@ -165,17 +128,18 @@
 <script>
   $(document).ready(function () {
     $('#table-pembangkit-home').DataTable({
-      searching: false
+      searching: false,
+      order: [],
     });
   });
   new Chart(document.getElementById("pemakaian-chart-home"), {
     type: 'pie',
     data: {
-      labels: ["PLTU Batubara", "PLTG Gas", "PLTU Gas", "PLTD Gas", "PLTD Minyak"],
+      labels: {{{ JSONstringify chartOwnUsage.labels }}},
       datasets: [{
         label: "Percentage",
-        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-        data: [81, 2, 4, 4, 1]
+        backgroundColor: {{{ JSONstringify chartOwnUsage.colors }}},
+        data: {{ JSONstringify chartOwnUsage.values }}
       }]
     },
     options: {
@@ -195,4 +159,12 @@
       }
     }
   });
+  const tahun = '{{query.tahun}}' ? new Date('{{query.tahun}}') : new Date();
+  $("#datepickerTahun").datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    format: "yyyy",
+    startView: "years",
+    minViewMode: "years"
+  }).datepicker('update', tahun);
 </script>
