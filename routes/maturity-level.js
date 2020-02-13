@@ -7,6 +7,8 @@ const User = require('../db/User');
 const MaturityLevel = require('../db/MaturityLevel');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
+const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
+const isAdmin = require('../middlewares/isAdmin');
 
 const {
   getUpkNames,
@@ -34,7 +36,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.get('/target', isAuthenticated, async (req, res, next) => {
+router.get('/target', isAuthenticated, isAdmin, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   const units = await getUnitList(req.user);
 
@@ -46,7 +48,7 @@ router.get('/target', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/target', isAuthenticated, async (req, res, next) => {
+router.post('/target', isAuthenticated, isAdmin, async (req, res, next) => {
   const {
     semester,
     tahun,
@@ -106,7 +108,7 @@ router.post('/target', isAuthenticated, async (req, res, next) => {
   return res.redirect(`/maturity-level?${query}`);
 });
 
-router.get('/realisasi', isAuthenticated, async (req, res, next) => {
+router.get('/realisasi', isAuthenticated, isAdminOrUnit, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   const units = await getUnitList(req.user);
 
@@ -211,7 +213,7 @@ const calculateScores = (formData) => {
   return scores;
 };
 
-router.post('/realisasi', isAuthenticated, async (req, res, next) => {
+router.post('/realisasi', isAuthenticated, isAdminOrUnit, async (req, res, next) => {
   const { semester, tahun, upk } = req.body;
 
   let ml = await MaturityLevel.findOne({ semester, tahun, upk });
@@ -316,7 +318,7 @@ router.get('/:upk', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/:upk', isAuthenticated, async (req, res, next) => {
+router.post('/:upk', isAuthenticated, isAdmin, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   if (!isAdmin) {
     req.flash('error', 'Tidak mempunyai akses');

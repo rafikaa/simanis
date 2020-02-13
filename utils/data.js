@@ -1,3 +1,5 @@
+const User = require('../db/User');
+
 const getUpkNames = async () => {
   const upks = await User.find({ accountType: 'UNIT' }, [
     'name',
