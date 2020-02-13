@@ -5,14 +5,11 @@ const OwnUsage = require('../db/OwnUsage');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
-const router = express.Router();
+const {
+  pembangkitNames,
+} = require('../utils/strings');
 
-const pembangkitNames = {
-  pltu: 'Pembangkit Listrik Tenaga Uap (PLTU)',
-  pltg: 'Pembangkit Listrik Tenaga Gas (PLTG)',
-  pltmg: 'Pembangkit Listrik Tenaga Mesin Gas (PLTMG)',
-  pltd: 'Pembangkit Listrik Tenaga Diesel (PLTD)',
-};
+const router = express.Router();
 
 const bulanNames = [
   undefined,
