@@ -217,7 +217,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     totalKalori,
     produksiNetto,
     targetNPHR,
-    NPHR: Math.round(totalKalori, Number(produksiNetto)),
+    NPHR: Math.round(totalKalori / Number(produksiNetto)),
   });
 
   await nphr.save();

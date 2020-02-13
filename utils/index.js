@@ -6,6 +6,11 @@ const getRandomRgbColor = () => {
   return color;
 };
 
+const round = (num, numOfDecimal) => {
+  return parseFloat(num.toFixed(numOfDecimal));
+};
+
 module.exports = {
   getRandomRgbColor,
+  round,
 };
