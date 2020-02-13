@@ -6,24 +6,24 @@ const { Storage } = require('@google-cloud/storage');
 const User = require('../db/User');
 const Download = require('../db/Download');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
 const router = express.Router();
 const storage = new Storage();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
-  const hasUpdatePermission = req.user.accountType === 'ADMIN';
+router.get('/', onlyAuthenticated, async (req, res, next) => {
+  const isAdmin = req.user.accountType === 'ADMIN';
   const files = await Download.find().lean();
 
   return res.render('download/index', {
     layout: 'dashboard',
     title: 'Download',
     files,
-    hasUpdatePermission,
+    isAdmin,
   });
 });
 
-router.get('/create', isAuthenticated, async (req, res, next) => {
+router.get('/create', onlyAuthenticated, async (req, res, next) => {
   if (req.user.accountType != 'ADMIN') {
     return res.redirect('/download');
   }
@@ -39,7 +39,7 @@ router.get('/create', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   if (req.user.accountType != 'ADMIN') {
     return res.redirect('/download');
   }
@@ -85,7 +85,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
   return res.redirect('/download/create');
 });
 
-router.get('/:filename', isAuthenticated, async (req, res, next) => {
+router.get('/:filename', onlyAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
   const file = await Download.findOne({ name: filename }).lean();
   if (file) {
@@ -104,7 +104,7 @@ router.get('/:filename', isAuthenticated, async (req, res, next) => {
   return res.status(404).send('Not found');
 });
 
-router.get('/:filename/delete', isAuthenticated, async (req, res, next) => {
+router.get('/:filename/delete', onlyAuthenticated, async (req, res, next) => {
   if (req.user.accountType != 'ADMIN') {
     return res.redirect('/download');
   }

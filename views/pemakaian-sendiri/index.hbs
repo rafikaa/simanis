@@ -5,8 +5,10 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-3">
+          {{#if isAdminOrUnit}}
           <a href="/pemakaian-sendiri/create" class="btn btn-primary btn-lg float-sm-right">Input Data Pemakaian
             Sendiri</a>
+          {{/if}}
           <h3 class="c-grey-900 mL-10 mB-20">Pemakaian Sendiri</h3>
         </div>
         {{#each success}}

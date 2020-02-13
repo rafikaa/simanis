@@ -3,15 +3,15 @@ const express = require('express');
 const User = require('../db/User');
 const NPHRAnalysis = require('../db/NPHRAnalysis');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
-const { isAdminOrRelatedUnit, round } = require('../utils');
+const { isAdminOrUnit, isAdminOrRelatedUnit, round } = require('../utils');
 const { nphrParamNames: paramNames } = require('../utils/strings');
 const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const ulplList = await getUlplList();
   const bulanTahun = req.query['dataAnalisis.bulanTahun'];
   const upk = req.query['dataAnalisis.upk'];
@@ -53,6 +53,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     layout: 'dashboard',
     title: 'Analisis NPHR',
     success: req.flash('success'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     infoMsg,
     warningMsg,
     paramNames,
@@ -118,7 +119,7 @@ const getParetoChart = async nphrAnalysis => {
   return { labels, barValues, lineValues };
 };
 
-router.get('/create', isAuthenticated, async (req, res, next) => {
+router.get('/create', onlyAuthenticated, async (req, res, next) => {
   const units = await getUnitList(req.user);
 
   return res.render('analisis-nphr/create', {
@@ -129,7 +130,7 @@ router.get('/create', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   const { bulanTahun, upk, ulpl, jenisPembangkit } = req.body;
 
   if (!isAdminOrRelatedUnit(req.user, upk)) {

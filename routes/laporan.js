@@ -3,17 +3,17 @@ const path = require('path');
 const express = require('express');
 const { Storage } = require('@google-cloud/storage');
 
-const User = require('../db/User');
 const Report = require('../db/Report');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
+const { isAdminOrUnit } = require('../utils');
 const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 const storage = new Storage();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const units = await getUnitList(req.user);
 
   const { upk } = req.query;
@@ -25,13 +25,14 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     title: 'Laporan',
     success: req.flash('success'),
     error: req.flash('error'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     laporanList,
     units,
     query,
   });
 });
 
-router.post('/', isAuthenticated, async (req, res, next) => {
+router.post('/', onlyAuthenticated, async (req, res, next) => {
   const { bulanTahun, upk, ulpl } = req.body;
   const [bulan, tahun] = bulanTahun.split('-');
 
@@ -79,7 +80,7 @@ router.post('/', isAuthenticated, async (req, res, next) => {
   return res.redirect(`/laporan?upk=${upk}`);
 });
 
-router.get('/:filename', isAuthenticated, async (req, res, next) => {
+router.get('/:filename', onlyAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
   const file = await Report.findOne({ name: filename }).lean();
   if (file) {

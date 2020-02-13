@@ -10,6 +10,16 @@ const round = (num, numOfDecimal) => {
   return parseFloat(num.toFixed(numOfDecimal));
 };
 
+const isAdminOrUnit = (user) => {
+  if (
+    user.accountType === 'ADMIN' ||
+    user.accountType === 'UNIT'
+  ) {
+    return true;
+  }
+  return false;
+};
+
 const isAdminOrRelatedUnit = (user, unit) => {
   if (
     user.accountType === 'ADMIN' ||
@@ -22,6 +32,7 @@ const isAdminOrRelatedUnit = (user, unit) => {
 
 module.exports = {
   getRandomRgbColor,
+  isAdminOrUnit,
   isAdminOrRelatedUnit,
   round,
 };

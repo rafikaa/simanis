@@ -4,7 +4,9 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-2">
+          {{#if isAdminOrUnit}}
           <a href="/nphr/create" class="btn btn-primary btn-lg float-sm-right">Input Data NPHR</a>
+          {{/if}}
           <h3 class="c-grey-900 mL-10 mB-20">Data NPHR Thermal Power Plant</h3>
         </div>
         {{#each success}}

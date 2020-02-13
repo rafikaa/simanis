@@ -3,15 +3,15 @@ const express = require('express');
 const User = require('../db/User');
 const NPHR = require('../db/NPHR');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
+const onlyAdminOrUnit = require('../middlewares/onlyAdminOrUnit');
 
-const { isAdminOrRelatedUnit } = require('../utils');
+const { isAdminOrUnit, isAdminOrRelatedUnit } = require('../utils');
 const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   let dataPerUpk = [],
     dataTahunan = [],
     ulplChart = { target: '[]', realisasi: '[]' };
@@ -57,6 +57,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     dataTahunan,
     ulplList,
     ulplChart,
+    isAdminOrUnit: isAdminOrUnit(req.user),
   });
 });
 
@@ -157,8 +158,8 @@ const getUlplChart = async (ulpl, tahun) => {
 
 router.get(
   '/create',
-  isAuthenticated,
-  isAdminOrUnit('/nphr'),
+  onlyAuthenticated,
+  onlyAdminOrUnit('/nphr'),
   async (req, res, next) => {
     const units = await getUnitList(req.user);
 
@@ -170,7 +171,7 @@ router.get(
   }
 );
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   const {
     bulanTahun,
     upk,

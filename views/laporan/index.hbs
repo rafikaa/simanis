@@ -10,6 +10,7 @@
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-8"></div>
       <div class="masonry-item col-md-8">
+        {{#if isAdminOrUnit}}
         <div class="bgc-white bd bdrs-3 p-20">
           <h4 class="c-grey-900 mB-30">Submit Laporan</h4>
           <form method="POST" enctype="multipart/form-data">
@@ -54,6 +55,7 @@
             </div>
           </form>
         </div>
+        {{/if}}
         <div class="bgc-white bd bdrs-3 p-20 mT-20">
           <h4 class="c-grey-900 mB-30">Histori Laporan</h4>
           <form>

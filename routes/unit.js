@@ -3,21 +3,21 @@ const express = require('express');
 const User = require('../db/User');
 const UnitData = require('../db/UnitData');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
+const onlyAdminOrUnit = require('../middlewares/onlyAdminOrUnit');
 
 const { isAdminOrRelatedUnit } = require('../utils');
 
 const router = express.Router();
 
-router.get('/', isAuthenticated, (req, res, next) => {
+router.get('/', onlyAuthenticated, (req, res, next) => {
   res.render('unit/index', {
     layout: 'dashboard',
     title: 'Data Unit',
   });
 });
 
-router.get('/:unit', isAuthenticated, async (req, res, next) => {
+router.get('/:unit', onlyAuthenticated, async (req, res, next) => {
   const unit = await User.findOne({ username: req.params.unit }).lean();
 
   if (!unit) {
@@ -43,8 +43,8 @@ router.get('/:unit', isAuthenticated, async (req, res, next) => {
 
 router.get(
   '/:unit/create',
-  isAuthenticated,
-  isAdminOrUnit('/unit'),
+  onlyAuthenticated,
+  onlyAdminOrUnit('/unit'),
   async (req, res, next) => {
     if (!isAdminOrRelatedUnit(req.user, req.params.unit)) {
       return res.redirect('/unit');
@@ -65,7 +65,7 @@ router.get(
   }
 );
 
-router.post('/:unit/create', isAuthenticated, async (req, res, next) => {
+router.post('/:unit/create', onlyAuthenticated, async (req, res, next) => {
   const {
     ulpl,
     tahunPembuatan,

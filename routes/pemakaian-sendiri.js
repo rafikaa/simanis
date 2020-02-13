@@ -3,9 +3,9 @@ const express = require('express');
 const User = require('../db/User');
 const OwnUsage = require('../db/OwnUsage');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
-const { isAdminOrRelatedUnit, round } = require('../utils');
+const { isAdminOrUnit, isAdminOrRelatedUnit, round } = require('../utils');
 const { pembangkitNames } = require('../utils/strings');
 const { getUnitList, getUpkNames } = require('../utils/data');
 
@@ -35,7 +35,7 @@ const getRandomColor = () => {
   return color;
 };
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const tahun = req.query.tahun;
   const query = { tahun };
 
@@ -64,6 +64,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     layout: 'dashboard',
     title: 'Pemakaian Sendiri',
     success: req.flash('success'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     infoMsg,
     warningMsg,
     query,
@@ -152,7 +153,7 @@ const getChartPerPembangkit = ownUsages => {
   return { labels, values, colors };
 };
 
-router.get('/create', isAuthenticated, async (req, res, next) => {
+router.get('/create', onlyAuthenticated, async (req, res, next) => {
   const units = await getUnitList(req.user);
 
   return res.render('pemakaian-sendiri/create', {
@@ -162,7 +163,7 @@ router.get('/create', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   const {
     bulanTahun,
     upk,

@@ -5,7 +5,7 @@ const OwnUsage = require('../db/OwnUsage');
 const NPHR = require('../db/NPHR');
 const MaturityLevel = require('../db/MaturityLevel');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
 const { getRandomRgbColor, round } = require('../utils');
 const { pembangkitNames } = require('../utils/strings');
@@ -97,7 +97,7 @@ const getMaturityLevel = async () => {
   return maturityLevel;
 };
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const { tahun } = req.query;
   const year = tahun ? Number(tahun) : new Date().getFullYear();
 
@@ -117,11 +117,11 @@ router.get('/', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.get('/404', function(req, res, next) {
+router.get('/404', function (req, res, next) {
   res.render('404', { title: 'Error' });
 });
 
-router.get('/500', function(req, res, next) {
+router.get('/500', function (req, res, next) {
   res.render('500', { title: 'Error' });
 });
 

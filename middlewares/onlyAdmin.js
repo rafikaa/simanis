@@ -1,4 +1,4 @@
-const isAdminOrUnit = redirectUrl => async (req, res, next) => {
+const isAdmin = redirectUrl => async (req, res, next) => {
   const { accountType } = req.user;
 
   if (accountType === 'ADMIN') {
@@ -8,4 +8,4 @@ const isAdminOrUnit = redirectUrl => async (req, res, next) => {
   }
 };
 
-module.exports = isAdminOrUnit;
+module.exports = isAdmin;

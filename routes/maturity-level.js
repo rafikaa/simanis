@@ -6,16 +6,17 @@ const { Storage } = require('@google-cloud/storage');
 const User = require('../db/User');
 const MaturityLevel = require('../db/MaturityLevel');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
-const isAdmin = require('../middlewares/isAdmin');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
+const onlyAdminOrUnit = require('../middlewares/onlyAdminOrUnit');
+const onlyAdmin = require('../middlewares/onlyAdmin');
 
+const { isAdminOrUnit } = require('../utils');
 const { getUnitList, getUpkNames } = require('../utils/data');
 
 const router = express.Router();
 const storage = new Storage();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   const query = req.query;
   const { semester, tahun } = query;
@@ -28,6 +29,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     title: 'Maturity Level',
     success: req.flash('success'),
     error: req.flash('error'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     isAdmin,
     query,
     mls,
@@ -36,8 +38,8 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 
 router.get(
   '/target',
-  isAuthenticated,
-  isAdmin('/maturity-level'),
+  onlyAuthenticated,
+  onlyAdmin('/maturity-level'),
   async (req, res, next) => {
     const isAdmin = req.user.accountType === 'ADMIN';
     const units = await getUnitList(req.user);
@@ -53,8 +55,8 @@ router.get(
 
 router.post(
   '/target',
-  isAuthenticated,
-  isAdmin('/maturity-level'),
+  onlyAuthenticated,
+  onlyAdmin('/maturity-level'),
   async (req, res, next) => {
     const {
       semester,
@@ -118,8 +120,8 @@ router.post(
 
 router.get(
   '/realisasi',
-  isAuthenticated,
-  isAdminOrUnit('/maturity-level'),
+  onlyAuthenticated,
+  onlyAdminOrUnit('/maturity-level'),
   async (req, res, next) => {
     const isAdmin = req.user.accountType === 'ADMIN';
     const units = await getUnitList(req.user);
@@ -228,8 +230,8 @@ const calculateScores = formData => {
 
 router.post(
   '/realisasi',
-  isAuthenticated,
-  isAdminOrUnit('/maturity-level'),
+  onlyAuthenticated,
+  onlyAdminOrUnit('/maturity-level'),
   async (req, res, next) => {
     const { semester, tahun, upk } = req.body;
 
@@ -298,7 +300,7 @@ router.post(
   }
 );
 
-router.get('/download', isAuthenticated, async (req, res, next) => {
+router.get('/download', onlyAuthenticated, async (req, res, next) => {
   const { semester, tahun, upk, laporan } = req.query;
   const ml = await MaturityLevel.findOne({ semester, tahun, upk }).lean();
 
@@ -318,7 +320,7 @@ router.get('/download', isAuthenticated, async (req, res, next) => {
   return res.status(404).send('Not found');
 });
 
-router.get('/:upk', isAuthenticated, async (req, res, next) => {
+router.get('/:upk', onlyAuthenticated, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';
   const { upk } = req.params;
   const query = req.query;
@@ -340,8 +342,8 @@ router.get('/:upk', isAuthenticated, async (req, res, next) => {
 
 router.post(
   '/:upk',
-  isAuthenticated,
-  isAdmin('/maturity-level'),
+  onlyAuthenticated,
+  onlyAdmin('/maturity-level'),
   async (req, res, next) => {
     const isAdmin = req.user.accountType === 'ADMIN';
     if (!isAdmin) {
