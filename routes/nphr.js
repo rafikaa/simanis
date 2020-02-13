@@ -6,6 +6,8 @@ const NPHR = require('../db/NPHR');
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
+const { getUnitList } = require('../utils/data');
+
 const router = express.Router();
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -157,15 +159,7 @@ router.get(
   isAuthenticated,
   isAdminOrUnit('/nphr'),
   async (req, res, next) => {
-    let units = [];
-    if (req.user.accountType === 'ADMIN') {
-      units = await User.find({ accountType: 'UNIT' }, [
-        'name',
-        'username',
-      ]).lean();
-    } else if (req.user.accountType === 'UNIT') {
-      units = [req.user];
-    }
+    const units = await getUnitList(req.user);
 
     return res.render('nphr/create', {
       layout: 'dashboard',

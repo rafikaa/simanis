@@ -8,19 +8,14 @@ const Report = require('../db/Report');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
+const { getUnitList } = require('../utils/data');
+
 const router = express.Router();
 const storage = new Storage();
 
 router.get('/', isAuthenticated, async (req, res, next) => {
-  let units = [];
-  if (req.user.accountType === 'ADMIN') {
-    units = await User.find({ accountType: 'UNIT' }, [
-      'name',
-      'username',
-    ]).lean();
-  } else if (req.user.accountType === 'UNIT') {
-    units = [req.user];
-  }
+  const units = await getUnitList(req.user);
+
   const { upk } = req.query;
   const laporanList = await Report.find({ upk }).lean();
   const query = { upk };

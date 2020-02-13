@@ -12,6 +12,20 @@ const getUpkNames = async () => {
   return upkNames;
 };
 
+const getUnitList = async user => {
+  let units = [];
+  if (user.accountType === 'ADMIN') {
+    units = await User.find({ accountType: 'UNIT' }, [
+      'name',
+      'username',
+    ]).lean();
+  } else if (user.accountType === 'UNIT') {
+    units = [user];
+  }
+  return units;
+};
+
 module.exports = {
+  getUnitList,
   getUpkNames,
 };

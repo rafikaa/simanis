@@ -5,13 +5,9 @@ const NPHRAnalysis = require('../db/NPHRAnalysis');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
-const {
-  getRandomRgbColor,
-  round,
-} = require('../utils');
-const {
-  nphrParamNames: paramNames,
-} = require('../utils/strings');
+const { getRandomRgbColor, round } = require('../utils');
+const { nphrParamNames: paramNames } = require('../utils/strings');
+const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 
@@ -123,15 +119,7 @@ const getParetoChart = async nphrAnalysis => {
 };
 
 router.get('/create', isAuthenticated, async (req, res, next) => {
-  let units = [];
-  if (req.user.accountType === 'ADMIN') {
-    units = await User.find({ accountType: 'UNIT' }, [
-      'name',
-      'username',
-    ]).lean();
-  } else if (req.user.accountType === 'UNIT') {
-    units = [req.user];
-  }
+  const units = await getUnitList(req.user);
 
   return res.render('analisis-nphr/create', {
     layout: 'dashboard',

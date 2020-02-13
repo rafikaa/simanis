@@ -5,16 +5,9 @@ const OwnUsage = require('../db/OwnUsage');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
-const {
-  getRandomRgbColor,
-  round,
-} = require('../utils');
-const {
-  pembangkitNames,
-} = require('../utils/strings');
-const {
-  getUpkNames,
-} = require('../utils/data');
+const { getRandomRgbColor, round } = require('../utils');
+const { pembangkitNames } = require('../utils/strings');
+const { getUnitList, getUpkNames } = require('../utils/data');
 
 const router = express.Router();
 
@@ -160,15 +153,7 @@ const getChartPerPembangkit = ownUsages => {
 };
 
 router.get('/create', isAuthenticated, async (req, res, next) => {
-  let units = [];
-  if (req.user.accountType === 'ADMIN') {
-    units = await User.find({ accountType: 'UNIT' }, [
-      'name',
-      'username',
-    ]).lean();
-  } else if (req.user.accountType === 'UNIT') {
-    units = [req.user];
-  }
+  const units = await getUnitList(req.user);
 
   return res.render('pemakaian-sendiri/create', {
     layout: 'dashboard',
