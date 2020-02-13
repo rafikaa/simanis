@@ -5,7 +5,7 @@ const OwnUsage = require('../db/OwnUsage');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
-const { getRandomRgbColor, round } = require('../utils');
+const { isAdminOrRelatedUnit, round } = require('../utils');
 const { pembangkitNames } = require('../utils/strings');
 const { getUnitList, getUpkNames } = require('../utils/data');
 
@@ -171,7 +171,6 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     produksiBruto,
     pemakaianSendiri,
   } = req.body;
-  console.log(req.body);
 
   if (!isAdminOrRelatedUnit(req.user, upk)) {
     return res.redirect('/pemakaian-sendiri');
@@ -197,15 +196,5 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   return res.redirect(`/pemakaian-sendiri?${queryString}`);
 });
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
-};
 
 module.exports = router;

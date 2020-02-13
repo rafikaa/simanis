@@ -6,6 +6,7 @@ const NPHR = require('../db/NPHR');
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
+const { isAdminOrRelatedUnit } = require('../utils');
 const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
@@ -231,16 +232,6 @@ const jenisPembangkitMap = {
   PLTG: ['Gas', 'HSD'],
   PLTMG: ['Gas', 'HSD'],
   PLTD: ['HSD'],
-};
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
 };
 
 module.exports = router;

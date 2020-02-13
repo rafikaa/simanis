@@ -5,7 +5,7 @@ const NPHRAnalysis = require('../db/NPHRAnalysis');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
-const { getRandomRgbColor, round } = require('../utils');
+const { isAdminOrRelatedUnit, round } = require('../utils');
 const { nphrParamNames: paramNames } = require('../utils/strings');
 const { getUnitList } = require('../utils/data');
 
@@ -368,16 +368,6 @@ const calcDeviasiByHeatRateFactorPltu = (paramName, baseline, actual) => {
     default:
       return 0;
   }
-};
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
 };
 
 const getUlplList = async () => {

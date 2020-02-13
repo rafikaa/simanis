@@ -6,6 +6,8 @@ const UnitData = require('../db/UnitData');
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
 
+const { isAdminOrRelatedUnit } = require('../utils');
+
 const router = express.Router();
 
 router.get('/', isAuthenticated, (req, res, next) => {
@@ -103,15 +105,5 @@ router.post('/:unit/create', isAuthenticated, async (req, res, next) => {
     return res.redirect(`/unit/${req.params.unit}/create`);
   }
 });
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
-};
 
 module.exports = router;
