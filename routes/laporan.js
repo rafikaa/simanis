@@ -4,7 +4,7 @@ const express = require('express');
 const { Storage } = require('@google-cloud/storage');
 
 const User = require('../db/User');
-const Laporan = require('../db/Laporan');
+const Report = require('../db/Report');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
@@ -22,7 +22,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     units = [req.user];
   }
   const { upk } = req.query;
-  const laporanList = await Laporan.find({ upk }).lean();
+  const laporanList = await Report.find({ upk }).lean();
   const query = { upk };
 
   return res.render('laporan/index', {
@@ -53,8 +53,9 @@ router.post('/', isAuthenticated, async (req, res, next) => {
     return res.redirect('/laporan');
   }
 
-  const tempPath = path.resolve(`upload/${file.name}`);
-  const gsPath = `laporan/${file.name}`;
+  const filename = `${Date.now()}-${file.name}`;
+  const tempPath = path.resolve(`upload/${filename}`);
+  const gsPath = `downloads/${filename}`;
 
   try {
     await file.mv(tempPath);
@@ -64,12 +65,12 @@ router.post('/', isAuthenticated, async (req, res, next) => {
         cacheControl: 'public, max-age=31536000',
       },
     });
-    const laporan = new Laporan({
+    const laporan = new Report({
       bulan,
       tahun,
       upk,
       ulpl,
-      name: file.name,
+      name: filename,
       gsPath,
       size: file.size,
     });
@@ -85,7 +86,7 @@ router.post('/', isAuthenticated, async (req, res, next) => {
 
 router.get('/:filename', isAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
-  const file = await Laporan.findOne({ name: filename }).lean();
+  const file = await Report.findOne({ name: filename }).lean();
   if (file) {
     const tempPath = path.resolve(`upload/${file.name}`);
 
