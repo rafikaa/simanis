@@ -6,6 +6,13 @@ const OwnUsage = require('../db/OwnUsage');
 const NPHR = require('../db/NPHR');
 const MaturityLevel = require('../db/MaturityLevel');
 
+const {
+  getRandomRgbColor,
+} = require('../utils');
+const {
+  pembangkitNames,
+} = require('../utils/strings');
+
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
 const router = express.Router();
@@ -54,34 +61,21 @@ const getChartPerPembangkit = ownUsages => {
   }
   for (upk of Object.keys(valuePerPembangkit)) {
     labels.push(pembangkitNames[upk]);
-    colors.push(getRandomColor());
+    colors.push(getRandomRgbColor());
     values.push(round((valuePerPembangkit[upk] / sum) * 100, 2));
   }
   return { labels, values, colors };
-};
-
-const pembangkitNames = {
-  pltu: 'Pembangkit Listrik Tenaga Uap (PLTU)',
-  pltg: 'Pembangkit Listrik Tenaga Gas (PLTG)',
-  pltmg: 'Pembangkit Listrik Tenaga Mesin Gas (PLTMG)',
-  pltd: 'Pembangkit Listrik Tenaga Diesel (PLTD)',
 };
 
 const round = (num, numOfDecimal) => {
   return parseFloat(num.toFixed(numOfDecimal));
 };
 
-const getRandomColor = () => {
-  const r = Math.floor(Math.random() * 255);
-  const g = Math.floor(Math.random() * 255);
-  const b = Math.floor(Math.random() * 255);
-  color = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.6)';
-  return color;
-};
-
 const getChartOwnUsage = async () => {
-  const { tahun } = await OwnUsage.findOne({}, ['tahun'])
+  const latestOwnUsage = await OwnUsage.findOne({}, ['tahun'])
     .sort({ tahun: -1 });
+  if (!latestOwnUsage) return [];
+  const { tahun } = latestOwnUsage;
   const ownUsages = await OwnUsage.find({ tahun }).lean();
   const chartOwnUsage = getChartPerPembangkit(ownUsages);
   return chartOwnUsage;
@@ -100,7 +94,9 @@ const getTopNphrContributors = async (tahun) => {
 };
 
 const getMaturityLevel = async () => {
-  const { bulan, tahun } = await MaturityLevel.findOne({}, ['bulan', 'tahun']).sort({ tahun: -1, bulan: -1 }).lean();
+  const latestMaturityLevel = await MaturityLevel.findOne({}, ['bulan', 'tahun']).sort({ tahun: -1, bulan: -1 }).lean();
+  if (!latestMaturityLevel) return [];
+  const { bulan, tahun } = latestMaturityLevel
   let maturityLevelArray = await MaturityLevel.find({ bulan, tahun }).lean();
   const maturityLevel = {};
   for (let ml of maturityLevelArray) {
@@ -114,7 +110,7 @@ const getMaturityLevel = async () => {
 
 router.get('/', isAuthenticated, async (req, res, next) => {
   const { tahun } = req.query;
-  const year = Number(tahun) || (new Date()).getFullYear();
+  const year = tahun ? Number(tahun) : (new Date()).getFullYear();
 
   const unitData = await getAllUnitData();
   const chartOwnUsage = await getChartOwnUsage();
