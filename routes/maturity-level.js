@@ -8,20 +8,12 @@ const MaturityLevel = require('../db/MaturityLevel');
 
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
+const {
+  getUpkNames,
+} = require('../utils/data');
+
 const router = express.Router();
 const storage = new Storage();
-
-const getUpkNames = async () => {
-  const upks = await User.find({ accountType: 'UNIT' }, [
-    'name',
-    'username',
-  ]).lean();
-  const upkNames = {};
-  for (let upk of upks) {
-    upkNames[upk.username] = upk.name;
-  }
-  return upkNames;
-};
 
 router.get('/', isAuthenticated, async (req, res, next) => {
   const isAdmin = req.user.accountType === 'ADMIN';

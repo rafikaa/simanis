@@ -1,3 +1,43 @@
+const nphrParamNames = {
+  nettPlantHeatRate: 'Nett Plant Heat Rate (kCal/kWh)',
+  gtgPlantEfficiency: 'GTG Plant Efficiency (%)',
+  compressorEfficiency: 'Compressor Efficiency (%)',
+  airInletTemperature: 'Air Inlet Temperature(℉)',
+  airInletDpFilter: 'Air Inlet DP Filter (inH2O)',
+  exhaustTemperature: 'Exhaust Temperature (℉)',
+  compressorDischPressure: 'Compressor Disch. Pressure (PSI)',
+  compressorDischTemperature: 'Compressor Disch. Temperature (℉)',
+  flueGasTempOutAH: 'Flue Gas Temp Out AH (℃)',
+  gasOutletAH: 'Gas Outlet AH (%)',
+  mainSteamTemp: 'Main Steam Temp (℃)',
+  hotReheatTemperature: 'Hot Reheat Temperature (℃)',
+  mainSteamPress: 'Main Steam Press (MPa)',
+  shSprayFlow: 'SH Spray Flow (% MSF)',
+  reheatSprayFlow: 'Reheat Spray Flow (% MSF)',
+  vacuumCondenser: 'Vacuum Condenser (kPa)',
+  auxPower: 'Aux Power (%)',
+  finalFeedWaterTemp: 'Final Feed Water Temp (℃)',
+  unburnedCarbon: 'Unburned Carbon (%)',
+  hpTurbineEfficiency: 'HP Turbine Efficiency (%)',
+  ipTurbineEfficiency: 'IP Turbine Efficiency (%)',
+  lpTurbineEfficiency: 'LP Turbine Efficiency (%)',
+  bfpEfficiency: 'BEP Efficiency (%)',
+  ttdHph1: 'TTD HPH1 (℃)',
+  ttdHph2: 'TTD HPH2 (℃)',
+  ttdHph3: 'TTD HPH3 (℃)',
+  ttdLph5: 'TTD LPH5 (℃)',
+  ttdLph6: 'TTD LPH6 (℃)',
+  ttdLph7: 'TTD LPH7 (℃)',
+  moistureInCoal: 'Moisture in Coal (%)',
+  hydrogenInCoal: 'Hydrogen in Coal (%)',
+  airHeaterLeakage: 'Air Heater Leakage (%)',
+  airHeaterEffectiveness: 'Air Heater Effectiveness (%)',
+  fdFanAirInletTemp: 'FD Fan Inlet Air Temp (℃)',
+  millOutAirTemperature: 'Mill Out Air Temperature (℃)',
+  makeUpWater: 'Make Up Water (T/h)',
+  otherLosses: 'Other Losses/Gain (kCal/kWh)',
+};
+
 const pembangkitNames = {
   pltu: 'Pembangkit Listrik Tenaga Uap (PLTU)',
   pltg: 'Pembangkit Listrik Tenaga Gas (PLTG)',
@@ -6,5 +46,6 @@ const pembangkitNames = {
 };
 
 module.exports = {
+  nphrParamNames,
   pembangkitNames,
 };

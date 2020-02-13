@@ -6,14 +6,18 @@ const OwnUsage = require('../db/OwnUsage');
 const NPHR = require('../db/NPHR');
 const MaturityLevel = require('../db/MaturityLevel');
 
+const isAuthenticated = require('../middlewares/isAuthenticated');
+
 const {
   getRandomRgbColor,
+  round,
 } = require('../utils');
 const {
   pembangkitNames,
 } = require('../utils/strings');
-
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const {
+  getUpkNames,
+} = require('../utils/data');
 
 const router = express.Router();
 
@@ -23,18 +27,6 @@ router.get(/.*e23a7dcaefbde4e74e263247aa42ecd7.ttf$/, (req, res, next) => {
 router.get(/.*a1ecc3b826d01251edddf29c3e4e1e97.woff$/, (req, res, next) => {
   return res.send('');
 });
-
-const getUpkNames = async () => {
-  const upks = await User.find({ accountType: 'UNIT' }, [
-    'name',
-    'username',
-  ]).lean();
-  const upkNames = {};
-  for (let upk of upks) {
-    upkNames[upk.username] = upk.name;
-  }
-  return upkNames;
-};
 
 const getAllUnitData = async () => {
   const upkNames = await getUpkNames();
@@ -65,10 +57,6 @@ const getChartPerPembangkit = ownUsages => {
     values.push(round((valuePerPembangkit[upk] / sum) * 100, 2));
   }
   return { labels, values, colors };
-};
-
-const round = (num, numOfDecimal) => {
-  return parseFloat(num.toFixed(numOfDecimal));
 };
 
 const getChartOwnUsage = async () => {

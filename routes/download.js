@@ -57,8 +57,9 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     return res.redirect('/download/create');
   }
 
-  const tempPath = path.resolve(`upload/${file.name}`);
-  const gsPath = `downloads/${file.name}`;
+  const filename = `${Date.now()}-${file.name}`;
+  const tempPath = path.resolve(`upload/${filename}`);
+  const gsPath = `downloads/${filename}`;
 
   try {
     await file.mv(tempPath);
@@ -70,7 +71,7 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     });
     const download = new Download({
       title: req.body.title,
-      name: file.name,
+      name: filename,
       gsPath,
       size: file.size,
     });

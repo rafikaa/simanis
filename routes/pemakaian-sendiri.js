@@ -6,8 +6,15 @@ const OwnUsage = require('../db/OwnUsage');
 const isAuthenticated = require('../middlewares/isAuthenticated');
 
 const {
+  getRandomRgbColor,
+  round,
+} = require('../utils');
+const {
   pembangkitNames,
 } = require('../utils/strings');
+const {
+  getUpkNames,
+} = require('../utils/data');
 
 const router = express.Router();
 
@@ -26,10 +33,6 @@ const bulanNames = [
   'nov',
   'dec',
 ];
-
-const round = (num, numOfDecimal) => {
-  return parseFloat(num.toFixed(numOfDecimal));
-};
 
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 200);
@@ -77,18 +80,6 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     chartPerPembangkit,
   });
 });
-
-const getUpkNames = async () => {
-  const upks = await User.find({ accountType: 'UNIT' }, [
-    'name',
-    'username',
-  ]).lean();
-  const upkNames = {};
-  for (let upk of upks) {
-    upkNames[upk.username] = upk.name;
-  }
-  return upkNames;
-};
 
 const getPsPerUpk = (ownUsages, upkNames) => {
   const psPerUpk = {};
