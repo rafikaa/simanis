@@ -3,26 +3,21 @@ const path = require('path');
 const express = require('express');
 const { Storage } = require('@google-cloud/storage');
 
-const User = require('../db/User');
-const Laporan = require('../db/Laporan');
+const Report = require('../db/Report');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
+
+const { isAdminOrUnit } = require('../utils');
+const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 const storage = new Storage();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
-  let units = [];
-  if (req.user.accountType === 'ADMIN') {
-    units = await User.find({ accountType: 'UNIT' }, [
-      'name',
-      'username',
-    ]).lean();
-  } else if (req.user.accountType === 'UNIT') {
-    units = [req.user];
-  }
+router.get('/', onlyAuthenticated, async (req, res, next) => {
+  const units = await getUnitList(req.user);
+
   const { upk } = req.query;
-  const laporanList = await Laporan.find({ upk }).lean();
+  const laporanList = await Report.find({ upk }).lean();
   const query = { upk };
 
   return res.render('laporan/index', {
@@ -30,13 +25,14 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     title: 'Laporan',
     success: req.flash('success'),
     error: req.flash('error'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     laporanList,
     units,
     query,
   });
 });
 
-router.post('/', isAuthenticated, async (req, res, next) => {
+router.post('/', onlyAuthenticated, async (req, res, next) => {
   const { bulanTahun, upk, ulpl } = req.body;
   const [bulan, tahun] = bulanTahun.split('-');
 
@@ -53,8 +49,9 @@ router.post('/', isAuthenticated, async (req, res, next) => {
     return res.redirect('/laporan');
   }
 
-  const tempPath = path.resolve(`upload/${file.name}`);
-  const gsPath = `laporan/${file.name}`;
+  const filename = `${Date.now()}-${file.name}`;
+  const tempPath = path.resolve(`upload/${filename}`);
+  const gsPath = `downloads/${filename}`;
 
   try {
     await file.mv(tempPath);
@@ -64,12 +61,12 @@ router.post('/', isAuthenticated, async (req, res, next) => {
         cacheControl: 'public, max-age=31536000',
       },
     });
-    const laporan = new Laporan({
+    const laporan = new Report({
       bulan,
       tahun,
       upk,
       ulpl,
-      name: file.name,
+      name: filename,
       gsPath,
       size: file.size,
     });
@@ -83,9 +80,9 @@ router.post('/', isAuthenticated, async (req, res, next) => {
   return res.redirect(`/laporan?upk=${upk}`);
 });
 
-router.get('/:filename', isAuthenticated, async (req, res, next) => {
+router.get('/:filename', onlyAuthenticated, async (req, res, next) => {
   const { filename } = req.params;
-  const file = await Laporan.findOne({ name: filename }).lean();
+  const file = await Report.findOne({ name: filename }).lean();
   if (file) {
     const tempPath = path.resolve(`upload/${file.name}`);
 

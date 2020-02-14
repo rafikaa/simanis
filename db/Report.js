@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const laporanSchema = new Schema(
+const reportSchema = new Schema(
   {
     bulan: {
       type: Number,
@@ -38,10 +38,10 @@ const laporanSchema = new Schema(
   }
 );
 
-laporanSchema.index({ gsPath: 1 }, { unique: true });
-laporanSchema.index({ upk: 1 });
-laporanSchema.index({ name: 1 }, { unique: true });
+reportSchema.index({ gsPath: 1 }, { unique: true });
+reportSchema.index({ upk: 1 });
+reportSchema.index({ name: 1 }, { unique: true });
 
-const Laporan = mongoose.model('Laporan', laporanSchema);
+const Report = mongoose.model('Report', reportSchema);
 
-module.exports = Laporan;
+module.exports = Report;

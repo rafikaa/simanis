@@ -3,11 +3,11 @@ const express = require('express');
 const User = require('../db/User');
 const OwnUsage = require('../db/OwnUsage');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
 
-const {
-  pembangkitNames,
-} = require('../utils/strings');
+const { isAdminOrUnit, isAdminOrRelatedUnit, round } = require('../utils');
+const { pembangkitNames } = require('../utils/strings');
+const { getUnitList, getUpkNames } = require('../utils/data');
 
 const router = express.Router();
 
@@ -27,10 +27,6 @@ const bulanNames = [
   'dec',
 ];
 
-const round = (num, numOfDecimal) => {
-  return parseFloat(num.toFixed(numOfDecimal));
-};
-
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 200);
   const g = Math.floor(Math.random() * 200);
@@ -39,7 +35,7 @@ const getRandomColor = () => {
   return color;
 };
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   const tahun = req.query.tahun;
   const query = { tahun };
 
@@ -68,6 +64,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     layout: 'dashboard',
     title: 'Pemakaian Sendiri',
     success: req.flash('success'),
+    isAdminOrUnit: isAdminOrUnit(req.user),
     infoMsg,
     warningMsg,
     query,
@@ -77,18 +74,6 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     chartPerPembangkit,
   });
 });
-
-const getUpkNames = async () => {
-  const upks = await User.find({ accountType: 'UNIT' }, [
-    'name',
-    'username',
-  ]).lean();
-  const upkNames = {};
-  for (let upk of upks) {
-    upkNames[upk.username] = upk.name;
-  }
-  return upkNames;
-};
 
 const getPsPerUpk = (ownUsages, upkNames) => {
   const psPerUpk = {};
@@ -168,16 +153,8 @@ const getChartPerPembangkit = ownUsages => {
   return { labels, values, colors };
 };
 
-router.get('/create', isAuthenticated, async (req, res, next) => {
-  let units = [];
-  if (req.user.accountType === 'ADMIN') {
-    units = await User.find({ accountType: 'UNIT' }, [
-      'name',
-      'username',
-    ]).lean();
-  } else if (req.user.accountType === 'UNIT') {
-    units = [req.user];
-  }
+router.get('/create', onlyAuthenticated, async (req, res, next) => {
+  const units = await getUnitList(req.user);
 
   return res.render('pemakaian-sendiri/create', {
     layout: 'dashboard',
@@ -186,7 +163,7 @@ router.get('/create', isAuthenticated, async (req, res, next) => {
   });
 });
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   const {
     bulanTahun,
     upk,
@@ -195,7 +172,6 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
     produksiBruto,
     pemakaianSendiri,
   } = req.body;
-  console.log(req.body);
 
   if (!isAdminOrRelatedUnit(req.user, upk)) {
     return res.redirect('/pemakaian-sendiri');
@@ -221,15 +197,5 @@ router.post('/create', isAuthenticated, async (req, res, next) => {
 
   return res.redirect(`/pemakaian-sendiri?${queryString}`);
 });
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
-};
 
 module.exports = router;

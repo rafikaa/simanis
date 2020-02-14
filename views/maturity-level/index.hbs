@@ -11,7 +11,9 @@
       <div class="masonry-sizer col-md-6"></div>
       <div class="masonry-item col-12">
         <div class="mb-2">
+          {{#if isAdminOrUnit}}
           <a href="/maturity-level/realisasi" class="btn btn-primary btn-lg float-sm-right mL-10">Input Data Realisasi ML</a>
+          {{/if}}
           {{#if isAdmin}}
           <a href="/maturity-level/target" class="btn btn-primary btn-lg float-sm-right">Input Data Target ML</a>
           {{/if}}

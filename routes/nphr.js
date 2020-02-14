@@ -3,12 +3,15 @@ const express = require('express');
 const User = require('../db/User');
 const NPHR = require('../db/NPHR');
 
-const isAuthenticated = require('../middlewares/isAuthenticated');
-const isAdminOrUnit = require('../middlewares/isAdminOrUnit');
+const onlyAuthenticated = require('../middlewares/onlyAuthenticated');
+const onlyAdminOrUnit = require('../middlewares/onlyAdminOrUnit');
+
+const { isAdminOrUnit, isAdminOrRelatedUnit } = require('../utils');
+const { getUnitList } = require('../utils/data');
 
 const router = express.Router();
 
-router.get('/', isAuthenticated, async (req, res, next) => {
+router.get('/', onlyAuthenticated, async (req, res, next) => {
   let dataPerUpk = [],
     dataTahunan = [],
     ulplChart = { target: '[]', realisasi: '[]' };
@@ -54,6 +57,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     dataTahunan,
     ulplList,
     ulplChart,
+    isAdminOrUnit: isAdminOrUnit(req.user),
   });
 });
 
@@ -154,18 +158,10 @@ const getUlplChart = async (ulpl, tahun) => {
 
 router.get(
   '/create',
-  isAuthenticated,
-  isAdminOrUnit('/nphr'),
+  onlyAuthenticated,
+  onlyAdminOrUnit('/nphr'),
   async (req, res, next) => {
-    let units = [];
-    if (req.user.accountType === 'ADMIN') {
-      units = await User.find({ accountType: 'UNIT' }, [
-        'name',
-        'username',
-      ]).lean();
-    } else if (req.user.accountType === 'UNIT') {
-      units = [req.user];
-    }
+    const units = await getUnitList(req.user);
 
     return res.render('nphr/create', {
       layout: 'dashboard',
@@ -175,7 +171,7 @@ router.get(
   }
 );
 
-router.post('/create', isAuthenticated, async (req, res, next) => {
+router.post('/create', onlyAuthenticated, async (req, res, next) => {
   const {
     bulanTahun,
     upk,
@@ -237,16 +233,6 @@ const jenisPembangkitMap = {
   PLTG: ['Gas', 'HSD'],
   PLTMG: ['Gas', 'HSD'],
   PLTD: ['HSD'],
-};
-
-const isAdminOrRelatedUnit = (user, unit) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    (user.accountType === 'UNIT' && user.username === unit)
-  ) {
-    return true;
-  }
-  return false;
 };
 
 module.exports = router;
