@@ -81,14 +81,20 @@ const getChartOwnUsage = async () => {
 
 const getTopNphrContributors = async tahun => {
   const nphrs = await NPHR.find({ tahun }).lean();
+  const ulplCount = {};
   const nphrPerUlpl = {};
   for (let nphr of nphrs) {
-    if (!nphrPerUlpl[nphr.ulpl]) nphrPerUlpl[nphr.ulpl] = nphr.NPHR;
-    else nphrPerUlpl[nphr.ulpl] += nphr.NPHR;
+    if (!nphrPerUlpl[nphr.ulpl]) {
+      nphrPerUlpl[nphr.ulpl] = nphr.NPHR;
+      ulplCount[nphr.ulpl] = 1;
+    } else {
+      nphrPerUlpl[nphr.ulpl] += nphr.NPHR;
+      ulplCount[nphr.ulpl] += 1;
+    }
   }
   const nphrPerUlplArray = Object.keys(nphrPerUlpl).map(ulpl => ({
     ulpl,
-    nphr: nphrPerUlpl[ulpl],
+    nphr: nphrPerUlpl[ulpl] / ulplCount[ulpl],
   }));
   const sortDesc = (param1, param2) => param2.nphr - param1.nphr;
   return nphrPerUlplArray.sort(sortDesc).slice(0, 10);

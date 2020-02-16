@@ -18,8 +18,8 @@
               {{#each unitData}}
               <tr>
                 <td>{{this.upkName}}</td>
-                <td>{{this.dayaPasok}}</td>
-                <td>{{this.dayaNetto}}</td>
+                <td>{{#if this.dayaPasok}}{{toFixed this.dayaPasok 4}}{{/if}}</td>
+                <td>{{#if this.dayaNetto}}{{toFixed this.dayaNetto 4}}{{/if}}</td>
               </tr>
               {{/each}}
             </tbody>
@@ -58,7 +58,7 @@
               {{#each topNphrContributors}}
               <tr>
                 <td>{{this.ulpl}}</td>
-                <td>{{this.nphr}}</td>
+                <td>{{#if this.nphr}}{{toFixed this.nphr 4}}{{/if}}</td>
               </tr>
               {{/each}}
             </tbody>
@@ -90,33 +90,33 @@
             <tbody>
               <tr>
                 <th scope="row">UPK Belawan</th>
-                <td>{{maturityLevel.belawan.target}}</td>
-                <td>{{maturityLevel.belawan.realisasi}}</td>
+                <td>{{#if maturityLevel.belawan.target}}{{toFixed maturityLevel.belawan.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.belawan.realisasi}}{{toFixed maturityLevel.belawan.realisasi 4}}{{/if}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Pangkalan Susu</th>
-                <td>{{maturityLevel.pangkalan_susu.target}}</td>
-                <td>{{maturityLevel.pangkalan_susu.realisasi}}</td>
+                <td>{{#if maturityLevel.pangkalan_susu.target}}{{toFixed maturityLevel.pangkalan_susu.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.pangkalan_susu.realisasi}}{{toFixed maturityLevel.pangkalan_susu.realisasi 4}}{{/if}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Nagan Raya</th>
-                <td>{{maturityLevel.nagan_raya.target}}</td>
-                <td>{{maturityLevel.nagan_raya.realisasi}}</td>
+                <td>{{#if maturityLevel.nagan_raya.target}}{{toFixed maturityLevel.nagan_raya.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.nagan_raya.realisasi}}{{toFixed maturityLevel.nagan_raya.realisasi 4}}{{/if}}</td>
               </tr>
               <tr>
                 <th scope="row">UPK Labuhan Angin</th>
-                <td>{{maturityLevel.labuhan_angin.target}}</td>
-                <td>{{maturityLevel.labuhan_angin.realisasi}}</td>
+                <td>{{#if maturityLevel.labuhan_angin.target}}{{toFixed maturityLevel.labuhan_angin.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.labuhan_angin.realisasi}}{{toFixed maturityLevel.labuhan_angin.realisasi 4}}{{/if}}</td>
               </tr>
               <tr>
                 <th scope="row">UPDK Pekanbaru</th>
-                <td>{{maturityLevel.pekanbaru.target}}</td>
-                <td>{{maturityLevel.pekanbaru.realisasi}}</td>
+                <td>{{#if maturityLevel.pekanbaru.target}}{{toFixed maturityLevel.pekanbaru.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.pekanbaru.realisasi}}{{toFixed maturityLevel.pekanbaru.realisasi 4}}{{/if}}</td>
               </tr>
               <tr>
                 <th scope="row">UPDK Pandan</th>
-                <td>{{maturityLevel.pandan.target}}</td>
-                <td>{{maturityLevel.pandan.realisasi}}</td>
+                <td>{{#if maturityLevel.pandan.target}}{{toFixed maturityLevel.pandan.target 4}}{{/if}}</td>
+                <td>{{#if maturityLevel.pandan.realisasi}}{{toFixed maturityLevel.pandan.realisasi 4}}{{/if}}</td>
               </tr>
             </tbody>
           </table>
