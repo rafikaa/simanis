@@ -10,11 +10,8 @@ const round = (num, numOfDecimal) => {
   return parseFloat(num.toFixed(numOfDecimal));
 };
 
-const isAdminOrUnit = (user) => {
-  if (
-    user.accountType === 'ADMIN' ||
-    user.accountType === 'UNIT'
-  ) {
+const isAdminOrUnit = user => {
+  if (user.accountType === 'ADMIN' || user.accountType === 'UNIT') {
     return true;
   }
   return false;
