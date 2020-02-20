@@ -58,8 +58,8 @@
               {{#each mls}}
               <tr>
                 <td>{{this.upkName}}</td>
-                <td>{{this.averageTarget}}</td>
-                <td>{{this.averageRealisasi}}</td>
+                <td>{{#if this.averageTarget}}{{toFixed this.averageTarget 4}}{{/if}}</td>
+                <td>{{#if this.averageRealisasi}}{{toFixed this.averageRealisasi 4}}{{/if}}</td>
                 <td>
                   <a href="/maturity-level/{{this.upk}}?semester={{../query.semester}}&tahun={{../query.tahun}}" class="btn btn-outline-primary btn-sm">Lihat detail</a>
                 </td>

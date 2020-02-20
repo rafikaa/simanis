@@ -20,11 +20,28 @@ router.get(/.*a1ecc3b826d01251edddf29c3e4e1e97.woff$/, (req, res, next) => {
   return res.send('');
 });
 
-const getAllUnitData = async () => {
+const getSumUnitData = async () => {
   const upkNames = await getUpkNames();
-  let unitData = await UnitData.find({})
-    .sort({ createdAt: -1 })
-    .lean();
+  let unitData = await UnitData.aggregate([
+    {
+      $group: {
+        _id: '$upk',
+        dayaPasok: {
+          $sum: '$dayaPasok',
+        },
+        dayaNetto: {
+          $sum: '$dayaNetto',
+        },
+      },
+    },
+    {
+      $project: {
+        upk: '$_id',
+        dayaPasok: '$dayaPasok',
+        dayaNetto: '$dayaNetto',
+      },
+    },
+  ]);
   unitData = unitData.map(u => ({ ...u, upkName: upkNames[u.upk] }));
   return unitData;
 };
@@ -64,14 +81,20 @@ const getChartOwnUsage = async () => {
 
 const getTopNphrContributors = async tahun => {
   const nphrs = await NPHR.find({ tahun }).lean();
+  const ulplCount = {};
   const nphrPerUlpl = {};
   for (let nphr of nphrs) {
-    if (!nphrPerUlpl[nphr.ulpl]) nphrPerUlpl[nphr.ulpl] = nphr.NPHR;
-    else nphrPerUlpl[nphr.ulpl] += nphr.NPHR;
+    if (!nphrPerUlpl[nphr.ulpl]) {
+      nphrPerUlpl[nphr.ulpl] = nphr.NPHR;
+      ulplCount[nphr.ulpl] = 1;
+    } else {
+      nphrPerUlpl[nphr.ulpl] += nphr.NPHR;
+      ulplCount[nphr.ulpl] += 1;
+    }
   }
   const nphrPerUlplArray = Object.keys(nphrPerUlpl).map(ulpl => ({
     ulpl,
-    nphr: nphrPerUlpl[ulpl],
+    nphr: nphrPerUlpl[ulpl] / ulplCount[ulpl],
   }));
   const sortDesc = (param1, param2) => param2.nphr - param1.nphr;
   return nphrPerUlplArray.sort(sortDesc).slice(0, 10);
@@ -101,7 +124,7 @@ router.get('/', onlyAuthenticated, async (req, res, next) => {
   const { tahun } = req.query;
   const year = tahun ? Number(tahun) : new Date().getFullYear();
 
-  const unitData = await getAllUnitData();
+  const unitData = await getSumUnitData();
   const chartOwnUsage = await getChartOwnUsage();
   const topNphrContributors = await getTopNphrContributors(year);
   const maturityLevel = await getMaturityLevel();
@@ -117,11 +140,11 @@ router.get('/', onlyAuthenticated, async (req, res, next) => {
   });
 });
 
-router.get('/404', function (req, res, next) {
+router.get('/404', function(req, res, next) {
   res.render('404', { title: 'Error' });
 });
 
-router.get('/500', function (req, res, next) {
+router.get('/500', function(req, res, next) {
   res.render('500', { title: 'Error' });
 });
 
